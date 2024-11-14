@@ -45,6 +45,8 @@ Table OF Contents
 11 > FOOTER
 11 > SLICK STYLE
 12 > RESPONSIVE
+13 > PAYMENT
+14 > Other
 ------------------------------------*/
 
 /*=========================================================
@@ -72,6 +74,7 @@ a {
   font-weight: 500;
   -webkit-transition: 0.2s color;
   transition: 0.2s color;
+  text-decoration: none;
 }
 
 a:hover, a:focus {
@@ -470,8 +473,8 @@ Log in
 \*----------------------------*/
 
 #top-header {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   background-color: #1E1F29;
 }
 
@@ -484,6 +487,7 @@ Log in
 
 .header-links a {
   color: #FFF;
+  text-decoration: none;
 }
 
 .header-links a:hover {
@@ -563,6 +567,7 @@ Log in
   width: 90px;
   text-align: center;
   color: #FFF;
+  text-decoration: none;
 }
 
 .header-ctn>div>a>i {
@@ -667,9 +672,9 @@ Log in
 }
 
 .total-price {
-    font-size: 1.5em; /* Thay đổi kích thước phông chữ */
-    font-weight: bold; /* Đặt đậm văn bản */
-    color: #000; /* Bạn có thể thay đổi màu sắc nếu muốn */
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #000;
 }
 
 /*=========================================================
@@ -685,13 +690,18 @@ Log in
 /*----------------------------*\
 	Main nav
 \*----------------------------*/
+.main-nav{
+  height: 50px;
+  align-items: center;
+}
 
 .main-nav>li+li {
-  margin-left: 30px
+  margin-left: 30px;
 }
 
 .main-nav>li>a {
   padding: 20px 0px;
+  text-decoration: none;
 }
 
 .main-nav>li>a:hover, .main-nav>li>a:focus, .main-nav>li.active>a {
@@ -719,35 +729,35 @@ Log in
 
 
 .main-nav .dropdown {
-    position: relative; /* Đặt vị trí tương đối để dropdown hoạt động */
+    position: relative;
 }
 
 .main-nav .dropdown > .dropdown {
-    display: none; /* Ẩn dropdown mặc định */
-    position: absolute; /* Đặt vị trí tuyệt đối để dropdown nằm đúng vị trí */
-    background-color: #fff; /* Màu nền cho dropdown */
-    border: 1px solid #ccc; /* Đường viền cho dropdown */
-    z-index: 1000; /* Đảm bảo dropdown nằm trên các thành phần khác */
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 1000;
     width: 100%;
 }
 
 .main-nav li:hover .dropdown {
-    display: block; /* Hiện dropdown khi hover vào li */
+    display: block;
 }
 
 .dropdown li {
-    list-style: none; /* Bỏ dấu chấm cho danh sách */
+    list-style: none;
     padding: 10px;
 }
 
 .dropdown li a {
-    display: block; /* Đảm bảo các mục trong dropdown đầy đủ chiều rộng */
-    text-decoration: none; /* Xóa gạch chân cho liên kết */
-    color: #333; /* Màu chữ */
+    display: block;
+    text-decoration: none;
+    color: #333;
 }
 
 .dropdown li a:hover {
-    background-color: #f0f0f0; /* Màu nền cho mục hover */
+    background-color: #f0f0f0;
 }
 
 /*----------------------------*\
@@ -1293,7 +1303,10 @@ Log in
 .noUi-handle:before, .noUi-handle:after {
   display: none;
 }
-
+.price-filter{
+  display: flex;
+  align-items: center;
+}
 .price-filter .input-number {
   display: inline-block;
   width: calc(50% - 7px);
@@ -2209,4 +2222,108 @@ Log in
     float: none;
     margin-top: 10px;
   }
+}
+
+
+/*=========================================================
+	13 -> payment
+===========================================================*/
+.payment {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.payment h3 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+.payment form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.payment form input[type="text"],
+.payment form input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #e9ecef;
+  color: #333;
+}
+
+/* tab */
+.tab {
+  color: #333;
+  cursor: pointer;
+  padding: 10px;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.tab:hover {
+  color: #fa2c2c;
+  transform: scale(1.05);
+}
+.active-tab {
+  color: #fa2c2c;
+  border-radius: 5px;
+}
+
+/* form */
+.form-ct {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.form-check {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  transition: background-color 0.3s ease; 
+}
+
+.form-check input[type="radio"] {
+  margin-left: 8px;
+}
+
+.pickup-option:not(:has(#pickup:checked)),
+.delivery-option:not(:has(#delivery:checked)) {
+  background-color: #e0e0e0;
+  color: black;
+}
+#shippingDetails {
+  display: none;
+}
+
+#provinceFilter, #districtFilter {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: #333;
+}
+/*=========================================================
+	14 -> OTHER
+===========================================================*/
+.center-div{
+  display: flex;
+  align-items: center; 
+  height: 100%;
 }

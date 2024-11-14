@@ -10,7 +10,6 @@
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 		<!-- Bootstrap -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,67 +24,7 @@
 
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-		<style>
-			.about{
-				display: flex;
-				text-align: justify;
-				align-items: center;
-				background-color: rgb(255, 255, 255);
-			}
-			.about_1{
-				text-align: justify;
-				background-color: rgb(255, 255, 255);
-			}
-			.about-2{
-				font-family: Arial, sans-serif;
-				margin-left: 50px;
-				color:rgb(92, 91, 91);
-			}
-			.one-part{
-				margin-bottom: 20px;
-			}
-			.about-us{
-				padding: 100px 0 20px 0;
-				text-align: center;
-			}
-			.img-about {
-				width: 100%;
-				height: 300px;
-				background-image: url("img/about.jpg"); 
-				background-size: cover;
-				background-position: center;
-				background-repeat: repeat;
-			}
-			.social-connect {
-				text-align: left;
-				margin-top: 30px;
-			}
 
-			.social-connect p {
-				font-size: 18px;
-				font-weight: bold;
-				margin-bottom: 10px;
-				color: #333;
-			}
-
-			.social-icons {
-				display: flex;
-				justify-content: left;
-				gap: 15px;
-			}
-
-			.social-icon {
-				font-size: 24px;
-				color: #555;
-				text-decoration: none;
-				transition: color 0.3s ease;
-			}
-
-			.social-icon:hover {
-				color: #007bff;
-			}
-
-		</style>
     </head>
 	<body>
 		<!-- HEADER -->
@@ -193,57 +132,116 @@
 			</div>
 		</nav>
 		<!-- /NAVIGATION -->
-		
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="breadcrumb">
-			<!-- container -->
-			<div class="container">
-				<div class="img-about col"></div>
-				<div class="one-part row">
-					<div class="about_1 col">
-						<h3 class="about-us">VỀ CHÚNG TÔI</h3>
-						<p>Chào mừng bạn đến với ELECTRO – điểm đến đáng tin cậy của bạn cho các sản phẩm điện tử chất lượng cao và dịch vụ tận tâm. Tại ELECTRO, chúng tôi cam kết mang đến cho khách hàng những sản phẩm công nghệ tiên tiến nhất, từ điện thoại, máy tính xách tay, máy tính bảng đến các thiết bị gia dụng thông minh và phụ kiện hiện đại.</p>
+
+		<!--PAYMENT-->
+		<div class="container col-md-8">
+			<!-- Section tiêu đề -->
+			<div class="container text-center">
+				<div class="row">
+					<div class="col">
+						<h2 id="info-tab" class="tab border-bottom active-tab" onclick="showInfo()">1. Thông tin</h2>
 					</div>
 					<div class="col">
-						<img src="img/about-1.png" alt="About Us Image" style="width: 100%; max-width: 600px;">
-					</div>
-				</div>
-				<div class="one-part row">
-					<div class="col">
-						<img src="img/about-2.png" alt="About Us Image" style="width: 100%; max-width: 600px;">
-					</div>
-					<div class="about col">				
-						<p><strong>Sứ Mệnh Của Chúng Tôi</strong><br>
-						Chúng tôi không chỉ đơn thuần là cung cấp sản phẩm, mà còn đặt mục tiêu trở thành người đồng hành trong hành trình trải nghiệm công nghệ của bạn. Chúng tôi cam kết cung cấp những sản phẩm chính hãng với chất lượng đảm bảo, giá cả cạnh tranh và các chính sách bảo hành, hỗ trợ tận tâm.</p>
-					</div>
-				</div>
-				<div class="one-part row">
-					<div class="about col">
-						<p><strong>Dịch Vụ Khách Hàng</strong><br>
-							Tại ELECTRO, chúng tôi tự hào với đội ngũ chăm sóc khách hàng chuyên nghiệp, luôn sẵn sàng hỗ trợ bạn. Chính sách đổi trả và dịch vụ bảo hành nhanh chóng là ưu tiên hàng đầu nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất.</p>
-					</div>
-					<div class="about-2 col">
-						<p><strong>Giá Trị Cốt Lõi</strong><br>
-							&#10003; <strong>Chất Lượng</strong><br>
-							&#10003; <strong>Đáng Tin Cậy</strong><br>
-							&#10003; <strong>Công Nghệ Hiện Đại</strong>
-						</p>
-					</div>
-				</div>
-				<div class="social-connect">
-					<p><strong>Kết nối với chúng tôi</strong></p>
-					<div class="social-icons">
-						<a href="https://facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-						<a href="https://instagram.com" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-						<a href="https://tiktok.com" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-						<a href="https://youtube.com" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+						<h2 id="payment-tab" class="tab border-bottom" onclick="showPayment()">2. Thanh toán</h2>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- /BREADCRUMB -->
-
+				<!-- Nội dung thông tin sản phẩm và khách hàng -->
+				<div id="payment-product" class="payment">
+					<img src="img/product01.png" alt="Product Image" style="width: 100px;">
+					<div class="payment-details">
+						<h3>Samsung Galaxy Z Flip5 8GB 512GB - Xanh lá</h3>
+						<p>Số lượng: 1</p>
+						<p>Giá: 15.290.000đ</p>
+						<p style="text-decoration: line-through; color: #888;">29.990.000đ</p>
+					</div>
+				</div>
+				
+				<!-- Form thông tin khách hàng -->
+				<div id="payment-cus-info" class="payment">
+					<h3>Thông tin khách hàng</h3>
+					<form id="customerForm">
+						<label for="name">Họ và Tên:</label>
+						<input type="text" class="form-control" id="name" value="Trịnh Đình Khải" required readonly>
+						
+						<label for="phone">Số điện thoại:</label>
+						<input type="text" class="form-control" id="phone" value="0394481457" required readonly>
+						
+						<label for="email">Email:</label>
+						<input type="email" class="form-control" id="email" aria-describedby="emailHelp" required>
+						
+						<input type="checkbox" id="subscribe">
+						<label for="subscribe">Nhận email thông báo và ưu đãi từ Electro</label>
+					</form>
+				</div>
+				<!--Form thông tin nhận hàng-->
+				<div id="payment-ship-info" class="payment">
+					<h3>Thông tin nhận hàng</h3>
+					<form id="shippingForm">
+						<div class="row">
+							<div class="col form-check pickup-option">
+								<input type="radio" class="form-check-input" id="pickup" name="shippingOption" checked onclick="toggleShippingDetails(false)">
+								<label class="form-check-label" for="pickup">Nhận tại cửa hàng</label>
+							</div>
+							<div class="col form-check delivery-option">
+								<input type="radio" class="form-check-input" id="delivery" name="shippingOption" onclick="toggleShippingDetails(true)">
+								<label class="form-check-label" for="delivery">Giao hàng tận nơi</label>
+							</div>
+						</div>
+						
+						<div id="shippingDetails" style="display: none;">
+							<label for="recipientName">Họ và Tên người nhận:</label> 
+							<input type="text" class="form-ct" id="recipientName" placeholder="Nhập tên người nhận">
+							
+							<label for="recipientPhone">Số điện thoại người nhận:</label>
+							<input type="text" class="form-ct" id="recipientPhone" placeholder="Nhập số điện thoại người nhận">
+						</div>
+				
+						<label for="provinceFilter">Tỉnh/Thành phố:</label>
+						<select id="provinceFilter" class="form-ct" required>
+							<option value="" >Chọn tỉnh/thành phố</option>
+							
+						</select>
+				
+						<label for="districtFilter" >Quận/Huyện:</label>
+						<select id="districtFilter" class="form-ct" required>
+							<option value="">Chọn quận/huyện</option>
+							
+						</select>
+						
+						<label for="notes">Ghi chú:</label>
+						<textarea class="form-control" id="notes" rows="3" placeholder="Nhập ghi chú nếu cần thiết"></textarea>
+						
+					</form>
+				</div>
+				<!-- Phần tiếp tục và kiểm tra thông tin -->
+				<div id="payment-total" class="payment">
+					<p><strong>Tổng tiền tạm tính:</strong> 49.880.000đ</p>
+					<div class="submit-button">
+						<button class="btn btn-danger" onclick="proceedToPayment()">Tiếp tục</button>
+					</div>
+				</div>
 		
+			<!-- Phần nội dung của Thanh toán -->
+			<div id="payment-section" class="payment-section" style="display: none;">
+				<h3>Thanh toán</h3>
+				<form>
+					<!-- Các phương thức thanh toán, thông tin thêm -->
+					<label for="paymentMethod">Phương thức thanh toán:</label>
+					<select id="paymentMethod" class="form-ct">
+						<option value="credit-card">Thẻ tín dụng</option>
+						<option value="bank-transfer">Chuyển khoản ngân hàng</option>
+						<option value="cash-on-delivery">Thanh toán khi nhận hàng</option>
+					</select>
+					
+					<div class="submit-button">
+						<button class="btn btn-success" onclick="completeOrder()">Hoàn tất đặt hàng</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--PAYMENT-->
+
 		<!-- FOOTER -->
 		<footer id="footer">
 			<!-- top footer -->
@@ -324,7 +322,7 @@
 								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
 							</ul>
 							<span class="copyright">
-									<a href="https://templatespoint.net" target="_blank">TemplatesPoint</a>
+								 <a href="https://templatespoint.net" target="_blank">TemplatesPoint</a>
 							</span>
 						</div>
 					</div>
@@ -336,7 +334,6 @@
 		</footer>
 		<!-- /FOOTER -->
 
-
 		<!-- jQuery Plugins -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
@@ -345,6 +342,6 @@
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="sign_in.js"></script>
-
+		<script src="js/payment.js"></script>
 	</body>
 </html>
