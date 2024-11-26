@@ -4,7 +4,12 @@ class Home extends Controller
 {
     public function index()
     {
-        $this->view("home");
+        $db = Database::getInstance();
+
+        $rows = $db->read("SELECT * FROM product");
+
+        $data['rows'] = $rows;
+        $this->view("home", $data);
     }
 
    

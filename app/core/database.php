@@ -28,7 +28,7 @@ class database
     public function read($query, $data = array())
     {
         $stm = self::$conn->prepare($query);
-        $result = $stm->excute($data);
+        $result = $stm->execute($data);
 
         if ($result)
         {

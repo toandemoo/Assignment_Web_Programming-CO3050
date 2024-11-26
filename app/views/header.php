@@ -31,9 +31,9 @@
 			<div id="top-header">
 				<div class="container">
 					<div class="header-links pull-right">
-							<a href="login"><i class="fa fa-user-o"></i>Đăng nhập</a>
+							<a href="<?=ROOT?>login"><i class="fa fa-user-o"></i>Đăng nhập</a>
 							<span>/</span>
-							<a href="signup"><i class="fa fa-user-o"></i>Đăng Ký</a>
+							<a href="<?=ROOT?>signup"><i class="fa fa-user-o"></i>Đăng Ký</a>
 					</div>
 				</div>
 			</div>
