@@ -2,7 +2,7 @@
 
 class App 
 {
-    protected $controller = "home";
+    protected $controller = "Index";
     protected $method = "index"; 
     protected $params;
 
@@ -25,11 +25,11 @@ class App
             if (method_exists($this->controller, $url[1]))
             {
                 $this->method = $url[1];
-                unse($url[1]);
+                unset($url[1]);
             }
         }
 
-        $this->params = (count($url) > 0) ? $url : ["home"];
+        $this->params = (count($url) > 0) ? $url : [""];
 
         call_user_func_array([$this->controller, $this->method], $this->params);
     }

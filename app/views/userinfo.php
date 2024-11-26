@@ -54,7 +54,12 @@
 
 			.change-info .submit-button {
 				text-align: center;
+				justify-content: center;
+    			align-items: center;
 				margin-top: 15px;
+				width: 50%;
+				height: 100%;
+				margin: auto;
 			}
 			.tab-buttons {
 				display: left;
@@ -100,9 +105,15 @@
 			<div id="top-header">
 				<div class="container">
 					<div class="header-links pull-right">
-							<a href="login"><i class="fa fa-user-o"></i>Đăng nhập</a>
-							<span>/</span>
-							<a href="signup"><i class="fa fa-user-o"></i>Đăng Ký</a>
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-user-o"></i> <?= $_SESSION['email'] ?> <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="<?= ROOT ?>userinfo">Thông tin cá nhân</a></li>
+								<li><a href="<?= ROOT ?>logout">Đăng xuất</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -117,8 +128,8 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="Home.html" class="logo">
-									<img src="./img/logo.png" alt="">
+								<a href="home" class="logo">
+									<img src="<?=ASSETS?>img/logo.png" alt="">
 								</a>
 							</div>
 						</div>
@@ -195,35 +206,6 @@
 		
 		<div class="container">
 			<div class="row">
-				<div class="section-button col-3">    
-					<div class="tab-buttons col">
-						<button class="btn active" onclick="setActiveButton(this); showSection('accountInfo')">
-							<img src="<?=ASSETS?>icon/person.png" alt="icon" class="icon-img"> 
-							Thông tin tài khoản
-						</button>
-					</div>
-				
-					<div class="tab-buttons col">
-						<button class="btn" onclick="setActiveButton(this); showSection('changePassword')">
-							<img src="<?=ASSETS?>icon/change-password.png" alt="icon" class="icon-img">
-							Đổi mật khẩu
-						</button>
-					</div>
-				
-					<div class="tab-buttons col">
-						<button class="btn" onclick="setActiveButton(this); showSection('purchaseHistory')">
-							<img src="<?=ASSETS?>icon/history.png" alt="icon" class="icon-img">
-							Lịch sử mua hàng
-						</button>
-					</div>
-				
-					<div class="tab-buttons col">
-						<button class="btn" onclick="setActiveButton(this); window.location.href='#'">
-							<img src="<?=ASSETS?>icon/logout.png" alt="icon" class="icon-img">
-							Đăng xuất
-						</button>
-					</div>
-				</div>
 		
 				<div class="col">
 					<div class="content-section" id="accountInfo">
@@ -231,35 +213,29 @@
 							<h2>Thông tin tài khoản</h2>
 						</div>
 						<div class="change-info">
-							<form action="User_info.html">
+							<form action="userinfo/UpdateInfo" method="post">
 								<label for="name">Họ và tên:</label>
-								<input type="text" class="form-control" id="name">
+								<input type="text" class="form-control" id="name" value="<?php echo $_SESSION['fullName'] ?>" name="fullName">
 								<label for="email">Email:</label>
-								<input type="email" class="form-control" id="email">
+								<input type="email" class="form-control" id="email" value="<?php echo $_SESSION['email'] ?>" name="email">
+								<label for="password">Mật Khẩu</label>
+								<input type="text" class="form-control" id="password" value="<?php echo $_SESSION['password'] ?>" name="password">
+								<label for="phone">Số điện thoại</label>
+								<input type="text" class="form-control" id="phone" value="<?php echo $_SESSION['phoneNumber'] ?>" name="phoneNumber">
+								
+								<label for="birth">Ngày sinh:</label>
+								<input type="text" class="form-control" id="birth" value="<?php echo $_SESSION['birth'] ?>" name="birth" >
+								
 								<label for="gender">Giới tính:</label>
 								<select id="gender" name="gender">
-									<option value="male">Nam</option>
-									<option value="female">Nữ</option>
-									<option value="other">Khác</option>
+									<option value="male" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'male') ? 'selected' : ''; ?>>Nam</option>
+									<option value="female" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'female') ? 'selected' : ''; ?>>Nữ</option>
+									<option value="other" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'other') ? 'selected' : ''; ?>>Khác</option>
 								</select>
-
-								<label for="phone">Số điện thoại người nhận:</label>
-								<input type="text" class="form-control" id="phone">
-
-								<label for="birthday">Ngày sinh:</label>
-								<input type="date" id="birthday" name="birthday">
-
-								<label for="provinceFilter">Tỉnh/Thành phố:</label>
-								<select id="provinceFilter" class="form-control">
-									<option value=""></option>
-								</select>
-
-								<label for="districtFilter">Quận/Huyện:</label>
-								<select id="districtFilter" class="form-control">
-									<option value=""></option>
-								</select>
+								<label for="address">Địa chỉ</label>
+								<input type="text" class="form-control" id="address" name="address">
 								<div class="submit-button">
-									<button class="btn btn-danger" onclick="completeUpdateInfo()">Cập nhật thông tin</button>
+									<button type="submit" class="btn btn-danger" style="padding-left: 25%;" onclick="completeUpdateInfo()">Cập nhật thông tin</button>
 								</div>
 							</form>
 						</div>

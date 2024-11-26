@@ -48,8 +48,8 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="Home.html" class="logo">
-									<img src="./img/logo.png" alt="">
+								<a href="index" class="logo">
+									<img src="<?= ASSETS?>img/logo.png" alt="">
 								</a>
 							</div>
 						</div>

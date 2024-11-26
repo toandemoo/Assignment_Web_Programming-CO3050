@@ -3,54 +3,66 @@
 class Account
 {
     private $error = "";
+
+    public function encryptData($data) {
+        $key = hash('sha256', SECRET_KEY);
+        $iv = substr(hash('sha256', SECRET_IV), 0, 16);
+        return base64_encode(openssl_encrypt($data, 'AES-256-CBC', $key, 0, $iv));
+    }
+
+    // Hàm giải mã
+    public function decryptData($encryptedData) {
+        $key = hash('sha256', SECRET_KEY);
+        $iv = substr(hash('sha256', SECRET_IV), 0, 16);
+        return openssl_decrypt(base64_decode($encryptedData), 'AES-256-CBC', $key, 0, $iv);
+    }
+    
     public function signup($POST)
     {   
         $data = array();
         $db = Database::getInstance();
 
-        $data['username'] = trim($POST['username']);
+        $data['name'] = trim($POST['fullName']);
         $data['email'] = trim($POST['email']);
         $data['password'] = trim($POST['password']);
-        $data['phonenumber'] = trim($POST['phonenumber']);
-        $password2 = trim($POST['password2']);
+        $data['phone'] = trim($POST['phoneNumber']);
+        $data['birthday'] = trim($POST['birth']);
+        $data['gender'] = trim($POST['gender']);
+        $data['role'] = "user";
 
 
-        if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
-        {
-            $this->error .= "Please enter a valid email <br>";
-        }
+        // if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+        // {
+        //     $this->error .= "Please enter a valid email <br>";
+        // }
 
-        if (empty($data['username']) || !preg_match("/^[a-zA-Z]+$/", $data['username']))
-        {
-            $this->error .= "Please enter a valid name <br>";
-        }
+        // if (empty($data['username']) || !preg_match("/^[a-zA-Z]+$/", $data['username']))
+        // {
+        //     $this->error .= "Please enter a valid name <br>";
+        // }
 
-        if ($data['password'] != $password2)
-        {
-            $this->error .= "Passwords do not match <br>";
-        }
+        // if (strlen($data['password']) < 2)
+        // {
+        //     $this->error .= "Please must be atleast 4 characters long <br>";
+        // }
 
-        if (strlen($data['password']) < 4)
-        {
-            $this->error .= "Please must be atleast 4 characters long <br>";
-        }
-
-        $sql = "SELECT * FROM account WHERE email = :email LIMIT 1";
+        $sql = "SELECT * FROM users WHERE email = :email";
         $arr['email'] = $data['email'];
         $check = $db->read($sql,$arr);
         if (is_array($check))
         {
-            $this->error .= "Email is already in use <br>";
+            $this->error .= "email is already in use <br>";
         }
 
         if ($this->error == "")
         {
-            $data['role'] = "user";
-            $query = "INSERT INTO account (username,password,role,fullname,email,address,phonenumber) VALUES (:username,:password,:role,:fullname,:email,:address,:phonenumber)";
-            $result = $bd->write($query, $data);
+            $query = "INSERT INTO users(name,email,password,gender, phone, birthday, role) VALUES (:name,:email,:password,:gender,:phone,:birthday,:role)";
+            $result = $db->write($query, $data);
 
             if ($result)
             {
+                setcookie('email', $this->encryptData($data['email']), time() + (86400 * 30), "/"); // 30 ngày
+                setcookie('password', $this->encryptData($data['password']), time() + (86400 * 30), "/"); // 30 ngày
                 header("Location: ". ROOT. "login");
                 die;
             }
@@ -60,42 +72,84 @@ class Account
 
     }
 
-
     public function login($POST)
     {
         $data = array();
         $db = Database::getInstance();
 
-        $data['email'] = trim($POST['email']);
-        $data['password'] = trim($POST['password']);
+        // Kiểm tra cookie nếu người dùng đã chọn "Remember Me"
+        if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
+           
+            $data['email'] = $this->decryptData($_COOKIE['email']);
+            $data['password'] = $this->decryptData($_COOKIE['password']);
 
+            // SQL query để kiểm tra tài khoản
+            $sql = "SELECT * FROM users WHERE email = :email AND password = :password LIMIT 1";
 
-        if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+            // Chuẩn bị dữ liệu truyền vào
+            $params = [
+                'email' => $data['email'],
+                'password' => $data['password'], // Nên mã hóa mật khẩu (hash) thay vì lưu plaintext
+            ];
+
+            // Gọi hàm `read` để thực thi câu lệnh
+            $result = $db->read($sql, $params);
+
+            if (is_array($result) && count($result) > 0) {
+                $_SESSION['email'] = $data['email'];;
+                header("Location: " . ROOT . "home");
+                exit();
+            }
+        } 
+        else 
         {
-            $this->error .= "Please enter a valid email <br>";
-        }
+            $data['email'] = trim($_POST['email']);
+            $data['password'] = trim($_POST['password']);
+            $remember = isset($_POST['remember']) ?? null;
 
-        
-        if (strlen($data['password']) < 4)
-        {
-            $this->error .= "Please must be atleast 4 characters long <br>";
-        }
-
-        if ($this->error == "")
-        {
-
-            $sql = "SELECT * FROM account WHERE email = :email && password = :password LIMIT 1";
-            $arr['email'] = $data['email'];
-            $result = $db->read($sql,$data);
-            if (is_array($result))
+            if (empty($data['email'])) //|| !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email'])
             {
-                $_SESSION['user'];
-                header("Location: ". ROOT. "home");
-                die;
+                $this->error .= "Please enter a valid email <br>";
             }
 
-            $this->error .= "Wrong email or password <br>";
+
+            if (strlen($data['password']) < 2)
+            {
+                $this->error .= "Please must be atleast 4 characters long <br>";
+            }
+
+            if ($this->error == "") {
+                
+                // SQL query để kiểm tra tài khoản
+                $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
+
+                // Chuẩn bị dữ liệu truyền vào
+                $params = [
+                    'email' => $data['email'],
+                    'password' => $data['password'], // Nên mã hóa mật khẩu (hash) thay vì lưu plaintext
+                ];
+
+                // Gọi hàm `read` để thực thi câu lệnh
+                $result = $db->read($sql, $params);
+
+                // Nếu tìm thấy tài khoản
+                if (is_array($result) && count($result) > 0) {
+                    $_SESSION['email'] = $data['email']; // Gán thông tin người dùng vào session
+                    
+                    // Lưu cookie nếu chọn "Remember Me"
+                    if ($remember) {
+                        setcookie('email', $this->encryptData($data['email']), time() + (86400 * 30), "/"); // 30 ngày
+                        setcookie('password', $this->encryptData($data['password']), time() + (86400 * 30), "/"); // 30 ngày
+                    }
+                    header("Location: " . ROOT . "home");
+                    die;
+                }
+
+                // Nếu không tìm thấy tài khoản, báo lỗi
+                $this->error .= "Wrong email or password <br>";
+            }
         }
+
     }
 
     public function check_login($redirect = false)
@@ -117,6 +171,24 @@ class Account
             header("Location: ".ROOT. "login");
             die;
         }
+    }
+
+    public function logout(){
+        session_start();
+
+        // // Xóa cookie bằng cách thiết lập thời gian hết hạn về quá khứ
+        // setcookie("username", "", time() - 3600, "/"); // Cookie sẽ hết hạn sau 1 giờ
+        // setcookie("password", "", time() - 3600, "/"); // Cookie sẽ hết hạn sau 1 giờ
+
+        // Hủy tất cả dữ liệu trong session
+        session_unset();
+
+        // Hủy session
+        session_destroy();
+
+        // Chuyển hướng về trang đăng nhập hoặc trang chủ
+        header("Location: ". ROOT. "login");
+        exit();
     }
 }
 

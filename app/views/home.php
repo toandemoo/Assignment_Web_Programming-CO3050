@@ -1,5 +1,110 @@
-<?php $this->view("header"); ?>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
+		<title>Electro - HTML Ecommerce Template</title>
+
+		<!-- Google font -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+		<!-- Bootstrap -->
+		<link type="text/css" rel="stylesheet" href="<?=ASSETS ?>css/bootstrap.min.css"/>
+		<!-- Slick -->
+		<link type="text/css" rel="stylesheet" href="<?=ASSETS ?>css/slick.css"/>
+		<link type="text/css" rel="stylesheet" href="<?=ASSETS ?>css/slick-theme.css"/>
+
+		<!-- Font Awesome Icon -->
+		<link rel="stylesheet" href="<?=ASSETS ?>css/font-awesome.min.css"/>
+
+		<!-- Custom stlylesheet -->
+		<link type="text/css" rel="stylesheet" href="<?=ASSETS ?>css/style.css"/>
+
+    </head>
+	<body>
+		<!-- HEADER -->
+		<header>
+			<!-- TOP HEADER -->
+			<div id="top-header">
+				<div class="container">
+					<div class="header-links pull-right">
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-user-o"></i> <?= $_SESSION['email'] ?> <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="<?= ROOT ?>userinfo">Thông tin cá nhân</a></li>
+								<li><a href="<?= ROOT ?>logout">Đăng xuất</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /TOP HEADER -->
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="home" class="logo">
+									<img src="<?=ASSETS ?>img/logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- /LOGO -->
+
+						<!-- SEARCH BAR -->
+						<div class="col-md-6">
+							<div class="header-search">
+								<form>
+									<input class="input" placeholder="Search here">
+									<button class="search-btn">Search</button>
+								</form>
+							</div>
+						</div>
+						<!-- /SEARCH BAR -->
+
+						<!-- ACCOUNT -->
+						<div class="col-md-3 clearfix">
+							<div class="header-ctn">
+								<!-- Wishlist -->
+								<div>
+									<a href="my_favorite.html">
+										<i class="fa fa-heart-o"></i>
+										<span>Your Wishlist</span>
+										<div class="qty">2</div>
+									</a>
+								</div>
+								<!-- /Wishlist -->
+
+								<!-- Cart -->
+								<div>
+									<a href="Cart.html">
+										<i class="fa fa-shopping-cart"></i>
+										<span>Your Cart</span>
+										<div class="qty">3</div>
+									</a>
+								</div>
+								<!-- /Cart -->
+							</div>
+						</div>
+						<!-- /ACCOUNT -->
+					</div>
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
 		<!-- NAVIGATION -->
 		<nav id="navigation">
 			<div class="container">
@@ -87,44 +192,41 @@
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
-									</div>
-								
-
-								<?php if (is_array($data['rows'])): ?>
-								<?php foreach ($data['rows'] as $row): ?>
-								<!-- product -->
-								<div class="product">
-											<div class="product-img">
-												<img src="<?=ROOT . $row->pimg?>" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
+										<?php if (is_array($data['rows'])): ?>
+										<?php foreach ($data['rows'] as $row): ?>
+										<!-- product -->
+										<div class="product">
+												<div class="product-img">
+													<img src="<?=$row->pimg?>" alt="">
+													<div class="product-label">
+														<span class="sale">-30%</span>
+														<span class="new">NEW</span>
+													</div>
 												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
-												<h4 class="product-price"><?=$row->pprice?> <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
+													<h4 class="product-price"><?=$row->pprice?> <del class="product-old-price">$990.00</del></h4>
+													<div class="product-rating">
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="product-btns">
+														<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+													</div>
 												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
 										</div>
 										<!-- /product -->
 										<?php endforeach; ?>
 										<?php endif; ?>
-
+									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
@@ -205,47 +307,50 @@
 						<div class="row">
 							<div class="products-tabs">
 								<!-- tab -->
-								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
+								<div id="tab1" class="tab-pane active">
+									<div class="products-slick" data-nav="#slick-nav-1">
+										<?php if (is_array($data['rows'])): ?>
+										<?php foreach ($data['rows'] as $row): ?>
 										<!-- product -->
 										<div class="product">
-											<div class="product-img">
-												<img src="<?=ASSETS?>img/product01.png" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
+												<div class="product-img">
+													<img src="<?=$row->pimg?>" alt="">
+													<div class="product-label">
+														<span class="sale">-30%</span>
+														<span class="new">NEW</span>
+													</div>
 												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
+												<div class="product-body">
+													<p class="product-category">Category</p>
+													<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
+													<h4 class="product-price"><?=$row->pprice?> <del class="product-old-price">$990.00</del></h4>
+													<div class="product-rating">
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+														<i class="fa fa-star"></i>
+													</div>
+													<div class="product-btns">
+														<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+													</div>
 												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+												<div class="add-to-cart">
+													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
 										</div>
 										<!-- /product -->
-
+										<?php endforeach; ?>
+										<?php endif; ?>
 									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
+									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
 							</div>
 						</div>
 					</div>
-					<!-- /Products tab & slick -->
+					<!-- Products tab & slick -->
 				</div>
 				<!-- /row -->
 			</div>

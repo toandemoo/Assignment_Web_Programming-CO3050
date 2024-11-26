@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -37,7 +38,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="home" class="logo">
+								<a href="index" class="logo">
 									<img src="<?=ASSETS?>img/logo.png" alt="">
 								</a>
 							</div>
@@ -69,24 +70,38 @@
                   <div class="section-title">
                      <h1 class="title">ĐĂNG NHẬP</h1>
                   </div>
-                  <form action="Home.html">
-                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                     </div>
-                     <div class="mb-3">
-                        <label for="exampleInputPassword1" class="form-label">Mật khẩu</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
-                     </div>
-                     <div class="mb-3 form-check d-flex align-items-center"  style="margin-top: 20px;"> 
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label ms-2" for="exampleCheck1">Lưu đăng nhập</label>
-                        <a class="auth-link ms-auto" href="FPassword.html">Quên mật khẩu?</a>
-                     </div>
-                     <div class="text-center" style="margin-top: 20px;">
-                        <button type="submit" class="btn btn-primary auth-btn">Xác nhận</button>
-                     </div>
-                  </form>
+                  <form action="Login/signin" method="post">
+							<div class="mb-3">
+								<?php
+									$controller = new Controller();
+									$decryptedEmail = '';
+									if (isset($_COOKIE['email'])) {
+										$decryptedEmail = $controller->decryptData($_COOKIE['email']); // Giải mã cookie 'email'
+									}
+								?>
+								<label for="email" class="form-label">Email</label>
+								<input type="text" class="form-control" id="email" name="email" value="<?php echo $decryptedEmail ?>" required>
+							</div>
+							<div class="mb-3">
+								<?php
+									$controller = new Controller();
+									$decryptedPassword = '';
+									if (isset($_COOKIE['password'])) {
+										$decryptedPassword = $controller->decryptData($_COOKIE['password']); // Giải mã cookie 'email'
+									}
+								?>
+								<label for="password" class="form-label">Mật khẩu</label>
+								<input type="password" class="form-control" id="password" name="password" value="<?php echo $decryptedPassword ?>" required>
+							</div>
+							<div class="mb-3 form-check d-flex align-items-center" style="margin-top: 20px;"> 
+								<input type="checkbox" class="form-check-input" id="check" name="remember">
+								<label class="form-check-label ms-2" for="check">Lưu đăng nhập</label>
+								<a class="auth-link ms-auto" href="FPassword.html">Quên mật khẩu?</a>
+							</div>
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary auth-btn " style="padding: 20px">Xác nhận</button>
+							</div>
+						</form>
                   <div class="row mt-5 show-me">
                     <div class="col text-center">
                         <div style="margin-top: 20px;">
@@ -99,7 +114,7 @@
                         </div>
                     </div>  
                   </div>
-                  <div class="auth-info text-center">Bạn chưa có tài khoản ?<a class="auth-link--dark" href="sign_up.html">Đăng ký</a></div>
+                  <div class="auth-info text-center">Bạn chưa có tài khoản ?<a class="auth-link--dark" href="<?=ROOT?>signup">Đăng ký</a></div>
                </div>
                <!-- Form Login -->
             </div>
