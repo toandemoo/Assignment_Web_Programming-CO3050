@@ -124,5 +124,5 @@
 		</div>
 		<!-- /SECTION -->
 
-<?php $this->view("footer"); ?>
+<?php $this->view("./Shared/footer"); ?>
 	

@@ -75,19 +75,10 @@
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="my_favorite.html">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
-									</a>
-								</div>
-								<!-- /Wishlist -->
 
 								<!-- Cart -->
 								<div>
-									<a href="Cart.html">
+									<a href="Cart">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
 										<div class="qty">3</div>
@@ -358,4 +349,4 @@
 		</div>
 		<!-- /SECTION -->
 
-<?php $this->view("footer"); ?>
+<?php $this->view("./Shared/footer"); ?>

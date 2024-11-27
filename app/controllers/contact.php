@@ -6,6 +6,4 @@ class Contact extends Controller
     {
         $this->view("contact");
     }
-
-    
 }

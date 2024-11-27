@@ -9,7 +9,7 @@ class Controller
             require "../app/views/" . $path . ".php";
         }
         else {
-            require "../app/views/404.php";
+            require "../app/views/Shared/404.php";
         }
     }
 

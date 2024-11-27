@@ -149,15 +149,7 @@
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="my_favorite.html">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
-									</a>
-								</div>
-								<!-- /Wishlist -->
+							
 
 								<!-- Cart -->
 								<div>
@@ -268,4 +260,4 @@
 			</div>
 		</div>
 
-<?php $this->view("footer"); ?>
+<?php $this->view("./Shared/footer"); ?>

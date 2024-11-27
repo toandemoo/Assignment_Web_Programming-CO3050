@@ -23,6 +23,14 @@
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="<?=ASSETS ?>css/style.css"/>
 
+		<script>
+			// Hàm hiển thị alert yêu cầu đăng nhập
+			function alertLogin() {
+				alert("Vui lòng đăng nhập để xem giỏ hàng.");
+				window.location.href = "<?= ROOT ?>login"; // Chuyển hướng đến trang đăng nhập
+			}
+		</script>
+
     </head>
 	<body>
 		<!-- HEADER -->
@@ -31,9 +39,27 @@
 			<div id="top-header">
 				<div class="container">
 					<div class="header-links pull-right">
-							<a href="<?=ROOT?>login"><i class="fa fa-user-o"></i>Đăng nhập</a>
-							<span>/</span>
-							<a href="<?=ROOT?>signup"><i class="fa fa-user-o"></i>Đăng Ký</a>
+						<?php
+						if (isset($_SESSION['email'])) {
+							echo '
+							<div class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-user-o"></i> ' . $_SESSION['email'] . ' <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+										<li><a href="' . ROOT . 'userinfo">Thông tin cá nhân</a></li>
+										<li><a href="' . ROOT . 'logout">Đăng xuất</a></li>
+								</ul>
+							</div>
+							';
+						} else {
+							echo '
+							<a href="' . ROOT . 'login"><i class="fa fa-user-o"></i> Đăng nhập</a>
+							<span style="color: white;">/</span>
+							<a href="' . ROOT . 'signup">Đăng Ký</a>
+							';
+						}
+						?>
 					</div>
 				</div>
 			</div>
@@ -69,24 +95,31 @@
 						<!-- ACCOUNT -->
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="my_favorite.html">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
-									</a>
-								</div>
-								<!-- /Wishlist -->
-
 								<!-- Cart -->
-								<div>
-									<a href="Cart.html">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
-										<div class="qty">3</div>
-									</a>
-								</div>
+								<?php
+								if (isset($_SESSION['email'])) {
+									// Nếu đã đăng nhập
+									echo '
+									<div>
+										<a href="Cart">
+												<i class="fa fa-shopping-cart"></i>
+												<span>Your Cart</span>
+												<div class="qty">3</div>
+										</a>
+									</div>
+									';
+								} else {
+									// Nếu chưa đăng nhập
+									echo '
+									<div>
+										<a href="#" onclick="alertLogin();">
+											<i class="fa fa-shopping-cart"></i>
+											<span>Your Cart</span>
+										</a>
+									</div>
+									';
+								}
+								?>
 								<!-- /Cart -->
 							</div>
 						</div>

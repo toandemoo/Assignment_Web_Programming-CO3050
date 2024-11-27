@@ -1,14 +1,14 @@
-<?php $this->view("header"); ?>
+<?php $this->view("./Shared/header"); ?>
 
 		<!-- NAVIGATION -->
 		<nav id="navigation">
 			<div class="container">
 				<div id="responsive-nav">
 						<ul class="main-nav nav navbar-nav">
-							<li class="active"><a href="home">Home</a></li>
+							<li><a href="<?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Home</a></li>
 							<li><a href="about">About</a></li>
 							<li><a href="contact">Contact</a></li>
-							<li><a href="allproduct">All Products</a></li>
+							<li class="active"><a href="allproduct">All Products</a></li>
 							<li class="dropdown">
 								<a href="#">Danh mục sản phẩm</a>
 								<ul class="dropdown">
@@ -541,4 +541,4 @@
 		</div>
 		<!-- /SECTION -->
 
-<?php $this->view("footer"); ?>
+<?php $this->view("./Shared/footer"); ?>

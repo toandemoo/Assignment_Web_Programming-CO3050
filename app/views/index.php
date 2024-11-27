@@ -1,4 +1,4 @@
-<?php $this->view("header"); ?>
+<?php $this->view("./Shared/header"); ?>
 
 		<!-- NAVIGATION -->
 		<nav id="navigation">
@@ -253,4 +253,4 @@
 		</div>
 		<!-- /SECTION -->
 
-<?php $this->view("footer"); ?>
+<?php $this->view("./Shared/footer"); ?>
