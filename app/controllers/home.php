@@ -13,7 +13,7 @@ class Home extends Controller
         $db = Database::getInstance();
 
         // Thực hiện truy vấn lấy tất cả sản phẩm
-        $rows = $db->read("SELECT * FROM product");
+        $rows = $db->read("SELECT * FROM products");
 
         // Chuẩn bị dữ liệu để truyền vào view
         $data['rows'] = $rows;

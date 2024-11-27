@@ -84,9 +84,9 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+								<form action="<?= ROOT ?>allproduct/index" method="POST">
+									<input type="text" class="input" placeholder="Search here" id="search" name="search">
+									<button type="submit" class="search-btn">Search</button>
 								</form>
 							</div>
 						</div>

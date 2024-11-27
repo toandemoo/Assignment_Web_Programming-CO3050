@@ -8,7 +8,7 @@ class Detail_product extends Controller
 
         $db = Database::getInstance();
 
-        $row = $db->read("SELECT * FROM product WHERE id = :id",['id'=>$id]);
+        $row = $db->read("SELECT * FROM products WHERE id = :id",['id'=>$id]);
 
         $data['row'] = $row[0];
         $this->view("detail_product", $data);
