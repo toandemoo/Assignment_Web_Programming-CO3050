@@ -64,9 +64,9 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+								<form action="<?= ROOT ?>Search" method="POST" onsubmit="return validateSearch()">
+									<input type="text" class="input" placeholder="Search here" id="search" name="search">
+									<button type="submit" class="search-btn">Search</button>
 								</form>
 							</div>
 						</div>
@@ -106,12 +106,12 @@
 							<li><a href="contact">Contact</a></li>
 							<li><a href="allproduct">All Products</a></li>
 							<li class="dropdown">
-								<a href="#">Danh mục sản phẩm</a>
-								<ul class="dropdown">
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Smartphones</a></li>
-										<li><a href="#">Cameras</a></li>
-										<li><a href="#">Accessories</a></li>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Danh mục sản phẩm <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Laptop</a></li>
+									<li><a href="#">Smartphones</a></li>
+									<li><a href="#">Cameras</a></li>
+									<li><a href="#">Accessories</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -185,8 +185,8 @@
 									<div class="products-slick" data-nav="#slick-nav-1">
 										<?php if (is_array($data['rows'])): ?>
 										<?php foreach ($data['rows'] as $row): ?>
-										<!-- product -->
 										<div class="product">
+											<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
 												<div class="product-img">
 													<img src="<?=$row->pimg?>" alt="">
 													<div class="product-label">
@@ -206,15 +206,19 @@
 														<i class="fa fa-star"></i>
 													</div>
 													<div class="product-btns">
-														<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+														<!-- <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button> -->
 														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 													</div>
 												</div>
 												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
+														<button type="submit" name="product_id" value="<?=$row->id?>" class="add-to-cart-btn">
+																<i class="fa fa-shopping-cart"></i> Add to Cart
+														</button>
+													</form>
 												</div>
+											</a>
 										</div>
-										<!-- /product -->
 										<?php endforeach; ?>
 										<?php endif; ?>
 									</div>
@@ -303,7 +307,9 @@
 										<?php if (is_array($data['rows'])): ?>
 										<?php foreach ($data['rows'] as $row): ?>
 										<!-- product -->
+										
 										<div class="product">
+											<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
 												<div class="product-img">
 													<img src="<?=$row->pimg?>" alt="">
 													<div class="product-label">
@@ -323,14 +329,20 @@
 														<i class="fa fa-star"></i>
 													</div>
 													<div class="product-btns">
-														<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+														<!-- <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button> -->
 														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 													</div>
 												</div>
 												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
+														<button type="submit" name="product_id" value="<?=$row->id?>" class="add-to-cart-btn">
+																<i class="fa fa-shopping-cart"></i> Add to Cart
+														</button>
+													</form>
 												</div>
+											</a>
 										</div>
+										
 										<!-- /product -->
 										<?php endforeach; ?>
 										<?php endif; ?>

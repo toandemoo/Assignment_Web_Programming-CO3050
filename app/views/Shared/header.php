@@ -84,9 +84,9 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<input class="input" placeholder="Search here">
-									<button class="search-btn">Search</button>
+								<form action="<?= ROOT ?>Search" method="POST" onsubmit="return validateSearch()">
+									<input type="text" class="input" placeholder="Search here" id="search" name="search">
+									<button type="submit" class="search-btn">Search</button>
 								</form>
 							</div>
 						</div>
@@ -132,3 +132,44 @@
 			<!-- /MAIN HEADER -->
 		</header>
 		<!-- /HEADER -->
+
+
+		<!-- NAVIGATION -->
+<nav id="navigation">
+	<div class="container">
+		<div id="responsive-nav">
+			<ul class="main-nav nav navbar-nav">
+				<?php
+				$currentPage = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
+				?>
+				<li class="<?= ($currentPage == 'home') ? 'active' : ''; ?>"><a href="<?=ROOT?><?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Home</a></li>
+				<li class="<?= ($currentPage == 'about') ? 'active' : ''; ?>"><a href="<?=ROOT?>about">About</a></li>
+				<li class="<?= ($currentPage == 'contact') ? 'active' : ''; ?>"><a href="<?=ROOT?>contact">Contact</a></li>
+				<li class="<?= ($currentPage == 'allproduct') ? 'active' : ''; ?>"><a href="<?=ROOT?>allproduct">All Products</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						Danh mục sản phẩm <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#">Laptop</a></li>
+						<li><a href="#">Smartphones</a></li>
+						<li><a href="#">Cameras</a></li>
+						<li><a href="#">Accessories</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<!-- /NAVIGATION -->
+
+		<script>
+			function validateSearch() {
+				const searchInput = document.getElementById('search').value.trim();
+				if (searchInput === "") {
+					alert("Vui lòng nhập từ khóa tìm kiếm.");
+					return false; // Ngăn không gửi form
+				}
+				return true; // Cho phép gửi form nếu hợp lệ
+			}
+		</script>

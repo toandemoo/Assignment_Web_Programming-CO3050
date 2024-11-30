@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -70,7 +69,22 @@
                   <div class="section-title">
                      <h1 class="title">ĐĂNG NHẬP</h1>
                   </div>
-                  <form action="Login/signin" method="post">
+						<?php 
+							if (!empty($_SESSION['error'])) {
+								$error_message = $_SESSION['error'];
+								unset($_SESSION['error']); // Xóa lỗi khỏi session sau khi hiển thị
+							} else {
+								$error_message = "";
+							}
+						?>
+						<?php if (!empty($error_message)) : ?>
+							<div id="alert" class="alert alert-danger">
+								<?php echo $error_message; ?>
+							</div>
+						<?php else: ?>
+							<div id="alert" class="alert alert-danger" style="display: none;"></div>
+						<?php endif; ?>
+                  <form action="Login/signin" method="post" id="loginform">
 							<div class="mb-3">
 								<?php
 									$controller = new Controller();
@@ -80,7 +94,7 @@
 									}
 								?>
 								<label for="email" class="form-label">Email</label>
-								<input type="text" class="form-control" id="email" name="email" value="<?php echo $decryptedEmail ?>" required>
+								<input type="text" class="form-control" id="email" name="email" value="<?php echo $decryptedEmail ?>">
 							</div>
 							<div class="mb-3">
 								<?php
@@ -91,15 +105,15 @@
 									}
 								?>
 								<label for="password" class="form-label">Mật khẩu</label>
-								<input type="password" class="form-control" id="password" name="password" value="<?php echo $decryptedPassword ?>" required>
+								<input type="password" class="form-control" id="password" name="password" value="<?php echo $decryptedPassword ?>">
 							</div>
 							<div class="mb-3 form-check d-flex align-items-center" style="margin-top: 20px;"> 
 								<input type="checkbox" class="form-check-input" id="check" name="remember">
 								<label class="form-check-label ms-2" for="check">Lưu đăng nhập</label>
-								<a class="auth-link ms-auto" href="FPassword.html">Quên mật khẩu?</a>
+								<a class="auth-link ms-auto" href="<?= ROOT ?>ForgotPassword">Quên mật khẩu?</a>
 							</div>
 							<div class="text-center">
-								<button type="submit" class="btn btn-primary auth-btn " style="padding: 20px">Xác nhận</button>
+								<button id="loginButton" type="button" class="btn btn-primary auth-btn " style="padding: 20px">Xác nhận</button>
 							</div>
 						</form>
                   <div class="row mt-5 show-me">
@@ -123,6 +137,27 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+
+
+		<script>
+		document.getElementById('loginButton').addEventListener('click', function () {
+			const email = document.getElementById('email').value.trim();
+			const password = document.getElementById('password').value.trim();
+			const alertBox = document.getElementById('alert');
+
+			// Kiểm tra xem email và password có được nhập không
+        if (!email) {
+            alertBox.style.display = 'block';
+            alertBox.innerText = 'Vui lòng nhập email!';
+        } else if (!password) {
+            alertBox.style.display = 'block';
+            alertBox.innerText = 'Vui lòng nhập mật khẩu!';
+        } else {
+            alertBox.style.display = 'none';
+            document.getElementById('loginform').submit(); // Gửi form nếu hợp lệ
+        }
+		});
+	</script>
 
 <?php $this->view("./Shared/footer"); ?>
 	

@@ -1,29 +1,5 @@
 <?php $this->view("./Shared/header"); ?>
 
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
-						<ul class="main-nav nav navbar-nav">
-							<li><a href="<?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Home</a></li>
-							<li><a href="about">About</a></li>
-							<li class="active"><a href="contact">Contact</a></li>
-							<li><a href="allproduct">All Products</a></li>
-							<li class="dropdown">
-								<a href="#">Danh mục sản phẩm</a>
-								<ul class="dropdown">
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Smartphones</a></li>
-										<li><a href="#">Cameras</a></li>
-										<li><a href="#">Accessories</a></li>
-								</ul>
-							</li>
-						</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- /NAVIGATION -->
-		
 		<!-- section -->
 		<section class="py-3 py-md-5 py-xl-8 mb-5" style="margin: 3em;">
 			<div class="container">

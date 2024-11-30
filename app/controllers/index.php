@@ -6,7 +6,7 @@ class Index extends Controller
     {
         $db = Database::getInstance();
 
-        $rows = $db->read("SELECT * FROM product");
+        $rows = $db->read("SELECT * FROM products");
 
         $data['rows'] = $rows;
         $this->view("index", $data);

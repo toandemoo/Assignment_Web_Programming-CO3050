@@ -99,7 +99,6 @@
 		<script src="<?=ASSETS?>js/nouislider.min.js"></script>
 		<script src="<?=ASSETS?>js/jquery.zoom.min.js"></script>
 		<script src="<?=ASSETS?>js/main.js"></script>
-		<script src="<?=ASSETS?>sign_in.js"></script>
-
+		<script src="<?=ASSETS?>js/captcha.js"></script>
 	</body>
 </html>

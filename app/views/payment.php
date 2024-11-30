@@ -1,51 +1,5 @@
 <?php $this->view("./Shared/header"); ?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<!-- Google font -->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-		<!-- Bootstrap -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="../public/assets/css/slick.css"/>
-		<link type="text/css" rel="stylesheet" href="../public/assets/css/slick-theme.css"/>
-
-		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="../public/assets/css/font-awesome.min.css">
-
-		<!-- Custom stylesheet -->
-		<link type="text/css" rel="stylesheet" href="../public/assets/css/style.css"/>
-		<!-- Custom JavaScript -->
-		<script src="../public/assets/js/payment.js" defer></script>
-    </head>
-	<body>
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
-						<ul class="main-nav nav navbar-nav">
-							<li><a href="<?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Home</a></li>
-							<li ><a href="about">About</a></li>
-							<li><a href="contact">Contact</a></li>
-							<li><a href="allproduct">All Products</a></li>
-							<li class="dropdown">
-								<a href="#">Danh mục sản phẩm</a>
-								<ul class="dropdown">
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Smartphones</a></li>
-										<li><a href="#">Cameras</a></li>
-										<li><a href="#">Accessories</a></li>
-								</ul>
-							</li>
-						</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- /NAVIGATION -->
 
 		<!--PAYMENT-->
 		<?php
@@ -57,20 +11,21 @@
 			<!-- Section tiêu đề -->
 			<div class="container text-center">
 				<div class="row">
-					<div class="col">
-						<h2 id="info-tab" 
-							class="tab border-bottom <?= $currentTab === 'info' ? 'active-tab' : 'text-dark'; ?>">
-							<a href="?tab=info" class="<?= $currentTab === 'info' ? 'text-danger' : ''; ?>">1. Thông tin</a>
-						</h2>
+					<div class="col-sm-6">
+							<h2 id="info-tab" 
+								class="tab <?= $currentTab === 'info' ? 'active-tab' : 'text-dark'; ?> border-bottom">
+								<a href="?tab=info" class="<?= $currentTab === 'info' ? 'text-danger' : ''; ?>">1. Thông tin</a>
+							</h2>
 					</div>
-					<div class="col">
-						<h2 id="payment-tab" 
-							class="tab border-bottom <?= $currentTab === 'payment' ? 'active-tab' : 'text-dark'; ?>">
-							<a href="?tab=payment" class="<?= $currentTab === 'payment' ? 'text-danger' : ''; ?>">2. Thanh toán</a>
-						</h2>
+					<div class="col-sm-6">
+							<h2 id="payment-tab" 
+								class="tab <?= $currentTab === 'payment' ? 'active-tab' : 'text-dark'; ?> border-bottom">
+								<a href="?tab=payment" class="<?= $currentTab === 'payment' ? 'text-danger' : ''; ?>">2. Thanh toán</a>
+							</h2>
 					</div>
 				</div>
 			</div>
+
 
 			<?php if ($currentTab === 'info') : ?>
 				<!-- Nội dung thông tin sản phẩm và khách hàng -->
@@ -183,7 +138,7 @@
 				</div>
 
 				<!-- Phần tiếp tục và kiểm tra thông tin -->
-				<div id="payment-total" class="payment">
+				<div id="payment-total" class="payment" style="margin-bottom: 20px;">
 					<p id="provisional-total"></p>
 					<div class="submit-button">
 					<button type="submit" class="btn btn-danger" onclick="window.location.href='?tab=payment'">Tiếp tục</button>
@@ -209,7 +164,7 @@
 						<!-- QR code will be inserted here -->
 					</div>
 					
-					<div class="submit-button">
+					<div class="submit-button" style="margin-bottom: 20px;">
 						<button type="button" class="btn btn-success" onclick="completeOrder(event)">Hoàn tất đặt hàng</button>
 					</div>
 				</form>
@@ -232,6 +187,5 @@
 				<p>Thanh toán thành công!</p>
 			</div>
 		</div>
-	</body>
 	
 <?php $this->view("./Shared/footer"); ?>

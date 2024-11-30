@@ -40,7 +40,7 @@ class Cart extends Controller
             $product = [];
             if (!empty($productIds)) {
                 $placeholders = implode(',', array_fill(0, count($productIds), '?'));
-                $sqlProduct = "SELECT * FROM product WHERE id IN ($placeholders)";
+                $sqlProduct = "SELECT * FROM products WHERE id IN ($placeholders)";
                 $product = $db->read($sqlProduct, $productIds);
             }
         } else {

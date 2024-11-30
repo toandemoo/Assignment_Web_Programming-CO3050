@@ -1,29 +1,4 @@
 <?php $this->view("./Shared/header"); ?>
-
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
-						<ul class="main-nav nav navbar-nav">
-							<li class="active"><a href="index">Home</a></li>
-							<li><a href="about">About</a></li>
-							<li><a href="contact">Contact</a></li>
-							<li><a href="allproduct">All Products</a></li>
-							<li class="dropdown">
-								<a href="#">Danh mục sản phẩm</a>
-								<ul class="dropdown">
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Smartphones</a></li>
-										<li><a href="#">Cameras</a></li>
-										<li><a href="#">Accessories</a></li>
-								</ul>
-							</li>
-						</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- /NAVIGATION -->
-		
 		<!-- bannerSlider -->
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
@@ -91,6 +66,7 @@
 										<?php foreach ($data['rows'] as $row): ?>
 										<!-- product -->
 										<div class="product">
+											<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
 												<div class="product-img">
 													<img src="<?=$row->pimg?>" alt="">
 													<div class="product-label">
@@ -110,13 +86,18 @@
 														<i class="fa fa-star"></i>
 													</div>
 													<div class="product-btns">
-														<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+														<!-- <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button> -->
 														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 													</div>
 												</div>
 												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
+														<button type="submit" name="product_id" value="<?=$row->id?>" class="add-to-cart-btn">
+																<i class="fa fa-shopping-cart"></i> Add to Cart
+														</button>
+													</form>
 												</div>
+											</a>
 										</div>
 										<!-- /product -->
 										<?php endforeach; ?>
@@ -208,6 +189,7 @@
 										<?php foreach ($data['rows'] as $row): ?>
 										<!-- product -->
 										<div class="product">
+												<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
 												<div class="product-img">
 													<img src="<?=$row->pimg?>" alt="">
 													<div class="product-label">
@@ -227,13 +209,18 @@
 														<i class="fa fa-star"></i>
 													</div>
 													<div class="product-btns">
-														<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
+														<!-- <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button> -->
 														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 													</div>
 												</div>
 												<div class="add-to-cart">
-													<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
+														<button type="submit" name="product_id" value="<?=$row->id?>" class="add-to-cart-btn">
+																<i class="fa fa-shopping-cart"></i> Add to Cart
+														</button>
+													</form>
 												</div>
+											</a>
 										</div>
 										<!-- /product -->
 										<?php endforeach; ?>

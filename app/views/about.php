@@ -1,97 +1,54 @@
-<?php $this->view("./Shared/header"); ?>
-	<head>
-		<!-- Google font -->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-		<!-- Bootstrap -->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    	<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="../public/assets/css/slick.css"/>
-		<link type="text/css" rel="stylesheet" href="../public/assets/css/slick-theme.css"/>
-
-		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="../public/assets/css/font-awesome.min.css">
-
-		<!-- Custom stylesheet -->
-		<link type="text/css" rel="stylesheet" href="../public/assets/css/style.css"/>
-    </head>
-	<body>
+<?php $this->view("./Shared/header"); ?>		
 		
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
-						<ul class="main-nav nav navbar-nav">
-							<li><a href="<?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Home</a></li>
-							<li class="active"><a href="about">About</a></li>
-							<li><a href="contact">Contact</a></li>
-							<li><a href="allproduct">All Products</a></li>
-							<li class="dropdown">
-								<a href="#">Danh mục sản phẩm</a>
-								<ul class="dropdown">
-										<li><a href="#">Laptop</a></li>
-										<li><a href="#">Smartphones</a></li>
-										<li><a href="#">Cameras</a></li>
-										<li><a href="#">Accessories</a></li>
-								</ul>
-							</li>
-						</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- /NAVIGATION -->
-		<!-- BREADCRUMB -->
-		<div id="breadcrumb" class="breadcrumb">
-		</div>
-		<!-- /BREADCRUMB -->
 		<!-- container -->
 		<div class="container">
 			<div class="container_about">
-					<div class="img-about col"></div>
-					<div class="one-part row">
-						<div class="about_1 col">
-							<h3 class="about-us">VỀ CHÚNG TÔI</h3>
-							<p>Chào mừng bạn đến với ELECTRO – điểm đến đáng tin cậy của bạn cho các sản phẩm điện tử chất lượng cao và dịch vụ tận tâm. Tại ELECTRO, chúng tôi cam kết mang đến cho khách hàng những sản phẩm công nghệ tiên tiến nhất, từ điện thoại, máy tính xách tay, máy tính bảng đến các thiết bị gia dụng thông minh và phụ kiện hiện đại.</p>
+				<div class="col-md-12 img-about"></div>
+				<div class="row">
+						<div class="col-md-6">
+							<div class="about_1">
+								<h3 class="about-us">VỀ CHÚNG TÔI</h3>
+								<p>Chào mừng bạn đến với ELECTRO – điểm đến đáng tin cậy của bạn cho các sản phẩm điện tử chất lượng cao và dịch vụ tận tâm. Tại ELECTRO, chúng tôi cam kết mang đến cho khách hàng những sản phẩm công nghệ tiên tiến nhất, từ điện thoại, máy tính xách tay, máy tính bảng đến các thiết bị gia dụng thông minh và phụ kiện hiện đại.</p>
+							</div>
 						</div>
-						<div class="col">
-							<img src="<?=ASSETS?>img/about-1.png" alt="About Us Image" style="width: 100%; max-width: 600px;">
+						<div class="col-md-6">
+							<img src="<?=ASSETS?>img/about-1.png" alt="About Us Image" class="img-responsive" style="max-width: 600px;">
 						</div>
-					</div>
-					<div class="one-part row">
-						<div class="col">
-							<img src="<?=ASSETS?>img/about-2.png" alt="About Us Image" style="width: 100%; max-width: 600px;">
+				</div>
+				<div class="row">
+						<div class="col-md-6">
+							<img src="<?=ASSETS?>img/about-2.png" alt="About Us Image" class="img-responsive" style="max-width: 500px;">
 						</div>
-						<div class="about col">				
+						<div class="col-md-6 about">
 							<p><strong>Sứ Mệnh Của Chúng Tôi</strong><br>
-							Chúng tôi không chỉ đơn thuần là cung cấp sản phẩm, mà còn đặt mục tiêu trở thành người đồng hành trong hành trình trải nghiệm công nghệ của bạn. Chúng tôi cam kết cung cấp những sản phẩm chính hãng với chất lượng đảm bảo, giá cả cạnh tranh và các chính sách bảo hành, hỗ trợ tận tâm.</p>
+								Chúng tôi không chỉ đơn thuần là cung cấp sản phẩm, mà còn đặt mục tiêu trở thành người đồng hành trong hành trình trải nghiệm công nghệ của bạn. Chúng tôi cam kết cung cấp những sản phẩm chính hãng với chất lượng đảm bảo, giá cả cạnh tranh và các chính sách bảo hành, hỗ trợ tận tâm.
+							</p>
 						</div>
-					</div>
-					<div class="one-part row">
-						<div class="about col">
+				</div>
+				<div class="row">
+						<div class="col-6 about" style="margin-bottom: 1em; margin-top:2em;">
 							<p><strong>Dịch Vụ Khách Hàng</strong><br>
-								Tại ELECTRO, chúng tôi tự hào với đội ngũ chăm sóc khách hàng chuyên nghiệp, luôn sẵn sàng hỗ trợ bạn. Chính sách đổi trả và dịch vụ bảo hành nhanh chóng là ưu tiên hàng đầu nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất.</p>
+								Tại ELECTRO, chúng tôi tự hào với đội ngũ chăm sóc khách hàng chuyên nghiệp, luôn sẵn sàng hỗ trợ bạn. Chính sách đổi trả và dịch vụ bảo hành nhanh chóng là ưu tiên hàng đầu nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất.
+							</p>
 						</div>
-						<div class="about-2 col">
+						<div class="col-6 about-2">
 							<p><strong>Giá Trị Cốt Lõi</strong><br>
 								&#10003; <strong>Chất Lượng</strong><br>
 								&#10003; <strong>Đáng Tin Cậy</strong><br>
 								&#10003; <strong>Công Nghệ Hiện Đại</strong>
 							</p>
 						</div>
-					</div>
-					<div class="social-connect">
+				</div>
+				<div class="social-connect">
 						<p><strong>Kết nối với chúng tôi</strong></p>
 						<div class="social-icons">
-							<a href="https://facebook.com" target="_blank" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-							<a href="https://instagram.com" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-							<a href="https://tiktok.com" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-							<a href="https://youtube.com" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+							<a href="https://facebook.com" target="_blank" class="social-icon"><i class="fa fa-facebook"></i></a>
+							<a href="https://instagram.com" target="_blank" class="social-icon"><i class="fa fa-instagram"></i></a>
+							<a href="https://tiktok.com" target="_blank" class="social-icon"><i class="fa fa-tiktok"></i></a>
+							<a href="https://youtube.com" target="_blank" class="social-icon"><i class="fa fa-youtube"></i></a>
 						</div>
-					</div>
+				</div>
 			</div>
 		</div>
-
+		<!-- container -->
 <?php $this->view("./Shared/footer"); ?>

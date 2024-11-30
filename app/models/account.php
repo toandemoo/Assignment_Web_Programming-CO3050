@@ -107,17 +107,6 @@ class Account
             $data['password'] = trim($_POST['password']);
             $remember = isset($_POST['remember']) ?? null;
 
-            if (empty($data['email'])) //|| !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email'])
-            {
-                $this->error .= "Please enter a valid email <br>";
-            }
-
-
-            if (strlen($data['password']) < 2)
-            {
-                $this->error .= "Please must be atleast 4 characters long <br>";
-            }
-
             if ($this->error == "") {
                 
                 // SQL query để kiểm tra tài khoản
@@ -135,6 +124,7 @@ class Account
                 // Nếu tìm thấy tài khoản
                 if (is_array($result) && count($result) > 0) {
                     $_SESSION['email'] = $data['email']; // Gán thông tin người dùng vào session
+                    $_SESSION['password'] = $data['password']; // Gán thông tin người dùng vào session
                     
                     // Lưu cookie nếu chọn "Remember Me"
                     if ($remember) {
@@ -144,33 +134,14 @@ class Account
                     header("Location: " . ROOT . "home");
                     die;
                 }
-
                 // Nếu không tìm thấy tài khoản, báo lỗi
-                $this->error .= "Wrong email or password <br>";
+                $this->error = "Wrong email or password <br>";
+                $_SESSION['error'] = $this->error;
+                header("Location: " . ROOT . "login");
+                die;
             }
         }
 
-    }
-
-    public function check_login($redirect = false)
-    {
-        if (isset($_SESSION['username']))
-        {
-            $arr['username'] = $_SESSION['username'];
-            $query = "SELECT * FROM account WHERE id = :id LIMIT 1";
-            $db = Database::getInstance();
-
-            $result = $db->read($query, $arr);
-            if (is_array($result))
-            {
-                return $result[0];
-            }
-        }
-
-        if ($redirect) {
-            header("Location: ".ROOT. "login");
-            die;
-        }
     }
 
     public function logout(){

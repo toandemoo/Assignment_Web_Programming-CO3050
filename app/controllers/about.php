@@ -6,6 +6,4 @@ class About extends Controller
     {
         $this->view("about");
     }
-
-    
 }

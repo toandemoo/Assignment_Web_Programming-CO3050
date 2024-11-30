@@ -44,20 +44,20 @@ class Payment extends Controller
             if (!empty($selectedProducts)) {
                 $db = Database::getInstance();
                 $placeholders = implode(',', array_fill(0, count($selectedProducts), '?'));
-                $sql = "SELECT * FROM product WHERE id IN ($placeholders)";
+                $sql = "SELECT * FROM products WHERE id IN ($placeholders)";
                 $products = $db->read($sql, $selectedProducts);
 
                 foreach ($products as $product) {
                     $quantity = $quantities[$product->id] ?? 1;
-                    $subTotal = $product->price * $quantity;
+                    $subTotal = $product->pprice * $quantity;
                     $totalAmount += $subTotal;
 
                     $selectedProductDetails[] = [
                         'id' => $product->id,
-                        'name' => $product->name,
-                        'image' => $product->image,
+                        'name' => $product->ptitle,
+                        'image' => $product->pimg,
                         'quantity' => $quantity,
-                        'price' => $product->price,
+                        'price' => $product->pprice,
                         'subTotal' => $subTotal,
                     ];
                 }
