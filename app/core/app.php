@@ -10,35 +10,49 @@ class App
     {
         $url = $this->splitURL();
 
-        if (file_exists("../app/controllers/" . strtolower($url[0]) . ".php"))
-        {
-            $this->controller = strtolower($url[0]);
-            unset($url[0]);
+        // Xử lý controller cho folder 'customer' hoặc 'admin'
+        if (isset($url[0])) {
+            $controllerPath = null;
+            
+            if (file_exists("../app/controllers/customer/" . strtolower($url[0]) . ".php")) {
+                $controllerPath = "../app/controllers/customer/" . strtolower($url[0]) . ".php";
+            } elseif (file_exists("../app/controllers/admin/" . strtolower($url[0]) . ".php")) {
+                $controllerPath = "../app/controllers/admin/" . strtolower($url[0]) . ".php";
+            }
+
+            if ($controllerPath) {
+                $this->controller = ucfirst(strtolower($url[0])); // Lấy tên controller
+                require $controllerPath;
+                unset($url[0]);
+            } else {
+                // Controller mặc định
+                require "../app/controllers/customer/index.php";
+            }
         }
 
-        require "../app/controllers/" . $this->controller . ".php";
+
+        // Khởi tạo controller
         $this->controller = new $this->controller;
 
-        if (isset($url[1]))
-        {
+        // Xử lý method
+        if (isset($url[1])) {
             $url[1] = strtolower($url[1]);
-            if (method_exists($this->controller, $url[1]))
-            {
+            if (method_exists($this->controller, $url[1])) {
                 $this->method = $url[1];
                 unset($url[1]);
             }
         }
 
-        $this->params = (count($url) > 0) ? $url : [""];
+        // Xử lý params
+        $this->params = (count($url) > 0) ? array_values($url) : [""];
 
+        // Gọi controller/method
         call_user_func_array([$this->controller, $this->method], $this->params);
     }
 
     private function splitURL()
     {
-        $url = isset($_GET['url']) ? $_GET['url'] : 'home';
-        return explode('/', filter_var(trim($url, "/"), FILTER_SANITIZE_URL));
+        $url = isset($_GET['url']) ? $_GET['url'] : 'index';
+        return explode('/', trim($url, "/"));
     }
-
-    
 }

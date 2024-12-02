@@ -7,5 +7,8 @@ $path = str_replace("index.php", "", $path);
 
 define('ROOT', $path);
 define("ASSETS", $path . "assets/");
+
+// echo ASSETS;
+
 include "../app/core/init.php";
 $app = new App();

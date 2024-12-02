@@ -9,7 +9,8 @@ class Controller
             require "../app/views/" . $path . ".php";
         }
         else {
-            require "../app/views/Shared/404.php";
+            echo "huhuhuhuhu";
+            require "../app/views/customer/Shared/404.php";
         }
     }
 
@@ -34,5 +35,25 @@ class Controller
         $key = hash('sha256', SECRET_KEY);
         $iv = substr(hash('sha256', SECRET_IV), 0, 16);
         return openssl_decrypt(base64_decode($encryptedData), 'AES-256-CBC', $key, 0, $iv);
+    }
+}
+
+class Category
+{
+    public function create($data)
+    {
+        $DB = Database::getInstance();
+
+        $arr['category'] = $data;
+        $query = "insert into cate";
+        $DB->write($query, $arr);
+    }
+    public function edit($data)
+    {
+        
+    }
+    public function delete($data)
+    {
+
     }
 }
