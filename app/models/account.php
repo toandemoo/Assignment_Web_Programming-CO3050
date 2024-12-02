@@ -90,13 +90,32 @@ class Account
             $data_tmp['email'] = $this->decryptData($_COOKIE['email']);
             $data_tmp['password'] = $this->decryptData($_COOKIE['password']);
 
-            if($data['email'] == $data_tmp['email'] && $data['password'] == $data_tmp['password']){
+             // SQL query để kiểm tra tài khoản
+            $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
 
-                    $_SESSION['email'] = $data['email'];
-                    $_SESSION['password'] = $data['password']; // Gán thông tin người dùng vào session
-                    header("Location: " . ROOT . "      home");
-                    exit();
+            // Chuẩn bị dữ liệu truyền vào
+            $params = [
+                'email' => $data_tmp['email'],
+                'password' => $data_tmp['password'], // Nên mã hóa mật khẩu (hash) thay vì lưu plaintext
+            ];
 
+            // Gọi hàm `read` để thực thi câu lệnh
+            $result = $db->read($sql, $params);
+
+            if(is_array($result) && count($result) > 0){
+
+                $_SESSION['email'] = $data['email'];
+                $_SESSION['password'] = $data['password']; // Gán thông tin người dùng vào session
+
+                $role = $result[0]->role;
+
+                if($role == "admin"){
+                    header("Location: " . ROOT . "admin");
+                    die;
+                }
+
+                header("Location: " . ROOT . "home");
+                die;
             }else{
                 setcookie("email", "", time() - 3600, "/"); // Cookie sẽ hết hạn sau 1 giờ
                 setcookie("password", "", time() - 3600, "/"); // Cookie sẽ hết hạn sau 1 giờ
