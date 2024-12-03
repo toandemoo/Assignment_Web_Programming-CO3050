@@ -112,9 +112,11 @@
 										<!-- /product -->
 										<?php endforeach; ?>
 										<?php else: ?>
-										<div class="col-md-12">
-											<p class="text-center">Không tìm thấy sản phẩm nào.</p>
-										</div>
+										<tr>
+                        <td colspan="4">
+                           <p class="text-center">Không tìm thấy khách hàng</p>
+                        </td>
+                     </tr>
 										<?php endif; ?>
                   </tbody>
                 </table>

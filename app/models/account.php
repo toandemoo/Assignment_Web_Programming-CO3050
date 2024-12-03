@@ -106,6 +106,7 @@ class Account
 
                 $_SESSION['email'] = $data['email'];
                 $_SESSION['password'] = $data['password']; // Gán thông tin người dùng vào session
+                $_SESSION['role'] = $result[0]->role; // Gán thông tin người dùng vào session
 
                 $role = $result[0]->role;
 
@@ -140,6 +141,7 @@ class Account
             if (is_array($result) && count($result) > 0) {
                 $_SESSION['email'] = $data['email']; // Gán thông tin người dùng vào session
                 $_SESSION['password'] = $data['password']; // Gán thông tin người dùng vào session
+                $_SESSION['role'] = $result[0]->role;
                     
                 // Lưu cookie nếu chọn "Remember Me"
                 if ($remember) {
@@ -149,7 +151,7 @@ class Account
                 
                 $role = $result[0]->role;
 
-                if($role == "admin"){
+                if($role == "admin" || $role == "employee"){
                     header("Location: " . ROOT . "admin");
                     die;
                 }

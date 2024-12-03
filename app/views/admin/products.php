@@ -133,13 +133,13 @@
                         <td><?=$row->pprice?></td>
                         <td><?=$row->pdescription?></td>
                         <td>
-                          <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#addProductModal">Chỉnh sửa</button>
+                          <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#editProductModal">Chỉnh sửa</button>
                           <!-- Modal -->
-                          <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+                          <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="addProductModalLabel">Thêm sản phẩm</h5>
+                                  <h5 class="modal-title" id="addProductModalLabel">Chỉnh sửa sản phẩm</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -203,9 +203,11 @@
 										<!-- /product -->
 										<?php endforeach; ?>
 										<?php else: ?>
-										<div class="col-md-12">
-											<p class="text-center">Không tìm thấy sản phẩm nào.</p>
-										</div>
+										<tr>
+                        <td colspan="8">
+                           <p class="text-center">Không tìm thấy sản phẩm</p>
+                        </td>
+                     </tr>
 										<?php endif; ?>
                     </tbody>
                   </table>

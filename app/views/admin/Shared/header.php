@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +35,6 @@
 
       <div class="dropdown-menu">
          <a class="dropdown-item" href="<?= ROOT ?>infoAdmin">Thông tin cá nhân</a>
-         <a class="dropdown-item" href="#">Tạo tài khoản</a>
          <a class="dropdown-item" href="<?= ROOT ?>logout">Đăng xuất</a>
       </div>
    </div>
@@ -67,21 +65,35 @@
                <li class="nav-item">
                   <a href="<?= ROOT ?>products" class="nav-link <?= $current_page == 'products' ? 'active' : '' ?>">
                      <i class="nav-icon fa fa-shopping-cart"></i>
-                     <p>Products</p>
+                     <p>Sản Phẩm</p>
                   </a>
                </li>
                <li class="nav-item">
                   <a href="<?= ROOT ?>orders" class="nav-link <?= $current_page == 'orders' ? 'active' : '' ?>">
                      <i class="nav-icon fa fa-shopping-bag"></i>
-                     <p>Orders</p>
+                     <p>Đơn Hàng</p>
                   </a>
                </li>
                <li class="nav-item">
                   <a href="<?= ROOT ?>customers" class="nav-link <?= $current_page == 'customers' ? 'active' : '' ?>">
                      <i class="nav-icon fa fa-user"></i>
-                     <p>Customers</p>
+                     <p>Khách Hàng</p>
                   </a>
                </li>
+               <?php if ($_SESSION['role'] !== 'employee'): ?>
+                  <li class="nav-item">
+                     <a href="<?= ROOT ?>account" class="nav-link <?= $current_page == 'account' ? 'active' : '' ?>">
+                        <i class="nav-icon fa fa-user-plus"></i>
+                        <p>Quản Lý</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="<?= ROOT ?>account/addAccount" class="nav-link <?= $current_page == 'addAccount' ? 'active' : '' ?>">
+                        <i class="nav-icon fa fa-user-plus"></i>
+                        <p>Tạo tài khoản</p>
+                     </a>
+                  </li>
+               <?php endif; ?>
             </ul>
          </nav>
       </div>
