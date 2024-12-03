@@ -1,6 +1,5 @@
 <?php $this->view("./customer/Shared/header", $data); ?>
 
-
 		<!--PAYMENT-->
 		<?php
 			// Nhận giá trị từ controller
@@ -36,15 +35,15 @@
 							<?php foreach ($data['selectedProducts'] as $product): ?>
 								<div class="product-widget">
 									<div class="product-img">
-										<img src="../public/assets/img/<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+										<img src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
 									</div>
 									<div class="product-body">
 										<h3 class="product-name"><?= htmlspecialchars($product['name']) ?></h3>
 										<p class="product-description">Số lượng: <?= htmlspecialchars($product['quantity']) ?></p>
 										<h4 class="product-price">
-											<?= htmlspecialchars($product['price']) ?> $
+											<?= htmlspecialchars($product['price']) ?> đ
 										</h4>
-										<p><strong>Tổng cộng:</strong> <?= htmlspecialchars($product['subTotal']) ?> $</p>
+										<p><strong>Tổng cộng:</strong> <?= htmlspecialchars($product['subTotal']) ?> đ</p>
 									</div>
 								</div>
 							<?php endforeach; ?>
@@ -55,7 +54,7 @@
 					<div class="cart-summary">
 						<div class="order-col">
 							<div><strong>TỔNG TIỀN</strong></div>	
-							<div><strong class="order-total" id="payment-total-amount"><?= htmlspecialchars($data['totalAmount']) ?> $</strong></div>
+							<div><strong class="order-total" id="payment-total-amount"><?= htmlspecialchars($data['totalAmount']) ?> đ</strong></div>
 						</div>
 					</div>
 				</div>
@@ -150,22 +149,21 @@
 			<!-- Phần nội dung của Thanh toán -->
 			<div id="payment-section" class="payment-section">
 				<h3>Thanh toán</h3>
-				<form id="paymentForm">
+				<form id="paymentForm" method="POST" >
 					<!-- Các phương thức thanh toán, thông tin thêm -->
 					<label for="paymentMethod">Phương thức thanh toán:</label>
-					<select id="paymentMethod" class="form-ct" onchange="handlePaymentMethodChange(<?= $_SESSION['totalAmount'] ?? 0 ?>, 1)">
-						<option value="credit-card">Thẻ tín dụng</option>
-						<option value="bank-transfer">Chuyển khoản ngân hàng</option>
-						<option value="cash-on-delivery">Thanh toán khi nhận hàng</option>
+					<select id="paymentMethod" class="form-ct" name="paymentMethod" require onchange="handlePaymentMethodChange(<?= $_SESSION['totalAmount'] ?? 0 ?>, '<?= $_SESSION['order_id']?>')">
+						<option value="bank-transfer" <?= (isset($_POST['paymentMethod']) && $_POST['paymentMethod'] === 'bank-transfer') ? 'selected' : '' ?>>Chuyển khoản ngân hàng</option>
+						<option value="cash-on-delivery" <?= (isset($_POST['paymentMethod']) && $_POST['paymentMethod'] === 'cash-on-delivery') ? 'selected' : '' ?>>Thanh toán khi nhận hàng</option>
 					</select>
-
+										
 					<!-- Container for QR code -->
 					<div id="qr-container" style="display: none; text-align: center; margin-top: 20px;">
 						<!-- QR code will be inserted here -->
 					</div>
 					
 					<div class="submit-button" style="margin-bottom: 20px;">
-						<button type="button" class="btn btn-success" onclick="completeOrder(event)">Hoàn tất đặt hàng</button>
+						<button type="submit" class="btn btn-success">Hoàn tất đặt hàng</button>
 					</div>
 				</form>
 			</div>
@@ -180,12 +178,14 @@
 			<h3>Thanh toán đơn hàng</h3>
 			<div class="timer" id="paymentTimer">10:00</div>
 			<div id="paymentContent">
-				<!-- Nội dung thanh toán sẽ được thêm vào đây qua JavaScript -->
 			</div>
 			<div class="success-icon" id="successIcon" style="display: none;">
 				<i class="fa fa-check-circle"></i>
 				<p>Thanh toán thành công!</p>
 			</div>
 		</div>
+
+		<!-- Connect to JavaScript -->
+		<script src="../public/assets/js/payment.js"></script>
 	
 <?php $this->view("./customer/Shared/footer"); ?>
