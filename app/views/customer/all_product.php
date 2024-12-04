@@ -32,7 +32,7 @@
 							<?php foreach ($data['categories'] as $cate): ?>
 							<div class="checkbox-filter">
 								<div class="input-checkbox">
-									<input type="checkbox" id="category-<?=$cate->id?>">
+									<input type="checkbox" id="category-<?=$cate->id?>" class="filter-category">
 									<label for="category-<?=$cate->id?>">
 										<span></span>
 										<?=$cate->name?>
@@ -68,63 +68,11 @@
 								</div>
 							</div>
 						</div>
-						<!-- /aside Widget -->
 
-						<!-- aside Widget -->
+						<!-- Filter Button -->
 						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
-							<div class="checkbox-filter">
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-1">
-									<label for="brand-1">
-										<span></span>
-										SAMSUNG
-										<small>(578)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-2">
-									<label for="brand-2">
-										<span></span>
-										LG
-										<small>(125)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-3">
-									<label for="brand-3">
-										<span></span>
-										SONY
-										<small>(755)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-4">
-									<label for="brand-4">
-										<span></span>
-										SAMSUNG
-										<small>(578)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-5">
-									<label for="brand-5">
-										<span></span>
-										LG
-										<small>(125)</small>
-									</label>
-								</div>
-								<div class="input-checkbox">
-									<input type="checkbox" id="brand-6">
-									<label for="brand-6">
-										<span></span>
-										SONY
-										<small>(755)</small>
-									</label>
-								</div>
-							</div>
+							<button class="btn btn-primary btn-block" id="filter-button">Filter</button>
 						</div>
-						<!-- /aside Widget -->
 
 						<!-- aside Widget -->
 						<div class="aside">
@@ -173,17 +121,17 @@
 							<div class="store-sort">
 								<label>
 									Sort By:
-									<select class="input-select">
-										<option value="0">Popular</option>
-										<option value="1">Position</option>
+									<select class="input-select" id="sort-items" onchange="applyFilter()">
+										<option value="newest" <?= (isset($_GET['sort']) && $_GET['sort'] == 'newest') ? 'selected' : '' ?>>Newest</option>
+										<option value="oldest" <?= (isset($_GET['sort']) && $_GET['sort'] == 'oldest') ? 'selected' : '' ?>>Oldest</option>
 									</select>
 								</label>
 
 								<label>
 									Show:
 									<select class="input-select" id="show-items" onchange="applyFilter()">
-										<option value="20" <?= (isset($_GET['show']) && $_GET['show'] == '10') ? 'selected' : '' ?>>10</option>
-										<option value="50" <?= (isset($_GET['show']) && $_GET['show'] == '20') ? 'selected' : '' ?>>20</option>
+										<option value="10" <?= (isset($_GET['show']) && $_GET['show'] == '10') ? 'selected' : '' ?>>10</option>
+										<option value="20" <?= (isset($_GET['show']) && $_GET['show'] == '20') ? 'selected' : '' ?>>20</option>
 									</select>
 								</label>
 							</div>
@@ -222,10 +170,7 @@
 														<i class="fa fa-star"></i>
 														<i class="fa fa-star"></i>
 													</div>
-													<div class="product-btns">
-														<!-- <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button> -->
-														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-													</div>
+													
 												</div>
 												<div class="add-to-cart">
 													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
@@ -252,36 +197,58 @@
 						<!-- store bottom filter -->
 						<div class="store-filter clearfix">
 
-							<ul class="store-pagination">
+						<ul class="store-pagination">
 							<?php
-								$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
-								$totalPages = $data['totalPages'];
-								$urlParams = http_build_query([
-									'show' => $_GET['show'] ?? 10,
-									'sort' => $_GET['sort'] ?? 0
-								]);
-								$baseUrl = ROOT . "allproduct?" . $urlParams . "&page=";
+							// Get the current page number or set it to 1 if not defined
+							$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
+							$totalPages = $data['totalPages'];
+							
+							// Get the current filter parameters and append them to the pagination URL
+							$urlParams = [
+								'show' => $_GET['show'] ?? 10,
+								'sort' => $_GET['sort'] ?? 'newest',
+								'categories' => $_GET['categories'] ?? '',  // Include categories filter
+								'price_min' => $_GET['price_min'] ?? '',  // Include price_min filter
+								'price_max' => $_GET['price_max'] ?? '',  // Include price_max filter
+							];
 
-								// Hiển thị nút Previous
-								if ($currentPage > 1) {
-									echo '<li><a href="' . $baseUrl . ($currentPage - 1) . '"><i class="fa fa-angle-left"></i></a></li>';
-								}
+							// Ensure the 'categories' and price filters are removed if they are empty (i.e., not used)
+							if (empty($urlParams['categories'])) {
+								unset($urlParams['categories']);
+							}
+							if (empty($urlParams['price_min'])) {
+								unset($urlParams['price_min']);
+							}
+							if (empty($urlParams['price_max'])) {
+								unset($urlParams['price_max']);
+							}
 
-								// Hiển thị các số trang
-								for ($page = 1; $page <= $totalPages; $page++) {
-									if ($page == $currentPage) {
-										echo '<li class="active">' . $page . '</li>';
-									} else {
-										echo '<li><a href="' . $baseUrl . $page . '">' . $page . '</a></li>';
-									}
-								}
+							// Build the URL query string with the parameters
+							$urlParamsString = http_build_query($urlParams);
+							$baseUrl = ROOT . "allproduct?" . $urlParamsString . "&page=";
 
-								// Hiển thị nút Next
-								if ($currentPage < $totalPages) {
-									echo '<li><a href="' . $baseUrl . ($currentPage + 1) . '"><i class="fa fa-angle-right"></i></a></li>';
+							// Display Previous button if not on the first page
+							if ($currentPage > 1) {
+								echo '<li><a href="' . $baseUrl . ($currentPage - 1) . '"><i class="fa fa-angle-left"></i></a></li>';
+							}
+
+							// Display page numbers
+							for ($page = 1; $page <= $totalPages; $page++) {
+								if ($page == $currentPage) {
+									echo '<li class="active">' . $page . '</li>';
+								} else {
+									echo '<li><a href="' . $baseUrl . $page . '">' . $page . '</a></li>';
 								}
-								?>
-							</ul>
+							}
+
+							// Display Next button if not on the last page
+							if ($currentPage < $totalPages) {
+								echo '<li><a href="' . $baseUrl . ($currentPage + 1) . '"><i class="fa fa-angle-right"></i></a></li>';
+							}
+							?>
+						</ul>
+
+
 						</div>
 						<!-- /store bottom filter -->
 					</div>
@@ -292,5 +259,109 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+
+		<script>
+		function applyFilter() {
+			var sortValue = document.getElementById('sort-items').value;  // Get selected value for sort
+			var showValue = document.getElementById('show-items').value;  // Get selected value for show
+			var currentUrl = new URL(window.location.href); // Get the current page URL
+
+			// Set the new value for sort without changing the page
+			currentUrl.searchParams.set('sort', sortValue);
+
+			// If the 'show' value changes, reset the page to 1
+			if (currentUrl.searchParams.get('show') !== showValue) {
+				currentUrl.searchParams.set('page', 1);  // Reset page to 1
+			}
+
+			// Set the new 'show' value in the URL
+			currentUrl.searchParams.set('show', showValue);
+
+			// Reload the page with the updated URL
+			window.location.href = currentUrl.toString();
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+		// Retrieve values from the URL
+		const urlParams = new URLSearchParams(window.location.search);
+
+		// Set the category checkboxes based on the URL params
+		const selectedCategories = urlParams.get('categories') ? urlParams.get('categories').split(',') : [];
+		console.log(selectedCategories);
+		document.querySelectorAll('.filter-category').forEach(function(checkbox) {
+			let label = document.querySelector(`label[for="${checkbox.id}"]`);
+			if (label) {
+				let categoryName = label.textContent.trim().split('(')[0]; // Extract category name before "("
+				checkbox.checked = selectedCategories.map(category => category.trim()).includes(categoryName.trim());
+			// Check if it's in the selected categories
+					}
+				});
+
+			// Set the price range fields based on the URL params
+			const priceMin = urlParams.get('price_min') || '';
+			const priceMax = urlParams.get('price_max') || '';
+			document.getElementById('price-min').value = priceMin;
+			document.getElementById('price-max').value = priceMax;
+
+			// Set the 'sort' dropdown based on the URL params
+			const sortValue = urlParams.get('sort') || 'newest';  // Default to 'newest' if not set
+			document.getElementById('sort-items').value = sortValue;
+
+			// Set the 'show' dropdown based on the URL params
+			const showValue = urlParams.get('show') || '10';  // Default to 10 items per page
+			document.getElementById('show-items').value = showValue;
+		});
+
+		// Event listener for the 'Filter' button
+		document.getElementById('filter-button').addEventListener('click', function() {
+			// Get selected categories
+			let selectedCategories = [];
+			document.querySelectorAll('.filter-category:checked').forEach(function(checkbox) {
+				// Find the label corresponding to the checkbox and extract its text
+				let label = document.querySelector(`label[for="${checkbox.id}"]`);
+				if (label) {
+					let categoryName = label.textContent.trim().split('(')[0]; // Extract category name before "("
+					selectedCategories.push(categoryName.trim());
+				}
+			});
+
+			// Get price range values
+			let priceMin = document.getElementById('price-min').value;
+			let priceMax = document.getElementById('price-max').value;
+
+			// Build the URL parameters
+			let urlParams = new URLSearchParams(window.location.search);
+
+			// Add selected categories to the URL, or remove them if none are selected
+			if (selectedCategories.length > 0) {
+				urlParams.set('categories', selectedCategories.join(','));
+			} else {
+				urlParams.delete('categories');
+			}
+
+			// Add price range to the URL, or remove them if empty
+			if (priceMin !== "") {
+				urlParams.set('price_min', priceMin);
+			} else {
+				urlParams.delete('price_min');
+			}
+
+			if (priceMax !== "") {
+				urlParams.set('price_max', priceMax);
+			} else {
+				urlParams.delete('price_max');
+			}
+
+			// Add the current page and other parameters like 'sort' and 'show' to the URL
+			let currentPage = new URLSearchParams(window.location.search).get('page') || 1;
+			urlParams.set('page', 1); // Reset page to 1 when clicking filter
+			urlParams.set('sort', document.getElementById('sort-items').value);
+			urlParams.set('show', document.getElementById('show-items').value);
+
+			// Reload the page with the updated filters
+			window.location.search = urlParams.toString();
+		});
+
+		</script>
 
 <?php $this->view("./customer/Shared/footer"); ?>
