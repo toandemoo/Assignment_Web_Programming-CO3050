@@ -42,7 +42,8 @@
                                                 <td>
                                                     <input type="checkbox" name="selected_products[]" 
                                                         class="product-checkbox" 
-                                                        data-price="<?php echo htmlspecialchars($item->pprice); ?>" />
+                                                        value="<?php echo $item->id; ?>" 
+                                                        data-price="<?php echo $item->pprice; ?>"/>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
