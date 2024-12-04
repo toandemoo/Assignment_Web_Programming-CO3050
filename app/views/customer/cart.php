@@ -62,7 +62,10 @@
                                     <h5 id="total-price">TỔNG CỘNG: 0 VNĐ</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a style="margin-right: 5%;" href="all_product.html">Tiếp tục mua sắm</a>
+                                    <a style="margin-right: 5%;" href="allproduct">Tiếp tục mua sắm</a>
+                                    <div class="btn btn-success">
+                                        <a href="order">ĐƠN HÀNG CỦA TÔI</a>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">
                                         Thanh toán <i class="fa fa-arrow-circle-right"></i>
                                     </button>

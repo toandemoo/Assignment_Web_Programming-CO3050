@@ -166,9 +166,9 @@ class Payment extends Controller
 
                 // Thêm dữ liệu vào bảng `orders`
                 foreach ($selectedProducts as $product) {
-                    $sql = "INSERT INTO orders (order_id, product_id, user_id, totalAmount, payment_method, created_at, recipient_name, recipient_phone, province, district, notes, shipping_type)
-                            VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?)";
-
+                    $sql = "INSERT INTO orders (order_id, product_id, user_id, totalAmount, payment_method, created_at, recipient_name, recipient_phone, province, district, notes, shipping_type, quantity)
+                            VALUES (?, ?, ?, ?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)";
+                
                     $db->write($sql, [
                         $orderId,
                         $product['id'],
@@ -180,7 +180,8 @@ class Payment extends Controller
                         $province,
                         $district,
                         $notes,
-                        $shippingType
+                        $shippingType,
+                        $product['quantity']
                     ]);
                 }
 
