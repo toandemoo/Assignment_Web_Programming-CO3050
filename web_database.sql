@@ -4,7 +4,7 @@ USE web_database;
 -- --------------------------------------------------------
 
 CREATE TABLE `cart` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `id` int(50) NOT NULL,
   `soluong` int(50) NOT NULL,
   `user_id` int(50) NOT NULL,
   `product_id` int(50) NOT NULL,
@@ -22,7 +22,7 @@ INSERT INTO `cart` (`id`, `soluong`, `user_id`, `product_id`, `size`, `status`) 
 
 -- --------------------------------------------------------
 CREATE TABLE `categories` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `id` int(50) NOT NULL,
   `name` varchar(255) NOT NULL
 );
 
@@ -34,7 +34,7 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 CREATE TABLE `comment` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  `id` int(50) NOT NULL ,
   `user_id` int(50) NOT NULL,
   `time` date NOT NULL,
   `comment` varchar(250) NOT NULL,
@@ -48,12 +48,12 @@ INSERT INTO `comment` (`id`, `user_id`, `time`, `comment`, `product_id`) VALUES
 -- --------------------------------------------------------
 
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `quantity` int(11) DEFAULT 1,
+  `detailorder_id` varchar(100) DEFAULT NULL,
   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `size` varchar(100) DEFAULT NULL
+  `payment` varchar(100) DEFAULT NULL,
+  `active` varchar(100) DEFAULT NULL
 );
 
 INSERT INTO `orders` (`id`, `user_id`, `product_name`, `quantity`, `order_date`, `size`) VALUES
@@ -62,6 +62,23 @@ INSERT INTO `orders` (`id`, `user_id`, `product_name`, `quantity`, `order_date`,
 (3, 3, 'áo 103', 3, '2024-11-27 00:38:59', 'S'),
 (4, 4, 'áo 103', 4, '2024-11-27 00:38:59', 'XL'),
 (5, 5, 'áo 103', 5, '2024-11-27 00:38:59', 'XXL');
+
+-- --------------------------------------------------------
+CREATE TABLE `detailorders` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `size` varchar(100) DEFAULT NULL,
+  `quantity` int(11) DEFAULT 1
+);
+-- INSERT INTO `orders` (`id`, `user_id`, `product_name`, `quantity`, `order_date`, `size`) VALUES
+-- (1, 7, 'áo 103', 1, '2024-11-27 00:38:59', 'M'),
+-- (2, 6, 'áo 103', 2, '2024-11-27 00:38:59', 'L'),
+-- (3, 3, 'áo 103', 3, '2024-11-27 00:38:59', 'S'),
+-- (4, 4, 'áo 103', 4, '2024-11-27 00:38:59', 'XL'),
+-- (5, 5, 'áo 103', 5, '2024-11-27 00:38:59', 'XXL');
+
+
 
 -- --------------------------------------------------------
 
@@ -117,18 +134,17 @@ VALUES
 (28, 'Mũ 132', '200000', 'Mũ', 'https://product.hstatic.net/1000088324/product/rong_mau_81521776407641da9221a7cfaf04a0c3_master.png', 'Nữ', 'mô tả sản phẩm xxxxxxx', '2024-11-27 09:37:30');
 
 -- --------------------------------------------------------
-
-CREATE TABLE `size` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) NOT NULL,
-  `soluong` int(11) NOT NULL,
-  `size` int(11) NOT NULL
+CREATE TABLE `available` (
+  `id` int(50) NOT NULL,
+  `product_id` varchar(250) NOT NULL,
+  `size` int(50) NOT NULL,
+  `quantity` INT NOT NULL
 );
-
-
-INSERT INTO `size` (`id`, `product_id`, `soluong`, `size`) VALUES
+-- 
+INSERT INTO `available` (`id`, `product_id`, `size`, `quantity`) VALUES
 (1, 101, 10, 42),
 (2, 102, 15, 40);
+
 
 -- --------------------------------------------------------
 CREATE TABLE `subimage` (
@@ -152,17 +168,21 @@ CREATE TABLE `users` (
   `phone` varchar(15) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
+  `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  'address' VARCHAR(255) NOT NULL
 );
 
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `gender`, `phone`, `birthday`, `created_at`, `role`) VALUES
-(3, 'ton33', '12@gmail.com', '12', 'male', '123', '0000-00-00', '2024-11-26 14:48:58', 'user'),
-(4, 'ton4', 'ton4@gmail.com', 'ton4', 'male', '124', '0000-00-00', '2024-11-26 14:48:58', 'user'),
-(5, 'phạm đức toản', 'ton1@gmail.com', '123', 'female', '0339747813', '0000-00-00', '2024-11-26 16:39:48', 'user'),
-(6, 'phạm đức toản', 'ton2@gmail.com', '123', 'male', '0339747813', '0000-00-00', '2024-11-26 16:40:54', 'user'),
-(7, 'phạm đức toản12312', 'ton0@gmail.com', '123', 'male', '0339747813', '0000-00-00', '2024-11-26 16:41:29', 'user'),
-(8, 'NGUYỄN THÀNH ĐẠT', 'dat@gmail.com', 'jhsda', 'male', '0368173053', '0000-00-00', '2024-12-01 02:54:08', 'user');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `gender`, `phone`, `birthday`, `created_at`, `role`,'address') VALUES
+(3, 'ton33', '12@gmail.com', '12', 'male', '123', '0000-00-00', '2024-11-26 14:48:58', 'user', 'none'),
+(4, 'ton4', 'ton4@gmail.com', 'ton4', 'male', '124', '0000-00-00', '2024-11-26 14:48:58', 'user', 'none'),
+(5, 'phạm đức toản', 'ton1@gmail.com', '123', 'female', '0339747813', '0000-00-00', '2024-11-26 16:39:48', 'user', 'none'),
+(6, 'phạm đức toản', 'ton2@gmail.com', '123', 'male', '0339747813', '0000-00-00', '2024-11-26 16:40:54', 'user', 'none'),
+(7, 'phạm đức toản12312', 'ton0@gmail.com', '123', 'male', '0339747813', '0000-00-00', '2024-11-26 16:41:29', 'user', 'none'),
+(8, 'NGUYỄN THÀNH ĐẠT', 'dat@gmail.com', 'jhsda', 'male', '0368173053', '0000-00-00', '2024-12-01 02:54:08', 'user', 'none');
+
+ALTER TABLE users
+ADD COLUMN address VARCHAR(255) NOT NULL;
 
 -- --------------------------------------------------------
 
@@ -215,9 +235,18 @@ ALTER TABLE `users`
 --
 -- Indexes for table `user_tokens`
 --
-ALTER TABLE `user_tokens`
+ALTER TABLE `available`
   ADD PRIMARY KEY (`id`),
   ADD KEY `username` (`username`);
 
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 
 

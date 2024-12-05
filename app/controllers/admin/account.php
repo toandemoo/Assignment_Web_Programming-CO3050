@@ -16,7 +16,7 @@ class Account extends Controller
       $offset = ($current_page - 1) * $items_per_page; // Tính toán offset cho LIMIT
 
       // Truy vấn với LIMIT và OFFSET
-      $res = $db->read("SELECT * FROM users WHERE role='admin' LIMIT $items_per_page OFFSET $offset");
+      $res = $db->read("SELECT * FROM users WHERE role='admin' or role='employee' LIMIT $items_per_page OFFSET $offset");
 
       $data = array();
       $data['rows'] = $res;

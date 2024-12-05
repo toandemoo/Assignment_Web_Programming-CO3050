@@ -6,7 +6,7 @@
     <section class="content-header">
       <div class="container-fluid">
           <div class="col-sm-6 mb-4">
-            <h1>Tạo Tài Khoản Admin</h1> 
+            <h1>Tạo Tài Khoản</h1> 
           </div>
           <div class="d-flex justify-content-center align-items-center">
           <form action="<?= ROOT ?>account/addAccount" method="post" class="col-sm-7">

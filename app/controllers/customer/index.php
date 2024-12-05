@@ -4,6 +4,10 @@ class Index extends Controller
 {
     public function index()
     {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         $db = Database::getInstance();
 
         $rows = $db->read("SELECT * FROM products");

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>Electro</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -103,7 +103,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="address" class="form-label">Địa chỉ</label>
-								<input type="text" class="form-control" id="address" name="address" >
+								<input type="text" class="form-control" id="address" name="address" required>
 							</div>
 							<div class="text-center mt-4">
 								<button type="submit" class="btn btn-primary auth-btn">Xác nhận</button>

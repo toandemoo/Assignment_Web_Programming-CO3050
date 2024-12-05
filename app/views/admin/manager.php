@@ -19,7 +19,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Customers</h3>
+                <h3 class="card-title"></h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -40,6 +40,7 @@
                     <tr>
                       <th>AdminID</th>
                       <th>Họ Tên</th>
+                      <th>Vai Trò</th>
                       <th>Ngày Tạo</th>
                       <th>Thao tác</th>
                     </tr>
@@ -51,6 +52,7 @@
 						  <div class="row">
                         <td><?=$row->id?></td>
                         <td><?=$row->name?></td>
+                        <td><?=$row->role?></td>
                         <td><?=$row->created_at?></td>
                         <td>
                            <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#editAdmin">Chỉnh sửa</button>
@@ -68,30 +70,30 @@
                                   <form action="<?= ROOT ?>Account/updateAccount/<?php echo $row->id; ?>" method="post" style="display: none;" id="editForm">
                                       <div class="form-group">
                                         <label for="fullName" class="form-label">Họ tên</label>
-								               <input type="text" class="form-control" id="fullName" name="fullName" required>
+								               <input type="text" class="form-control" id="fullName" name="fullName" value="<?=$row->name?>" required>
                                       </div>
                                       <div class="form-group">
                                         <label for="email" class="form-label">Email</label>
-								               <input type="email" class="form-control" id="email" name="email" required>
+								               <input type="email" class="form-control" id="email" name="email" value="<?=$row->email?>" required>
                                       </div>
                                       <div class="form-group">
                                         <label for="password" class="form-label">Mật khẩu</label>
-								               <input type="password" class="form-control" id="password" name="password" required>
+								               <input type="password" class="form-control" id="password" name="password" value="<?=$row->password?>" required>
                                       </div>
                                       <div class="form-group">
                                         <label for="phoneNumber" class="form-label">Số điện thoại</label>
-								               <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+								               <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<?=$row->phone?>" required>
                                       </div>
                                       <div class="form-group">
                                         <label for="birth" class="form-label">Ngày sinh</label>
-								               <input type="text" class="form-control" id="birth" name="birth" placeholder="01/01/2024" required>
+								               <input type="text" class="form-control" id="birth" name="birth" placeholder="01/01/2024" value="<?=$row->birthday?>" required>
                                       </div>
                                       <div class="form-group">
                                        <label for="gender">Giới tính:</label>
                                        <select id="gender" name="gender">
-                                          <option value="male">Nam</option>
-                                          <option value="female">Nữ</option>
-                                          <option value="other">Khác</option>
+                                          <option value="male" <?= $row->gender === 'male' ? 'selected' : '' ?>>Nam</option>
+                                          <option value="female" <?= $row->gender === 'fmale' ? 'selected' : '' ?>>Nữ</option>
+                                          <option value="other" <?= $row->gender === 'other' ? 'selected' : '' ?>>Khác</option>
                                        </select>
                                       </div>
                                       <div class="form-group">
