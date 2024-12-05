@@ -47,14 +47,39 @@ INSERT INTO `comment` (`id`, `user_id`, `time`, `comment`, `product_id`) VALUES
 
 -- --------------------------------------------------------
 
+-- CREATE TABLE `orders` (
+--   `id` int(11) NOT NULL,
+--   `user_id` int(11) NOT NULL,
+--   `detailorder_id` varchar(100) DEFAULT NULL,
+--   `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
+--   `payment` varchar(100) DEFAULT NULL,
+--   `active` varchar(100) DEFAULT NULL
+-- );
+
+
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `detailorder_id` varchar(100) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `payment` varchar(100) DEFAULT NULL,
-  `active` varchar(100) DEFAULT NULL
+  `totalAmount` decimal(10,2) NOT NULL,
+  `payment_method` varchar(50) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `recipient_name` varchar(255) DEFAULT NULL,
+  `recipient_phone` varchar(15) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `district` varchar(255) DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `shipping_type` enum('pickup','delivery') DEFAULT 'pickup',
+  `id` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT 1
 );
+
+
+INSERT INTO `orders` (`order_id`, `product_id`, `user_id`, `totalAmount`, `payment_method`, `created_at`, `recipient_name`, `recipient_phone`, `province`, `district`, `notes`, `shipping_type`, `id`, `quantity`) VALUES
+('ORDER1733316263668488240', 0, 5, 400000.00, 'cash-on-delivery', '2024-12-04 12:56:14', 'phạm đức toản', '0339747813', NULL, NULL, NULL, 'pickup', 1, 1),
+('ORDER1733316263668488240', 1, 5, 300000.00, 'cash-on-delivery', '2024-12-04 12:56:14', 'phạm đức toản', '0339747813', NULL, NULL, NULL, 'pickup', 2, 1),
+('ORDER1733316263668488240', 3, 5, 400000.00, 'cash-on-delivery', '2024-12-04 14:05:40', 'phạm đức toản', '0339747813', NULL, NULL, NULL, 'pickup', 3, 2);
+
 
 INSERT INTO `orders` (`id`, `user_id`, `product_name`, `quantity`, `order_date`, `size`) VALUES
 (1, 7, 'áo 103', 1, '2024-11-27 00:38:59', 'M'),

@@ -2,79 +2,61 @@
 
 class Search extends Controller
 {
-    public function index()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $data = array();
-            $search = trim($_POST['search']); // Get the search term from the form
+   public function index()
+  {
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+          $data = array();
+          $search = trim($_POST['search']); // Lấy dữ liệu từ biểu mẫu
+  
+          if (!empty($search)) {
+              $data['ptitle'] = '%' . $search . '%'; // Sử dụng ký tự đại diện cho tìm kiếm gần đúng
+  
+              $db = Database::getInstance();
+              $productsPerPage = isset($_GET['show']) ? $_GET['show'] : 10;  // Số sản phẩm mỗi trang
+              $page = isset($_GET['page']) ? $_GET['page'] : 1;  // Trang hiện tại
+    
+              // Tính toán OFFSET (vị trí bắt đầu cho trang hiện tại)
+              $offset = ($page - 1) * $productsPerPage;
 
-            if (!empty($search)) {
-                $data['ptitle'] = '%' . $search . '%'; // Use wildcards for partial matching
 
-                $db = Database::getInstance();
-                $productsPerPage = isset($_GET['show']) ? $_GET['show'] : 10;  // Products per page
-                $page = isset($_GET['page']) ? $_GET['page'] : 1;  // Current page
-
-                // Calculate the OFFSET (starting position for the current page)
-                $offset = ($page - 1) * $productsPerPage;
-
-                // Query to get products matching the search term
-                $sql = "SELECT * FROM products WHERE LOWER(ptitle) LIKE LOWER(:ptitle) LIMIT $productsPerPage OFFSET $offset";
-                $result = $db->read($sql, $data);
-                $categories = $db->read("
-                    SELECT 
-                        c.id AS id,
-                        c.name AS name,
-                        COUNT(p.id) AS total
-                    FROM 
-                        categories c
-                    LEFT JOIN 
-                        products p 
-                    ON 
-                        c.name = p.pkind
-                    GROUP BY 
-                        c.name, c.id;
-                ");
-                $totalProducts = $db->read("SELECT COUNT(*) AS total FROM products WHERE LOWER(ptitle) LIKE LOWER(:ptitle)", $data)[0]->total;
-                $data['categories'] = $categories;
-                $totalPages = ceil($totalProducts / $productsPerPage);
-
-                // Pass data to the view
-                $data['categories'] = $categories;
-                $data['totalPages'] = $totalPages;
-                $data['currentPage'] = $page;
-                $data['productsPerPage'] = $productsPerPage;
-                $data['rows'] = $result ? $result : []; // If no results, assign an empty array
-            } else {
-                $data['rows'] = []; // No search term, return empty results
-            }
-
-            // After processing, redirect to the 'allproduct' controller
-            // We'll preserve search terms, pagination, and any other relevant query parameters
-            $urlParams = [
-                'search' => $search,
-                'show' => $_GET['show'] ?? 10,
-                'page' => $_GET['page'] ?? 1,
-                'categories' => $_GET['categories'] ?? '',
-                'price_min' => $_GET['price_min'] ?? '',
-                'price_max' => $_GET['price_max'] ?? ''
-            ];
-
-            // Clean empty params
-            foreach ($urlParams as $key => $value) {
-                if (empty($value)) {
-                    unset($urlParams[$key]);
-                }
-            }
-
-            // Build the URL to redirect to 'allproduct' controller
-            $url = ROOT . 'allproduct?' . http_build_query($urlParams);
-            header("Location: $url"); // Redirect to the allproduct controller
-            exit();
-        } else {
-            // If not POST request, show an empty list
-            $data = ['rows' => []];
-            $this->view("/customer/all_product", $data);
-        }
-    }
+              $sql = "SELECT * FROM products WHERE LOWER(ptitle) LIKE LOWER(:ptitle) LIMIT $productsPerPage OFFSET $offset";
+              $result = $db->read($sql, $data);
+              $categories = $db->read("
+                  SELECT 
+                      c.id AS id,
+                      c.name AS name,
+                      COUNT(p.id) AS total
+                  FROM 
+                      categories c
+                  LEFT JOIN 
+                      products p 
+                  ON 
+                      c.name = p.pkind
+                  GROUP BY 
+                      c.name,c.id;
+              ");
+              $totalProducts = $db->read("SELECT COUNT(*) AS total FROM products WHERE LOWER(ptitle) LIKE LOWER(:ptitle)",$data)[0]->total;
+              $data['categories'] = $categories;
+              $totalPages = ceil($totalProducts / $productsPerPage);
+          
+              // Truyền dữ liệu vào view
+              $data['categories'] = $categories;
+              $data['totalPages'] = $totalPages;
+              $data['currentPage'] = $page;
+              $data['productsPerPage'] = $productsPerPage;
+  
+              // Gán kết quả vào $data
+              $data['rows'] = $result ? $result : []; // Nếu không có kết quả, gán mảng rỗng
+          } else {
+              $data['rows'] = []; // Không tìm kiếm nếu đầu vào rỗng
+          }
+  
+          // Gửi dữ liệu đến view
+          $this->view("/customer/all_product", $data);
+      } else {
+          // Nếu không phải phương thức POST, hiển thị danh sách trống
+          $data = ['rows' => []];
+          $this->view("/customer/all_product", $data);
+      }
+  }
 }
