@@ -40,7 +40,7 @@ class Account extends Controller
          $data['phone'] = trim($_POST['phoneNumber']);
          $data['birthday'] = trim($_POST['birth']);
          $data['gender'] = trim($_POST['gender']);
-         $data['role'] = "admin";
+         $data['role'] = trim($_POST['role']);
 
          // Thực hiện chèn dữ liệu vào bảng users
          $query = "INSERT INTO users(name, email, password, gender, phone, birthday, role) VALUES (:name, :email, :password, :gender, :phone, :birthday, :role)";

@@ -14,6 +14,11 @@ class Cart extends Controller
 
         $db = Database::getInstance();
 
+
+        $categories = $db->read("SELECT * FROM categories");
+        $data['categories'] = $categories;
+
+
         // SQL query để kiểm tra tài khoản
         $sql = "SELECT id FROM users WHERE email = :email";
 
@@ -47,7 +52,8 @@ class Cart extends Controller
                 }
             }else{
                 // Gọi view và truyền dữ liệu vào
-                    $this->view("/customer/cart", $data);
+                $this->view("/customer/cart", $data);
+                die;
             }
         } else {
             $cartItems = [];                    

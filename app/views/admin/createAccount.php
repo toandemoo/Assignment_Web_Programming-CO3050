@@ -33,9 +33,16 @@
 							<div class="mb-3">
 								<label for="gender">Giới tính:</label>
 								<select id="gender" name="gender">
-									<option value="male">Nam</option>
+									<option value="male" selected>Nam</option>
 									<option value="female">Nữ</option>
 									<option value="other">Khác</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="role">Vai Trò:</label>
+								<select id="role" name="role">
+									<option value="admin" selected>Admin</option>
+									<option value="employee">Employee</option>
 								</select>
 							</div>
 							<div class="mb-3" hidden>

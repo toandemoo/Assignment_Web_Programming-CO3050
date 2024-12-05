@@ -5,6 +5,7 @@ class Allproduct extends Controller
     public function index()
     {
         $db = Database::getInstance();
+
     
         // Get URL parameters with default values
         $productsPerPage = isset($_GET['show']) ? $_GET['show'] : 10;  // Number of products per page

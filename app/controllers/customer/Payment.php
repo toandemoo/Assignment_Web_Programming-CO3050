@@ -20,6 +20,8 @@ class Payment extends Controller
             session_start();
         }
         $db = Database::getInstance();
+
+
         // Kiểm tra nếu có order_id trong session, nếu chưa thì tạo mới
         if (!isset($_SESSION['order_id'])) {
             $_SESSION['order_id'] = $this->generateUniqueOrderId();
