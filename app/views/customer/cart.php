@@ -34,7 +34,7 @@
                                                         onchange="updatePrice(this, <?php echo htmlspecialchars($item->pprice); ?>, '<?php echo $item->id; ?>')">
                                                 </td>
                                                 <td class="price" id="price-<?php echo $item->id; ?>">
-                                                    <?php echo htmlspecialchars($item->pprice); ?> $
+                                                    <?php echo htmlspecialchars($item->pprice); ?> đ
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-danger" onclick="DeleteProduct(<?php echo $item->id; ?>)">Xóa</button>
@@ -93,7 +93,7 @@
                         } else {
                             totalPrice -= price;
                         }
-                        totalPriceElement.innerHTML = 'TỔNG CỘNG: ' + totalPrice.toFixed(2) + ' $';
+                        totalPriceElement.innerHTML = 'TỔNG CỘNG: ' + totalPrice.toFixed(0) + ' đ';
                     });
                 });
             }
@@ -111,7 +111,7 @@
             function updatePrice(input, unitPrice, itemId) {
                 const quantity = input.value;
                 const totalPrice = (unitPrice * quantity).toFixed(2);
-                document.getElementById('price-' + itemId).innerHTML = totalPrice + ' $';
+                document.getElementById('price-' + itemId).innerHTML = totalPrice + ' đ';
                 updateTotalPrice();
             }
 
@@ -125,7 +125,7 @@
                     totalPrice += parseFloat(priceElement.innerHTML);
                 });
 
-                document.getElementById('total-price').innerHTML = 'TỔNG CỘNG: ' + totalPrice.toFixed(2) + ' $';
+                document.getElementById('total-price').innerHTML = 'TỔNG CỘNG: ' + totalPrice.toFixed(2) + ' đ';
             }
         </script>
 
