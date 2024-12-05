@@ -5,12 +5,12 @@ class Payment extends Controller
         // Lấy timestamp (thời gian hiện tại tính bằng mili giây)
         $timestamp = round(microtime(true) * 1000);
         
-        // Tạo một số ngẫu nhiên
+        // Lấy ID tự tăng từ cơ sở dữ liệu hoặc tạo một số ngẫu nhiên dài
         $randomNumber = rand(100000, 999999);
-        
-        // Tạo Order ID duy nhất
+        // Tạo Order ID duy nhất bằng cách kết hợp timestamp và số ngẫu nhiên
         $uniqueOrderId = "ORDER" . $timestamp . $randomNumber;
-        
+    
+        // Bạn cũng có thể lưu lại ID này vào cơ sở dữ liệu để kiểm tra trùng lặp
         return $uniqueOrderId;
     }
 
@@ -20,18 +20,13 @@ class Payment extends Controller
             session_start();
         }
         $db = Database::getInstance();
-
-
-        // Kiểm tra nếu có order_id trong session, nếu chưa thì tạo mới
-        if (!isset($_SESSION['order_id'])) {
-            $_SESSION['order_id'] = $this->generateUniqueOrderId();
-        }
+        
+        $_SESSION['order_id'] = $this->generateUniqueOrderId();
 
         // Lấy thông tin người dùng từ session (email)
         $userEmail = $_SESSION['email'] ?? null;
         
         if ($userEmail) {
-            
             // Truy vấn lấy thông tin người dùng từ bảng `users`
             $sql = "SELECT id, name, phone, email FROM users WHERE email = ?";
             $user = $db->read($sql, [$userEmail]);
@@ -188,16 +183,15 @@ class Payment extends Controller
                 }
 
                 // Xóa các sản phẩm đã chọn khỏi bảng `cart`
-                $productIds = array_column($selectedProducts, 'id'); // Lấy danh sách ID sản phẩm đã chọn
+                $productIds = array_column($selectedProducts, 'id');
                 if (!empty($productIds)) {
                     $placeholders = implode(',', array_fill(0, count($productIds), '?'));
                     $sql = "DELETE FROM cart WHERE product_id IN ($placeholders) AND user_id = ?";
                     $db->write($sql, array_merge($productIds, [$userId]));
                 }
 
-                // Gửi thông báo hoặc chuyển hướng
-                $this->view("/customer/Cart");
-                exit;
+                header('Location: /assignment/public/Cart');
+                exit();
             }
             
         } else {
