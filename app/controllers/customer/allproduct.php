@@ -17,7 +17,7 @@ class Allproduct extends Controller
         $offset = ($page - 1) * $productsPerPage;
 
         // Build query with prepared statements
-        $query = "SELECT * FROM products WHERE 1=1";
+        $query = "SELECT * FROM products WHERE 1";
         $params = [];
 
         if (!empty($filterCategories)) {
@@ -42,7 +42,7 @@ class Allproduct extends Controller
         $rows = $db->read($query, $params);
 
         // Total products query
-        $totalProductsQuery = "SELECT COUNT(*) AS total FROM products WHERE 1=1";
+        $totalProductsQuery = "SELECT COUNT(*) AS total FROM products WHERE 1";
         $totalParams = [];
 
         if (!empty($filterCategories)) {

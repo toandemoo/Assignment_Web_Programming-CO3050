@@ -84,10 +84,11 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form action="<?= ROOT ?>Search" method="POST" onsubmit="return validateSearch()">
-									<input type="text" class="input" placeholder="Search here" id="search" name="search">
-									<button type="submit" class="search-btn">Search</button>
-								</form>
+							<form action="<?= ROOT ?>Search" method="GET" onsubmit="return validateSearch()">
+								<input type="text" class="input" placeholder="Search here" id="search" name="search" value="<?= isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '' ?>">
+								<button type="submit" class="search-btn">Search</button>
+							</form>
+
 							</div>
 						</div>
 						<!-- /SEARCH BAR -->

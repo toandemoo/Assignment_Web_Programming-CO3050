@@ -210,6 +210,7 @@
 								'categories' => $_GET['categories'] ?? '',  // Include categories filter
 								'price_min' => $_GET['price_min'] ?? '',  // Include price_min filter
 								'price_max' => $_GET['price_max'] ?? '',  // Include price_max filter
+								'search' => $_GET['search'] ?? '',
 							];
 
 							// Ensure the 'categories' and price filters are removed if they are empty (i.e., not used)
@@ -225,8 +226,14 @@
 
 							// Build the URL query string with the parameters
 							$urlParamsString = http_build_query($urlParams);
-							$baseUrl = ROOT . "allproduct?" . $urlParamsString . "&page=";
-
+							if (isset($_GET['search'])) {
+								// If the search query exists, construct the base URL with search and page parameters
+								$baseUrl = ROOT . "Search?" . $urlParamsString . "&page=";
+							} else {
+								// If no search query, construct the base URL for "allproduct" page
+								$baseUrl = ROOT . "allproduct?" . $urlParamsString . "&page=";
+							}
+							
 							// Display Previous button if not on the first page
 							if ($currentPage > 1) {
 								echo '<li><a href="' . $baseUrl . ($currentPage - 1) . '"><i class="fa fa-angle-left"></i></a></li>';
