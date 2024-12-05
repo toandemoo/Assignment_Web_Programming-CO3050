@@ -7,7 +7,7 @@ class Customers extends Controller
         $db = Database::getInstance();
 
         // Lấy tổng số bản ghi
-        $total_items = $db->read("SELECT COUNT(*) AS total FROM orders LEFT JOIN users on orders.user_id = users.id WHERE role='user'")[0]->total;
+        $total_items = $db->read("SELECT COUNT(*) AS total FROM users")[0]->total;
 
         // Cấu hình phân trang
         $items_per_page = 10; // Số bản ghi mỗi trang
@@ -16,8 +16,8 @@ class Customers extends Controller
         $offset = ($current_page - 1) * $items_per_page; // Tính toán offset cho LIMIT
 
         // Truy vấn với LIMIT và OFFSET
-        $res = $db->read("SELECT * FROM users LEFT JOIN orders on orders.user_id = users.id WHERE role='user' LIMIT $items_per_page OFFSET $offset");
-
+        // $res = $db->read("SELECT * FROM users WHERE role='user' and id in (SELECT DISTINCT user_id FROM orders) LIMIT $items_per_page OFFSET $offset");
+        $res = $db->read("SELECT users.id, name, COUNT(order_id) AS totalOrders FROM users JOIN orders on users.id = orders.user_id WHERE role='user' GROUP BY id, name LIMIT $items_per_page OFFSET $offset");
         $data = array();
         $data['rows'] = $res;
         $data['total_pages'] = $total_pages;

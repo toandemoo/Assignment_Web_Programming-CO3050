@@ -18,8 +18,8 @@
             <div class="info-box">
               <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Pending</span>
-                <span class="info-box-number">1,410</span>
+                <span class="info-box-text">Đang Chờ</span>
+                <span class="info-box-number"><?=$data['pending']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -30,8 +30,8 @@
             <div class="info-box">
               <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Completed</span>
-                <span class="info-box-number">410</span>
+                <span class="info-box-text">Giao Thành Công</span>
+                <span class="info-box-number"><?=$data['success']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -43,8 +43,8 @@
               <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Refunded</span>
-                <span class="info-box-number">13,648</span>
+                <span class="info-box-text">Trả Lại</span>
+                <span class="info-box-number"><?=$data['refunded']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -56,8 +56,8 @@
               <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Failed</span>
-                <span class="info-box-number">93,139</span>
+                <span class="info-box-text">Đã Hủy</span>
+                <span class="info-box-number"><?=$data['canceled']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -102,13 +102,13 @@
                     <?php if (is_array($data['rows'])): ?>
                         <?php foreach ($data['rows'] as $row): ?>
                             <tr>
-                                <td><?=$row->id?></td>
+                                <td><?=$row->order_id?></td>
                                 <td><?=$row->user_id?></td>
-                                <td>chua co</td>
-                                <td>chua co</td>
-                                <td>chua co</td>
+                                <td><?=$row->created_at?></td>
+                                <td><?=$row->payment_method?></td>
+                                <td><?=$row->status?></td>
                                 <td>
-                                  <button type="button" class="btn btn-danger col-sm-5" onclick="window.location='<?= ROOT ?>DetailOrder/<?=$row->id?>';">Xem</button>
+                                  <button type="button" class="btn btn-danger col-sm-5" onclick="window.location='<?= ROOT ?>DetailOrder/<?=$row->order_id?>';">Xem</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

@@ -190,7 +190,7 @@ class Payment extends Controller
                     $db->write($sql, array_merge($productIds, [$userId]));
                 }
 
-                header('Location: /assignment/public/Cart');
+                header('Location: ' . ROOT . "cart");
                 exit();
             }
             

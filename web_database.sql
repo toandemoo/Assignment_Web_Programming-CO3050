@@ -71,7 +71,8 @@ CREATE TABLE `orders` (
   `notes` text DEFAULT NULL,
   `shipping_type` enum('pickup','delivery') DEFAULT 'pickup',
   `id` int(11) NOT NULL,
-  `quantity` int(11) DEFAULT 1
+  `quantity` int(11) DEFAULT 1,
+  `status` varchar(255) NOT NULL DEFAULT 'pending' --chờ, đang giao, thành công
 );
 
 

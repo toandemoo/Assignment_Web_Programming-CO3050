@@ -39,9 +39,9 @@
                   <thead>
                     <tr>
                       <th>CustomerID</th>
-                      <th>User</th>
-                      <th>Order</th>
-                      <th>Total Spent</th>
+                      <th>Họ Tên</th>
+                      <th>Số Đơn Hàng</th>
+                      <!-- <th>Total Spent</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -52,8 +52,8 @@
 											<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
                         <td><?=$row->id?></td>
                         <td><?=$row->name?></td>
-                        <td>huh</td>
-                        <td>jijiji</td>
+                        <td><?=$row->totalOrders?></td>
+                        <!-- <td>jijiji</td> -->
 											</a>
 										</div>
                     </tr>
@@ -61,7 +61,7 @@
 										<?php endforeach; ?>
 										<?php else: ?>
 										<tr>
-                        <td colspan="4">
+                        <td colspan="3">
                            <p class="text-center">Không tìm thấy khách hàng</p>
                         </td>
                      </tr>

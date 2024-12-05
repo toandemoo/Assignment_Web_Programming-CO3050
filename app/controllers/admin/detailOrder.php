@@ -6,11 +6,11 @@ class DetailOrder extends Controller
     {
         $db = Database::getInstance();
 
-        $userid = $db->read("SELECT user_id FROM orders WHERE id = :id", ['id' => $id])[0]->user_id;
+        $userid = $db->read("SELECT user_id FROM orders WHERE order_id = :id", ['id' => $id])[0]->user_id;
 
         $user = $db->read("SELECT * FROM users WHERE id = :id", ['id' => $userid]);
 
-        $orders = $db->read("SELECT * FROM orders WHERE id = :id", ['id' => $id]);
+        $orders = $db->read("SELECT * FROM orders JOIN products on products.id = orders.product_id WHERE order_id = :id", ['id' => $id]);
 
         $data = array();
 

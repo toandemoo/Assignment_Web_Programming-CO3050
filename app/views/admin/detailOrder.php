@@ -58,57 +58,44 @@
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
-                    <tr>
+                    <thead>
                       <th>ProductID</th>
-                      <th>Product</th>
-                      <th>Price</th>
+                      <th>Product Name</th>
                       <th>Quanity</th>
-                      <th>Total</th>
-                    </tr>
+                      <th>Total Price</th>
+                    </thead>
                   </thead>
                   <tbody>
+                    <?php $total = 0 ?>
+                    <?php if (is_array($data['orders'])): ?>
+										<?php foreach ($data['orders'] as $row): ?>
                     <tr>
-                      <td>183</td>
-                      <td>Áo polo</td>
-                      <td>200000</td>
-                      <td>2</td>
-                      <td>200000</td>
+										<div class="row">
+											<a href="#">
+                        <td><?=$row->product_id?></td>
+                        <td><?=$row->ptitle?></td>
+                        <td><?=$row->quantity?></td>
+                        <td><?=$row->totalAmount?></td>
+                        <?php $total+= $row->totalAmount ?>
+											</a>
+										</div>
                     </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>Áo polo</td>
-                      <td>200000</td>
-                      <td>2</td>
-                      <td>200000</td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>Áo polo</td>
-                      <td>200000</td>
-                      <td>2</td>
-                      <td>200000</td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>Áo polo</td>
-                      <td>200000</td>
-                      <td>2</td>
-                      <td>200000</td>
-                    </tr>
-                    <tr>
-                      <td>183</td>
-                      <td>Áo polo</td>
-                      <td>200000</td>
-                      <td>2</td>
-                      <td>200000</td>
-                    </tr>
+										<!-- /product -->
+										<?php endforeach; ?>
+										<?php else: ?>
+										<tr>
+                        <td colspan="4">
+                           <p class="text-center">Không tìm thấy đơn hàng</p>
+                        </td>
+                     </tr>
+										<?php endif; ?>
                   </tbody>
                 </table>
               </div>
                <div class="mt-sm-3 ml-auto mr-lg-5">
-                  <h3>Subtotal: 10000 vnđ</h3>
+                  <h3>Subtotal: <?=$total?></h3>
                   <h3>Discount: 10000 vnđ</h3>
-                  <h3>Total: 10000 vnđ</h3>
+                  <h3>Total: <?=$total?></h3>
                 </div>
               <!-- /.card-body -->
             </div>
