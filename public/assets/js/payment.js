@@ -1,4 +1,8 @@
+let uniqueOrderId;
+
 function handlePaymentMethodChange(amount, orderId) {
+    console.log(amount);
+    console.log(orderId);
     const paymentMethod = document.getElementById('paymentMethod').value;
     const qrContainer = document.getElementById('qr-container');
     
@@ -15,20 +19,18 @@ function handlePaymentMethodChange(amount, orderId) {
 
 function generateUniqueOrderId() {
     const timestamp = Date.now();
-    const randomString = Math.random().toString(36).substring(2, 8).toUpperCase();
-    return `ORDER${timestamp}${randomString}`;
+    const randomNumber = Math.floor(Math.random() * 1000000);
+    uniqueOrderId = `ORDER${timestamp}${randomNumber}`;
+    return uniqueOrderId;
 }
 
 async function showBankQRCode(amount, orderId) {
     try {
-        amount = 5000;
-        const bankId = '970422'; // MB Bank
+        const bankId = '970422';
         const accountNo = '0394481457';
         const description = `THANH TOAN DON HANG ${orderId}`;
         
         const qrUrl = `https://img.vietqr.io/image/${bankId}-${accountNo}-compact.png?amount=${amount}&addInfo=${encodeURIComponent(description)}`;
-        console.log(amount);
-        console.log(orderId);
         const paymentContent = document.getElementById('paymentContent');
         paymentContent.innerHTML = `
             <div style="text-align: center;">
@@ -42,7 +44,7 @@ async function showBankQRCode(amount, orderId) {
         
         showPaymentModal();
         
-        paymentCheckInterval = setInterval(() => checkPaymentStatus(description, amount, orderId), 5000); // Check mỗi 5 giây
+        paymentCheckInterval = setInterval(() => checkPaymentStatus(description, amount, orderId), 5000); 
 
     } catch (error) {
         console.error('Lỗi tạo mã QR:', error);

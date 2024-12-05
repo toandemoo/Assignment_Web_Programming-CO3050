@@ -37,17 +37,13 @@
                                                     <?php echo htmlspecialchars($item->pprice); ?> $
                                                 </td>
                                                 <td>
-                                                    <?php echo $item->id; ?>
-                                                    <form action="<?= ROOT ?>cart/DeleteProduct/<?php echo $item->id; ?>" id="DeleteForm-<?php echo $item->id; ?>">
-                                                        <input type="text" value="<?php echo $item->id; ?>" hidden />
-                                                        <button type="button" class="btn btn-danger" onclick="DeleteFormjs(<?php echo $item->id; ?>)">Chọn</button>
-                                                    </form>
-                                                   
+                                                    <button type="button" class="btn btn-danger" onclick="DeleteProduct(<?php echo $item->id; ?>)">Xóa</button>
                                                 </td>
                                                 <td>
                                                     <input type="checkbox" name="selected_products[]" 
                                                         class="product-checkbox" 
-                                                        data-price="<?php echo htmlspecialchars($item->pprice); ?>" />
+                                                        value="<?php echo $item->id; ?>" 
+                                                        data-price="<?php echo $item->pprice; ?>"/>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
@@ -63,10 +59,13 @@
                                     <small id="item-count">
                                         <?php echo !empty($cartItems) ? count($cartItems) : 0; ?> Mặt hàng được chọn
                                     </small>
-                                    <h5 id="total-price">TỔNG CỘNG: 0.00 $</h5>
+                                    <h5 id="total-price">TỔNG CỘNG: 0 VNĐ</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a style="margin-right: 5%;" href="all_product.html">Tiếp tục mua sắm</a>
+                                    <a style="margin-right: 5%;" href="allproduct">Tiếp tục mua sắm</a>
+                                    <div class="btn btn-success">
+                                        <a href="order">ĐƠN HÀNG CỦA TÔI</a>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">
                                         Thanh toán <i class="fa fa-arrow-circle-right"></i>
                                     </button>
@@ -99,36 +98,35 @@
                 });
             }
 
-            function DeleteFormjs(productId) {
+            function DeleteProduct(productId) {
                 // Hiển thị hộp thoại xác nhận
                 if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?")) {
-                    document.getElementById('DeleteForm-' + productId).submit();
+                    window.location.href = "<?= ROOT ?>cart/DeleteProduct/" + productId;
                 }
             }
-
 
         </script>
 
         <script>
-                                function updatePrice(input, unitPrice, itemId) {
-                                    const quantity = input.value;
-                                    const totalPrice = (unitPrice * quantity).toFixed(2);
-                                    document.getElementById('price-' + itemId).innerHTML = totalPrice + ' $';
-                                    updateTotalPrice();
-                                }
+            function updatePrice(input, unitPrice, itemId) {
+                const quantity = input.value;
+                const totalPrice = (unitPrice * quantity).toFixed(2);
+                document.getElementById('price-' + itemId).innerHTML = totalPrice + ' $';
+                updateTotalPrice();
+            }
 
-                                function updateTotalPrice() {
-                                    const checkboxes = document.querySelectorAll('.product-checkbox:checked');
-                                    let totalPrice = 0;
+            function updateTotalPrice() {
+                const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+                let totalPrice = 0;
 
-                                    checkboxes.forEach(checkbox => {
-                                        const itemId = checkbox.value;
-                                        const priceElement = document.getElementById('price-' + itemId);
-                                        totalPrice += parseFloat(priceElement.innerHTML);
-                                    });
+                checkboxes.forEach(checkbox => {
+                    const itemId = checkbox.value;
+                    const priceElement = document.getElementById('price-' + itemId);
+                    totalPrice += parseFloat(priceElement.innerHTML);
+                });
 
-                                    document.getElementById('total-price').innerHTML = 'TỔNG CỘNG: ' + totalPrice.toFixed(2) + ' $';
-                                }
-                            </script>
+                document.getElementById('total-price').innerHTML = 'TỔNG CỘNG: ' + totalPrice.toFixed(2) + ' $';
+            }
+        </script>
 
 <?php $this->view("./customer/Shared/footer"); ?>
