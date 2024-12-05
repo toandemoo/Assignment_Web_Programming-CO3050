@@ -4,7 +4,10 @@ class Login extends Controller
 {
     public function index()
     {
-        $this->view("/customer/sign_in");
+        $db = Database::getInstance();
+        $categories = $db->read("SELECT * FROM categories");
+        $data['categories'] = $categories;
+        $this->view("/customer/sign_in", $data);
     }
 
     public function signin(){
@@ -13,7 +16,10 @@ class Login extends Controller
             $account->login($_POST);
         }else{
             // Hiển thị view login nếu không phải POST
-            $this->view("/customer/sign_in");
+            $db = Database::getInstance();
+            $categories = $db->read("SELECT * FROM categories");
+            $data['categories'] = $categories;
+            $this->view("/customer/sign_in", $data);
         }
     }
 }

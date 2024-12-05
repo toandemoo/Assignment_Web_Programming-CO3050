@@ -22,11 +22,11 @@
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
-									<li><a href="<?=ROOT?>index">Hot deals</a></li>
-									<li><a href="#">Laptops</a></li>
-									<li><a href="#">Smartphones</a></li>
-									<li><a href="#">Cameras</a></li>
-									<li><a href="#">Accessories</a></li>
+								<?php if (is_array($data['categories'])): ?>
+								<?php foreach ($data['categories'] as $cate): ?>
+									<li><a href="<?=ROOT?>allproduct?categories=<?=$cate->name?>"><?=$cate->name?></a></li>
+								<?php endforeach; ?>
+								<?php endif; ?>
 								</ul>
 							</div>
 						</div>

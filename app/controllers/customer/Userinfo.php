@@ -4,6 +4,7 @@ class Userinfo extends Controller
 {
     public function index()
     {
+        
         $data = array();
         $data['email'] = $_SESSION['email'];        
 

@@ -64,6 +64,7 @@ class Payment extends Controller
                 $_SESSION['totalAmount'] = $totalAmount;
             }
         }
+        
 
         // Truyền dữ liệu vào view
         $this->view("/customer/payment", [

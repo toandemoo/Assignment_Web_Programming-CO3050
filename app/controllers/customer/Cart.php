@@ -54,14 +54,14 @@ class Cart extends Controller
             $product = [];
         }
 
-        $categories = $db->read("SELECT * FROM categories");
-        $data['categories'] = $categories;
-        
         // Chuẩn bị dữ liệu để truyền vào view
         $data = [
             'cartItems' => $cartItems,
             'product' => $product
         ];
+
+        $categories = $db->read("SELECT * FROM categories");
+        $data['categories'] = $categories;
 
         // Gọi view và truyền dữ liệu vào
         $this->view("/customer/cart", $data);

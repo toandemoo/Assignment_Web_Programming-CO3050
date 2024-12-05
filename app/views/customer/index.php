@@ -240,4 +240,4 @@
 		</div>
 		<!-- /SECTION -->
 
-<?php $this->view("./customer/Shared/footer"); ?>
+<?php $this->view("./customer/Shared/footer",$data); ?>
