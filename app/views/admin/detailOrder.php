@@ -4,17 +4,17 @@
    <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
-        <h2 class="mb-3">Customer</h2>
+        <h2 class="mb-3">Khách Hàng</h2>
         <div class="row">
           <div class="col-12">
             <div class="info-box">
               <span class="info-box-icon bg-info"><i class="far fa-user"></i></span>
               <div class="info-box-content">
-                <span class="info-box-text">Name: <?= $data['user']->name; ?></span>
+                <span class="info-box-text">Họ Tên: <?= $data['user']->name; ?></span>
                 <span class="info-box-text">Email: <?= $data['user']->email; ?></span>
-                <span class="info-box-text">Phone number: <?= $data['user']->phone; ?></span>
-                <span class="info-box-text">Address: chua co</span>
-                <span class="info-box-text">Note: chua co</span>
+                <span class="info-box-text">Số điện thoại: <?= $data['user']->phone; ?></span>
+                <span class="info-box-text">Địa chỉ: <?= $data['user']->address; ?></span>
+                <span class="info-box-text">Ghi chú: chua co</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -29,7 +29,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Detail Orders</h1>
+            <h1>Chi tiết đơn hàng</h1>
           </div>
           <!-- /.col -->
       </div><!-- /.container-fluid -->

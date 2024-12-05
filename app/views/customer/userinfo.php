@@ -155,7 +155,7 @@
 								<div>
 									<a href="Cart.html">
 										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
+										<span>Giỏ Hàng</span>
 										<div class="qty">3</div>
 									</a>
 								</div>
@@ -177,10 +177,10 @@
 			<div class="container">
 				<div id="responsive-nav">
 						<ul class="main-nav nav navbar-nav">
-							<li class="active"><a href="<?=ROOT?>home">Home</a></li>
-							<li><a href="<?=ROOT?>about">About</a></li>
-							<li><a href="<?=ROOT?>contact">Contact</a></li>
-							<li><a href="<?=ROOT?>allproduct">All Products</a></li>
+							<li class="active"><a href="<?=ROOT?>home">Trang Chủ</a></li>
+							<li><a href="<?=ROOT?>about">Giới Thiệu</a></li>
+							<li><a href="<?=ROOT?>contact">Liên Hệ</a></li>
+							<li><a href="<?=ROOT?>allproduct">Sản Phẩm</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Danh mục sản phẩm <span class="caret"></span></a>
 								<ul class="dropdown-menu">
@@ -226,7 +226,7 @@
 									<option value="other" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'other') ? 'selected' : ''; ?>>Khác</option>
 								</select>
 								<label for="address">Địa chỉ</label>
-								<input type="text" class="form-control" id="address" name="address">
+								<input type="text" class="form-control" id="address" name="address" value="<?php echo $_SESSION['address'] ?>">
 								<div class="submit-button">
 									<button type="submit" class="btn btn-danger" style="padding-left: 25%;" onclick="completeUpdateInfo()">Cập nhật thông tin</button>
 								</div>
@@ -234,7 +234,7 @@
 						</div>
 					</div>
 		
-					<div class="content-section" id="changePassword" style="display: none;">
+					<!-- <div class="content-section" id="changePassword" style="display: none;">
 						<div class="title-info border-2 border-bottom border-danger">
 							<h2>Đổi mật khẩu</h2>
 						</div>
@@ -256,9 +256,17 @@
 							<h2>Lịch sử mua hàng</h2>
 						</div>
 						<p>Danh sách các đơn hàng đã mua sẽ hiển thị ở đây.</p>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
+
+		<script>
+		function completeUpdateInfo() {
+			// Hiển thị thông báo thành công
+			alert("Cập nhật thông tin thành công!");
+		}
+		</script>
+
 
 <?php $this->view("./customer/Shared/footer"); ?>

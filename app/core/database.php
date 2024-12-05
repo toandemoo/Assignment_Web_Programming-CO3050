@@ -10,6 +10,7 @@ class database
         try{
             $string = "mysql:host=".SERVERNAME.";dbname=".DBNAME;
             self::$conn = new PDO($string, USERNAME, PASSWORD);
+            self::$conn->exec("SET NAMES 'utf8'");
         }catch (PDOException $e){
             die($e->getMessage());
         }

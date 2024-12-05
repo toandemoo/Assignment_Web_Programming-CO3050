@@ -79,19 +79,9 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <h3 class="card-title">Orders</h3>
-                  <!-- <div class="dropdown float-right ml-4">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                      Dropdown link
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                  </div> -->
+                  <h3 class="card-title"></h3>
                   <div class="card-tools">
-                    <div class="input-group input-group-sm align-content-center" style="width: 150px;">
+                    <div class="input-group input-group-sm align-content-center" style="width: 100%;">
                       <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">
@@ -148,44 +138,46 @@
                                   <form action="products/AddProduct" method="post" style="display: none;" id="editForm">
                                       <div class="form-group">
                                         <label for="productName">Tên sản phẩm</label>
-                                        <input type="text" class="form-control" id="productName" placeholder="name" name="productName">
+                                        <input type="text" class="form-control" id="productName" placeholder="name" name="productName" value="<?=$row->ptitle?>">
                                       </div>
                                       <div class="form-group">
                                         <label for="productCategory" class="mr-2">Thể loại</label>
                                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="productCategory">
                                           <option selected>Chọn</option>
-                                          <option value="Quần">Quần</option>
-                                          <option value="Áo">Áo</option>
-                                          <option value="Mũ">Mũ</option>
+                                          <option value="Quần" <?= $row->pkind === 'Quần' ? 'selected' : '' ?>>Quần</option>
+                                          <option value="Áo" <?= $row->pkind === 'Áo' ? 'selected' : '' ?>>Áo</option>
+                                          <option value="Mũ" <?= $row->pkind === 'Mũ' ? 'selected' : '' ?>>Mũ</option>
                                         </select>
                                       </div>
                                       <div class="form-group">
                                         <label for="productSex" class="mr-2">Giới tính</label>
                                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="productSex">
                                           <option selected>Chọn</option>
-                                          <option value="Nam">Nam</option>
-                                          <option value="Nữ">Nữ</option>
+                                          <option value="Nam" <?= $row->pgender === 'Nam' ? 'selected' : '' ?>>Nam</option>
+                                          <option value="Nữ" <?= $row->pgender === 'Nữ' ? 'selected' : '' ?>>Nữ</option>
                                         </select>
                                       </div>
                                       <div class="form-group">
                                         <label for="productPrice">Giá</label>
-                                        <input type="text" class="form-control" id="productPrice" placeholder="vnđ" name="productPrice">
+                                        <input type="text" class="form-control" id="productPrice" placeholder="vnđ" name="productPrice" value="<?=$row->pprice?>">
                                       </div>
                                       <div class="form-group">
                                         <label for="productQuantity">Số lượng</label>
-                                        <input type="text" class="form-control" id="productQuantity" placeholder="number" name="productQuantity">
+                                        <input type="text" class="form-control" id="productQuantity" placeholder="number" name="productQuantity" value="chua co">
                                       </div>
                                       <div class="form-group">
                                         <label for="productImg">Ảnh</label>
-                                        <input type="text" class="form-control" id="productImg" placeholder="URL" name="productImg">
+                                        <input type="text" class="form-control" id="productImg" placeholder="URL" name="productImg" value="<?=$row->pimg?>">
                                       </div>
                                       <div class="form-group">
                                         <label for="productDescription">Mô tả</label>
-                                        <textarea class="form-control" id="productDescription" placeholder="Description" name="productDescription"></textarea>
+                                       <textarea class="form-control" id="productDescription" placeholder="Description" name="productDescription">
+                                          <?= htmlspecialchars($row->pdescription) ?>
+                                      </textarea>
                                       </div>
                                       <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal()">Hủy Bỏ</button>
                                         <button type="submit" class="btn btn-primary">Xác Nhận</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal()">Hủy Bỏ</button>                                        
                                       </div>
                                     </form>
                                 </div>

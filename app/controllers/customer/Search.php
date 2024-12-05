@@ -1,9 +1,8 @@
-
 <?php
 
 class Search extends Controller
 {
-  public function index()
+   public function index()
   {
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $data = array();
@@ -60,5 +59,4 @@ class Search extends Controller
           $this->view("/customer/all_product", $data);
       }
   }
-  
 }
