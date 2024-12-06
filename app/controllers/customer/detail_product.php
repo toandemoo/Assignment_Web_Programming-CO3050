@@ -62,6 +62,11 @@ class Detail_product extends Controller
             $cartData
         );
 
+        $userid = $db->read("SELECT id FROM users WHERE email = :email", ['email' => $_SESSION['email']])[0]->id;
+        $product = $db->read("SELECT COUNT(id) AS total FROM cart WHERE user_id = :id", ['id' => $userid])[0]->total;
+        $data['product'] = $product;
+        $_SESSION['product'] = $product;
+
        // Chuyển hướng lại trang chi tiết sản phẩm
         header("Location: " . ROOT . "detail_product/$idproduct");
         exit; // Ngừng thực thi sau khi chuyển hướng

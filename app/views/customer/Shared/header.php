@@ -104,7 +104,15 @@
 										<a href="' . ROOT .'Cart">
 												<i class="fa fa-shopping-cart"></i>
 												<span>Giỏ Hàng</span>
-												<div class="qty">3</div>
+												<div class="qty">' . $_SESSION['product'] . '</div>
+										</a>
+									</div>
+
+									<div>
+										<a href="order">
+											<i class="fa fa-shopping-bag"></i>
+											<span>Đơn Hàng</span>
+											<div class="qty">' . $_SESSION['order'] . '</div>
 										</a>
 									</div>
 									';
@@ -115,6 +123,12 @@
 										<a href="#" onclick="alertLogin();">
 											<i class="fa fa-shopping-cart"></i>
 											<span>Gió Hàng</span>
+										</a>
+									</div>
+									<div>
+										<a href="#" onclick="alertLogin();">
+											<i class="fa fa-shopping-bag"></i>
+											<span>Đơn Hàng</span>
 										</a>
 									</div>
 									';

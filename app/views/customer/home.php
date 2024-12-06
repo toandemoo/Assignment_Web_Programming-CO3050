@@ -81,7 +81,15 @@
 									<a href="Cart">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Giỏ Hàng</span>
-										<div class="qty">3</div>
+										<div class="qty"><?= $data['product']?></div>
+									</a>
+								</div>
+
+								<div>
+									<a href="order">
+										<i class="fa fa-shopping-bag"></i>
+										<span>Đơn Hàng</span>
+										<div class="qty"><?= $data['order']?></div>
 									</a>
 								</div>
 								<!-- /Cart -->
