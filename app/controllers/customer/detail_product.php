@@ -39,26 +39,31 @@ class Detail_product extends Controller
         // Lấy id người dùng
         $userId = $user[0]->id;
 
-        $aaibleProduct = $db->read("SELECT * FROM cart WHERE user_id = :userid and product_id = :productid", ['userid' => $userId,'productid' =>$idproduct]);
+        // $avaibleProduct = $db->read("SELECT * FROM cart WHERE user_id = :userid and product_id = :productid", ['userid' => $userId,'productid' =>$idproduct]);
 
-        if (is_array($aaibleProduct)&&count($aaibleProduct) > 0){
-            header("Location: " . ROOT . "detail_product/$idproduct");
-            exit; // Ngừng thực thi sau khi chuyển hướng
-        }
+        // if (is_array($avaibleProduct)&&count($avaibleProduct) > 0){
+        //     header("Location: " . ROOT . "detail_product/$idproduct");
+        //     exit; // Ngừng thực thi sau khi chuyển hướng
+        // }
+
+        $data = array();
+        $data['size'] = trim($_POST['size']);
+        $data['color'] = trim($_POST['color']);
+        $data['quantity'] = trim($_POST['quantity']);
 
         // Thêm sản phẩm vào giỏ hàng
         $cartData = [
-            'id' => $userId . $idproduct,
-            'soluong' => 1,
+            // 'id' => '102',
+            'soluong' => $data['quantity'],
             'user_id' => $userId,
             'product_id' => $idproduct,
-            'size' => 30, // Kích thước mặc định
+            'size' => $data['size'], // Kích thước mặc định
             'status' => 'active'
-        ];
+        ];  
 
         $db->write(
-            "INSERT INTO cart (id,soluong, user_id, product_id, size, status) 
-            VALUES (:id,:soluong, :user_id, :product_id, :size, :status)",
+            "INSERT INTO cart (soluong, user_id, product_id, size, status) 
+            VALUES (:soluong, :user_id, :product_id, :size, :status)",
             $cartData
         );
 

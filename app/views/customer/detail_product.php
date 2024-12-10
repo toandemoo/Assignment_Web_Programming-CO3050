@@ -56,8 +56,7 @@
 								</div>
 							</div>
 							<div>
-								<h3 class="product-price"><?=$data['row']->pprice?> <del class="product-old-price">450000 đ</del></h3>
-								<span class="product-available">In Stock</span>
+								<h3 class="product-price"><?=$data['row']->pprice?></h3>
 							</div>
 							<form action="<?= ROOT ?>detail_product/AddToCart/<?=$data['row']->id?>" method="POST" id="addToCartForm">
 								<div class="product-options">
@@ -118,19 +117,9 @@
 
 
 							<ul class="product-links">
-								<li>Category:</li>
-								<li><a href="#">Headphones</a></li>
-								<li><a href="#">Accessories</a></li>
+								<li><h5>Loại sản phẩm:</h5></li>
+								<li><a href="<?= ROOT ?>allproduct?categories=<?php echo $data['row']->pkind ?>"><?php echo $data['row']->pkind ?></a></li>
 							</ul>
-
-							<ul class="product-links">
-								<li>Share:</li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-							</ul>
-
 						</div>
 					</div>
 					<!-- /Product details -->
