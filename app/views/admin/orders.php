@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>All Orders</h1>
+            <h1>Danh Sách Đơn Hàng</h1>
           </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -74,17 +74,21 @@
                 <h3 class="card-title"></h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <div class="input-group input-group-sm align-content-center" style="width: 100%;">
+                      <form action="<?= ROOT ?>Orders/Search" method="GET">
+                        <div class="input-group input-group-sm align-content-center" style="width: 100%;">
+                          <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
