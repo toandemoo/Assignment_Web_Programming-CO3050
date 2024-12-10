@@ -6,6 +6,10 @@ class Products extends Controller
     {
         $db = Database::getInstance();
 
+
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';  // Mặc định sắp xếp theo ID
+        $order = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'DESC' : 'ASC';  // Mặc định sắp xếp tăng dần
+
         // Thiết lập số sản phẩm mỗi trang
         $items_per_page = 10;
 
@@ -15,8 +19,9 @@ class Products extends Controller
         // Tính toán OFFSET
         $offset = ($page - 1) * $items_per_page;
 
+
         // Lấy các sản phẩm từ cơ sở dữ liệu, chỉ lấy $items_per_page sản phẩm
-        $rows = $db->read("SELECT * FROM products LIMIT $items_per_page OFFSET $offset");
+        $rows = $db->read("SELECT * FROM products ORDER BY $sort $order LIMIT $items_per_page OFFSET $offset");
 
         // Lấy tổng số sản phẩm để tính tổng số trang
         $total_items = $db->read("SELECT COUNT(*) AS total FROM products")[0]->total;
@@ -63,5 +68,45 @@ class Products extends Controller
         header("Location:" . ROOT . "Products");
         exit;
     }
+
+
+
+    public function Search()
+    {
+        $query = $_GET['search'] ?? '';
+
+        $db = Database::getInstance();
+
+
+        // Thiết lập số sản phẩm mỗi trang
+        $items_per_page = 10;
+
+        // Lấy trang hiện tại từ URL, mặc định là trang 1
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+        // Tính toán OFFSET
+        $offset = ($page - 1) * $items_per_page;
+
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'id';  // Mặc định sắp xếp theo ID
+        $order = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'DESC' : 'ASC';  // Mặc định sắp xếp tăng dần
+
+
+        $rows = $db->read("SELECT * FROM products WHERE ptitle LIKE :query OR pkind LIKE :query ORDER BY $sort $order LIMIT $items_per_page OFFSET $offset", ['query'=>$query]);
+
+
+        // Lấy tổng số sản phẩm để tính tổng số trang
+        $total_items = $db->read("SELECT COUNT(*) AS total FROM products WHERE ptitle LIKE :query OR pkind LIKE :query", ['query'=>$query])[0]->total;
+
+        // Tính tổng số trang
+        $total_pages = ceil($total_items / $items_per_page);
+
+        // Truyền dữ liệu vào view
+        $data['rows'] = $rows;
+        $data['total_pages'] = $total_pages;
+        $data['current_page'] = $page;
+
+        $this->view("admin/products", $data);
+    }
+
 }
 

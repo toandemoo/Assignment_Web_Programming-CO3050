@@ -16,7 +16,7 @@ class Orders extends Controller
         $offset = ($current_page - 1) * $items_per_page;
 
         // Câu truy vấn SQL với LIMIT và OFFSET
-        $res = $db->read("SELECT DISTINCT order_id, user_id, created_at, status, payment_method FROM orders LIMIT $items_per_page OFFSET $offset");
+        $res = $db->read("SELECT DISTINCT order_id, users.name, orders.created_at, status, payment_method FROM orders JOIN users on users.id = orders.user_id LIMIT $items_per_page OFFSET $offset");
 
         // Lấy tổng số đơn hàng để tính số trang
         $total_orders = $db->read("SELECT COUNT(*) AS total FROM orders")[0]->total;

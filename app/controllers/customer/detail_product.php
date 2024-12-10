@@ -63,7 +63,7 @@ class Detail_product extends Controller
         );
 
         $userid = $db->read("SELECT id FROM users WHERE email = :email", ['email' => $_SESSION['email']])[0]->id;
-        $product = $db->read("SELECT COUNT(id) AS total FROM cart WHERE user_id = :id", ['id' => $userid])[0]->total;
+        $product = $db->read("SELECT COUNT(DISTINCT id) AS total FROM cart WHERE user_id = :id", ['id' => $userid])[0]->total;
         $data['product'] = $product;
         $_SESSION['product'] = $product;
 

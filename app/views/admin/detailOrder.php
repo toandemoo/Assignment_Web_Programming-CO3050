@@ -14,7 +14,25 @@
                 <span class="info-box-text">Email: <?= $data['user']->email; ?></span>
                 <span class="info-box-text">Số điện thoại: <?= $data['user']->phone; ?></span>
                 <span class="info-box-text">Địa chỉ: <?= $data['user']->address; ?></span>
-                <span class="info-box-text">Ghi chú: chua co</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+        </div>
+
+
+        <h2 class="mb-3">Đơn Hàng</h2>
+        <div class="row">
+          <div class="col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-danger"><i class="fa fa-shopping-bag"></i></span>
+              <div class="info-box-content">
+                <span class="info-box-text">Mã đơn hàng: <?= $data['order']->order_id; ?></span>
+                <span class="info-box-text">Phương thức thanh toán: <?= $data['order']->payment_method; ?></span>
+                <span class="info-box-text">Phương thức giao hàng: <?= $data['order']->shipping_type; ?></span>
+                <span class="info-box-text">Trạng thái: <?= $data['order']->status; ?></span>
+                <span class="info-box-text">Ghi chú: <?= $data['order']->notes ? $data['order']->notes : 'không'; ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>

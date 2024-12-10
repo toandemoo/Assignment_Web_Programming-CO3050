@@ -16,7 +16,7 @@
        <div class="row">
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+              <span class="info-box-icon bg-info"></span>
               <div class="info-box-content">
                 <span class="info-box-text">Đang Chờ</span>
                 <span class="info-box-number"><?=$data['pending']?></span>
@@ -28,7 +28,7 @@
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+              <span class="info-box-icon bg-success"></span>
               <div class="info-box-content">
                 <span class="info-box-text">Giao Thành Công</span>
                 <span class="info-box-number"><?=$data['success']?></span>
@@ -40,7 +40,7 @@
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+              <span class="info-box-icon bg-warning"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Trả Lại</span>
@@ -53,7 +53,7 @@
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+              <span class="info-box-icon bg-danger"></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Đã Hủy</span>
@@ -91,10 +91,10 @@
                   <thead>
                     <tr>
                       <th>OrderID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Payment</th>
-                      <th>Status</th>
+                      <th>Họ Tên</th>
+                      <th>Ngày tạo</th>
+                      <th>Phương thức thanh toán</th>
+                      <th>Trạng thái</th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
@@ -102,8 +102,8 @@
                     <?php if (is_array($data['rows'])): ?>
                         <?php foreach ($data['rows'] as $row): ?>
                             <tr>
-                                <td><?=$row->order_id?></td>
-                                <td><?=$row->user_id?></td>
+                                <td class="col-3"><?=$row->order_id?></td>
+                                <td><?=$row->name?></td>
                                 <td><?=$row->created_at?></td>
                                 <td><?=$row->payment_method?></td>
                                 <td><?=$row->status?></td>

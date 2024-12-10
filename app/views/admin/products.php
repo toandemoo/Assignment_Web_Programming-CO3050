@@ -28,7 +28,7 @@
                         <input type="text" class="form-control" id="productName" placeholder="name" name="productName">
                       </div>
                       <div class="form-group">
-                        <label for="productCategory" class="mr-2">Thể loại</label>
+                        <label for="productCategory" class="mr-2">Loại</label>
                         <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="productCategory">
                           <option selected>Chọn</option>
                           <option value="Quần">Quần</option>
@@ -47,10 +47,6 @@
                       <div class="form-group">
                         <label for="productPrice">Giá</label>
                         <input type="text" class="form-control" id="productPrice" placeholder="vnđ" name="productPrice">
-                      </div>
-                      <div class="form-group">
-                        <label for="productQuantity">Số lượng</label>
-                        <input type="text" class="form-control" id="productQuantity" placeholder="number" name="productQuantity">
                       </div>
                       <div class="form-group">
                         <label for="productImg">Ảnh</label>
@@ -82,12 +78,17 @@
                   <h3 class="card-title"></h3>
                   <div class="card-tools">
                     <div class="input-group input-group-sm align-content-center" style="width: 100%;">
-                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </div>
+                      <form action="<?= ROOT ?>Products/Search" method="GET">
+                        <div class="input-group input-group-sm align-content-center" style="width: 100%;">
+                          <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+
                     </div>
                   </div>
                 </div>
@@ -99,10 +100,63 @@
                         <th>ID</th>
                         <th>Sản phẩm</th>
                         <th>Thể loại</th>
-                        <th>Ngày tạo</th>
-                        <th>Số lượng</th>
-                        <th>Giá</th>
-                        <th>Mô tả</th>
+                        <?php
+                        // Lấy tham số tìm kiếm hiện tại
+                        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+                        $sort = isset($_GET['sort']) ? $_GET['sort'] : ''; // Mặc định sắp xếp theo giá
+
+                        $ascUrl = "&order=asc" . ($searchQuery ? "&search=" . urlencode($searchQuery) : "");
+                        $descUrl = "&order=desc" . ($searchQuery ? "&search=" . urlencode($searchQuery) : "");
+                        ?>
+                        <th>
+                          Ngày tạo
+                          <a href="?sort=create_at&<?php echo $ascUrl; ?>" class="text-success">
+                              <?php 
+                              if (!isset($_GET['order'])) {
+                                  echo ' &#8595;';
+                              }elseif (isset($_GET['order']) && ($_GET['order'] == 'desc' && $_GET['sort'] == 'create_at'))
+                              {
+                                  echo ' &#8595;';
+                              }
+                              elseif (isset($_GET['order']) && $_GET['sort'] != 'create_at')
+                              {
+                                  echo ' &#8595;';
+                              }
+                              ?>
+                          </a>
+                          <a href="?sort=create_at&<?php echo $descUrl; ?>" class="'text-danger">
+                              <?php 
+                              if (isset($_GET['order']) && $_GET['order'] == 'asc' && $_GET['sort'] == 'create_at') {
+                                  echo ' &#8593;'; // Mũi tên giảm khi chọn giảm dần cho ngày tạo
+                              }
+                              ?>
+                          </a>
+                        </th>
+                        <th>
+                          Giá
+                          <a href="?sort=pprice&<?php echo $ascUrl; ?>" class="text-success">
+                              <?php 
+                              if (!isset($_GET['order'])) {
+                                  echo ' &#8595;';
+                              }elseif (isset($_GET['order']) && ($_GET['order'] == 'desc' && $_GET['sort'] == 'pprice'))
+                              {
+                                  echo ' &#8595;';
+                              }
+                              elseif (isset($_GET['order']) &&  $_GET['sort'] != 'pprice')
+                              {
+                                  echo ' &#8595;';
+                              }
+                              ?>
+                          </a>
+                          <a href="?sort=pprice&<?php echo $descUrl; ?>" class="text-danger">
+                              <?php 
+                              if (isset($_GET['order']) && $_GET['order'] == 'asc' && $_GET['sort'] == 'pprice') {
+                                  echo ' &#8593;'; // Mũi tên giảm khi chọn giảm dần
+                              }
+                              ?>
+                          </a>
+                        </th>
+
                         <th>Thao tác</th>
                       </tr>
                     </thead>
@@ -119,11 +173,10 @@
 												</td>
                         <td><?=$row->pkind?></td>
                         <td><?=$row->create_at?></td>
-                        <td>chua co</td>
                         <td><?=$row->pprice?></td>
-                        <td><?=$row->pdescription?></td>
                         <td>
-                          <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#editProductModal">Chỉnh sửa</button>
+                          <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="window.location='<?= ROOT ?>DetailProduct/<?=$row->id?>';">Thêm Size</button>
+                          <!-- <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#editProductModal">Chỉnh sửa</button> -->
                           <!-- Modal -->
                           <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -251,13 +304,6 @@
         <!-- pagination -->
       </section>
     </div>
-
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
 
     <script>
       function DeleteFormjs(productId) {

@@ -87,12 +87,6 @@
                         <p>Quản Lý</p>
                      </a>
                   </li>
-                  <li class="nav-item">
-                     <a href="<?= ROOT ?>account/addAccount" class="nav-link <?= $current_page == 'addAccount' ? 'active' : '' ?>">
-                        <i class="nav-icon fa fa-user-plus"></i>
-                        <p>Tạo tài khoản</p>
-                     </a>
-                  </li>
                <?php endif; ?>
             </ul>
          </nav>

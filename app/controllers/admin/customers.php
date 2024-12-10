@@ -16,8 +16,7 @@ class Customers extends Controller
         $offset = ($current_page - 1) * $items_per_page; // Tính toán offset cho LIMIT
 
         // Truy vấn với LIMIT và OFFSET
-        // $res = $db->read("SELECT * FROM users WHERE role='user' and id in (SELECT DISTINCT user_id FROM orders) LIMIT $items_per_page OFFSET $offset");
-        $res = $db->read("SELECT users.id, name, COUNT(order_id) AS totalOrders FROM users JOIN orders on users.id = orders.user_id WHERE role='user' GROUP BY id, name LIMIT $items_per_page OFFSET $offset");
+        $res = $db->read("SELECT users.id, name, (SELECT COUNT(user_id) FROM orders WHERE orders.user_id = users.id GROUP BY order_id)  AS totalOrders FROM users LIMIT $items_per_page OFFSET $offset");
         $data = array();
         $data['rows'] = $res;
         $data['total_pages'] = $total_pages;

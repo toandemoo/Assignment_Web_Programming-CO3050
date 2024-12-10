@@ -18,6 +18,10 @@ class DetailOrder extends Controller
 
         $data['orders'] = $orders;
 
+        $order = $db->read("SELECT * FROM orders WHERE order_id = :id", ['id' => $id])[0];
+
+        $data['order'] = $order;
+
         $this->view("admin/detailOrder",$data);
     }
 }

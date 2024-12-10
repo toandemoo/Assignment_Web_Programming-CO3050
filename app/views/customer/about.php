@@ -8,7 +8,7 @@
 						<div class="col-md-6">
 							<div class="about_1">
 								<h3 class="about-us">VỀ CHÚNG TÔI</h3>
-								<p>Chào mừng bạn đến với ELECTRO – điểm đến đáng tin cậy của bạn cho các sản phẩm điện tử chất lượng cao và dịch vụ tận tâm. Tại ELECTRO, chúng tôi cam kết mang đến cho khách hàng những sản phẩm công nghệ tiên tiến nhất, từ điện thoại, máy tính xách tay, máy tính bảng đến các thiết bị gia dụng thông minh và phụ kiện hiện đại.</p>
+								<p>Chào mừng bạn đến với GlamAura – điểm đến đáng tin cậy của bạn cho các sản phẩm điện tử chất lượng cao và dịch vụ tận tâm. Tại ELECTRO, chúng tôi cam kết mang đến cho khách hàng những sản phẩm công nghệ tiên tiến nhất, từ điện thoại, máy tính xách tay, máy tính bảng đến các thiết bị gia dụng thông minh và phụ kiện hiện đại.</p>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -28,7 +28,7 @@
 				<div class="row">
 						<div class="col-6 about" style="margin-bottom: 1em; margin-top:2em;">
 							<p><strong>Dịch Vụ Khách Hàng</strong><br>
-								Tại ELECTRO, chúng tôi tự hào với đội ngũ chăm sóc khách hàng chuyên nghiệp, luôn sẵn sàng hỗ trợ bạn. Chính sách đổi trả và dịch vụ bảo hành nhanh chóng là ưu tiên hàng đầu nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất.
+								Tại GlamAura, chúng tôi tự hào với đội ngũ chăm sóc khách hàng chuyên nghiệp, luôn sẵn sàng hỗ trợ bạn. Chính sách đổi trả và dịch vụ bảo hành nhanh chóng là ưu tiên hàng đầu nhằm đem lại trải nghiệm mua sắm hoàn hảo nhất.
 							</p>
 						</div>
 						<div class="col-6 about-2">

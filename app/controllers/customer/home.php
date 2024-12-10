@@ -19,7 +19,7 @@ class Home extends Controller
 
 
         $userid = $db->read("SELECT id FROM users WHERE email = :email", ['email' => $_SESSION['email']])[0]->id;
-        $product = $db->read("SELECT COUNT(id) AS total FROM orders WHERE user_id = :id", ['id' => $userid])[0]->total;
+        $product = $db->read("SELECT COUNT(DISTINCT order_id) AS total FROM orders WHERE user_id = :id", ['id' => $userid])[0]->total;
         $data['order'] = $product;
         $_SESSION['order'] = $product;
 

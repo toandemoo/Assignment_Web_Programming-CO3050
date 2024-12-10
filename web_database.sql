@@ -168,8 +168,10 @@ CREATE TABLE `available` (
 );
 -- 
 INSERT INTO `available` (`id`, `product_id`, `size`, `quantity`) VALUES
-(1, 101, 10, 42),
-(2, 102, 15, 40);
+(1, 1, 10, 42),
+(2, 1, 20, 42),
+(3, 1, 30, 42),
+(4, 2, 15, 40);
 
 
 -- --------------------------------------------------------
@@ -195,8 +197,11 @@ CREATE TABLE `users` (
   `birthday` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `role` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  'address' VARCHAR(255) NOT NULL
+  'address' VARCHAR(255) NOT NULL,
+  'img' VARCHAR(255)
 );
+
+
 
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `gender`, `phone`, `birthday`, `created_at`, `role`,'address') VALUES
@@ -206,6 +211,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `gender`, `phone`, `birt
 (6, 'phạm đức toản', 'ton2@gmail.com', '123', 'male', '0339747813', '0000-00-00', '2024-11-26 16:40:54', 'user', 'none'),
 (7, 'phạm đức toản12312', 'ton0@gmail.com', '123', 'male', '0339747813', '0000-00-00', '2024-11-26 16:41:29', 'user', 'none'),
 (8, 'NGUYỄN THÀNH ĐẠT', 'dat@gmail.com', 'jhsda', 'male', '0368173053', '0000-00-00', '2024-12-01 02:54:08', 'user', 'none');
+
+
+
+CREATE TABLE uploads (
+    id INT   PRIMARY KEY,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    file_type VARCHAR(50),
+    file_size INT,
+    uploaded_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 
 ALTER TABLE users
 ADD COLUMN address VARCHAR(255) NOT NULL;
@@ -267,6 +284,10 @@ ALTER TABLE `available`
 
 ALTER TABLE `orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+
+ALTER TABLE `uploads`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
 
 --
 
