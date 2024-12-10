@@ -10,19 +10,15 @@
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product01.png" alt="">
+								<img src="<?= htmlspecialchars($data['row']->pimg)?>" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product03.png" alt="">
+								<img src="<?= htmlspecialchars($data['row']->pimg1)?>" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product08.png" alt="">
+								<img src="<?= htmlspecialchars($data['row']->pimg2)?>" alt="">
 							</div>
 						</div>
 					</div>
@@ -31,20 +27,16 @@
 					<!-- Product thumb imgs -->
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
-							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product01.png" alt="">
+						<div class="product-preview">
+								<img src="<?= htmlspecialchars($data['row']->pimg)?>" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product03.png" alt="">
+								<img src="<?= htmlspecialchars($data['row']->pimg1)?>" alt="">
 							</div>
 
 							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product06.png" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="<?= ASSETS?>img/product08.png" alt="">
+								<img src="<?= htmlspecialchars($data['row']->pimg2)?>" alt="">
 							</div>
 						</div>
 					</div>
@@ -62,14 +54,11 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o"></i>
 								</div>
-								<a class="review-link" href="#">10 Review(s) | Add your review</a>
 							</div>
 							<div>
-								<h3 class="product-price"><?=$data['row']->pprice?> <del class="product-old-price">$990.00</del></h3>
+								<h3 class="product-price"><?=$data['row']->pprice?> <del class="product-old-price">450000 đ</del></h3>
 								<span class="product-available">In Stock</span>
 							</div>
-							<p><?=$data['row']->pdescription?></p>
-
 							<form action="<?= ROOT ?>detail_product/AddToCart/<?=$data['row']->id?>" method="POST" id="addToCartForm">
 								<div class="product-options">
 									<!-- Lựa chọn Size -->
@@ -151,8 +140,7 @@
 						<div id="product-tab">
 							<!-- product tab nav -->
 							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-								<li><a data-toggle="tab" href="#tab2">Details</a></li>
+								<li class="active"><a data-toggle="tab" href="#tab1">Description and details</a></li>
 								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
 							</ul>
 							<!-- /product tab nav -->
@@ -163,21 +151,11 @@
 								<div id="tab1" class="tab-pane fade in active">
 									<div class="row">
 										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+											<p><?=$data['row']->pdescription?></p>
 										</div>
 									</div>
 								</div>
 								<!-- /tab1  -->
-
-								<!-- tab2  -->
-								<div id="tab2" class="tab-pane fade in">
-									<div class="row">
-										<div class="col-md-12">
-											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-										</div>
-									</div>
-								</div>
-								<!-- /tab2  -->
 
 								<!-- tab3  -->
 								<div id="tab3" class="tab-pane fade in">
