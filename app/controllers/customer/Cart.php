@@ -38,6 +38,9 @@ class Cart extends Controller
             // Truy vấn lấy sản phẩm trong giỏ hàng
             $cartItems = $db->read("SELECT * FROM cart WHERE user_id = :user_id", ['user_id' => $user->id]);
 
+            $countItems = $db->read("SELECT COUNT(id) AS totalItem FROM cart WHERE user_id = :user_id", ['user_id' => $user->id]);
+            $_SESSION['product'] = $countItems[0]->totalItem;
+
             if(is_array($cartItems) && count($cartItems)>0)
             {
                 // Lấy danh sách product ids từ giỏ hàng

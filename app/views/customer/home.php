@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>GlamAura</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -81,7 +81,15 @@
 									<a href="Cart">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Giỏ Hàng</span>
-										<div class="qty">3</div>
+										<div class="qty"><?= $data['product']?></div>
+									</a>
+								</div>
+
+								<div>
+									<a href="order">
+										<i class="fa fa-shopping-bag"></i>
+										<span>Đơn Hàng</span>
+										<div class="qty"><?= $data['order']?></div>
 									</a>
 								</div>
 								<!-- /Cart -->

@@ -9,6 +9,20 @@ class Userinfo extends Controller
 
         $db = Database::getInstance();
 
+
+
+        $userid = $db->read("SELECT id FROM users WHERE email = :email", ['email' => $_SESSION['email']])[0]->id;
+        $product = $db->read("SELECT COUNT(id) AS total FROM cart WHERE user_id = :id", ['id' => $userid])[0]->total;
+        $data['product'] = $product;
+        $_SESSION['product'] = $product;
+
+
+        $userid = $db->read("SELECT id FROM users WHERE email = :email", ['email' => $_SESSION['email']])[0]->id;
+        $product = $db->read("SELECT COUNT(DISTINCT order_id) AS total FROM orders WHERE user_id = :id", ['id' => $userid])[0]->total;
+        $data['order'] = $product;
+        $_SESSION['order'] = $product;
+
+
         // SQL query để kiểm tra tài khoản
         $sql = "SELECT * FROM users WHERE email = :email";
 
@@ -34,6 +48,7 @@ class Userinfo extends Controller
             $_SESSION['birth'] = $user->birthday;
             $_SESSION['gender'] = $user->gender;
             $_SESSION['address'] = $user->address;
+            $_SESSION['avatar'] = $user->img;
         } else {
             // Nếu không có kết quả, xử lý lỗi hoặc thông báo
             echo "Không tìm thấy tài khoản với email: " . htmlspecialchars($data['email']);
@@ -72,6 +87,7 @@ class Userinfo extends Controller
           $data['newpassword'] = trim($_POST['password']);
           $data['newgender'] = trim($_POST['gender']);
           $data['newaddress'] = trim($_POST['address']);
+          $data['newavatar'] = trim($_POST['avatar']);
         } else {
           echo "Tên người dùng không hợp lệ.";
           return;
@@ -80,7 +96,7 @@ class Userinfo extends Controller
         $db = Database::getInstance();
 
         // SQL query để kiểm tra tài khoản
-        $sql = "UPDATE users SET name=:newfullName, email=:newemail, password=:newpassword, gender=:newgender, phone=:newphoneNumber, birthday=:newbirth, address=:newaddress WHERE email = :currentEmail";
+        $sql = "UPDATE users SET name=:newfullName, email=:newemail, password=:newpassword, gender=:newgender, phone=:newphoneNumber, birthday=:newbirth, address=:newaddress, img=:newavatar WHERE email = :currentEmail";
 
         // Chuẩn bị dữ liệu truyền vào
         $params = [
@@ -91,7 +107,8 @@ class Userinfo extends Controller
           'newphoneNumber' =>  $data['newphoneNumber'],
           'newbirth' =>  $data['newbirth'],
           'newgender' =>  $data['newgender'],
-          'newaddress' => $data['newaddress']
+          'newaddress' => $data['newaddress'],
+          'newavatar' => $data['newavatar']
         ];
 
         // Gọi hàm `read` để thực thi câu lệnh
@@ -104,6 +121,7 @@ class Userinfo extends Controller
         $_SESSION['birth'] = $data['newbirth'];
         $_SESSION['gender'] = $data['newgender'];
         $_SESSION['address'] = $data['newaddress'];
+        $_SESSION['avatar'] = $data['newavatar'];
         
         if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
           setcookie('email', $this->encryptData($data['newemail']), time() + (86400 * 30), "/"); // 30 ngày
@@ -111,5 +129,58 @@ class Userinfo extends Controller
         }
 
         header("Location: " . ROOT . "userinfo");
+    }
+
+
+    public function UpdateAvatar(){
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+            // Đường dẫn thư mục lưu file
+            $targetDir = "c:/xampp/htdocs/Assignment_Web_Programming-CO3050/public/uploads/";
+
+            // Tạo thư mục nếu chưa tồn tại
+            if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0777, true);
+            }
+
+            // Tạo tên file duy nhất
+            $fileName = $_FILES['avatar']['name'];
+            $targetFilePath = $targetDir . $fileName;
+
+            // Kiểm tra định dạng file
+            $fileType = strtolower(pathinfo($targetFilePath, PATHINFO_EXTENSION));
+            $validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            if (in_array($fileType, $validExtensions)) {
+                // Di chuyển file tải lên
+                if (move_uploaded_file($_FILES['avatar']['tmp_name'], $targetFilePath)) {
+                    // Lấy thông tin file
+                    $fileSize = $_FILES['avatar']['size'];
+                    $filePath = "http://localhost/Assignment_Web_Programming-CO3050/public/uploads/" . $fileName;
+
+                    $db = Database::getInstance();
+
+                    $sql = "UPDATE users SET img=:newavatar WHERE email = :currentEmail";
+
+                    $params = [
+                      'currentEmail' => $_SESSION['email'],
+                      'newavatar' => $filePath
+                    ];
+                    $db->write($sql, $params);
+
+                } else {
+                    echo "Lỗi: Không thể di chuyển file.";
+                }
+            } else {
+                echo "Chỉ chấp nhận file ảnh (JPG, JPEG, PNG, GIF).";
+            }
+        } else {
+            echo "Lỗi tải file: " . $_FILES['avatar']['error'];
+        }
+      } else {
+          echo "Yêu cầu không hợp lệ.";
+      }
+
+      header("Location: " . ROOT . "userinfo");
+
     }
 }

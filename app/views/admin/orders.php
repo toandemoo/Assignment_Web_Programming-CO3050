@@ -7,7 +7,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>All Orders</h1>
+            <h1>Danh Sách Đơn Hàng</h1>
           </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -16,10 +16,10 @@
        <div class="row">
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+              <span class="info-box-icon bg-info"></span>
               <div class="info-box-content">
-                <span class="info-box-text">Pending</span>
-                <span class="info-box-number">1,410</span>
+                <span class="info-box-text">Đang Chờ</span>
+                <span class="info-box-number"><?=$data['pending']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -28,10 +28,10 @@
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+              <span class="info-box-icon bg-success"></span>
               <div class="info-box-content">
-                <span class="info-box-text">Completed</span>
-                <span class="info-box-number">410</span>
+                <span class="info-box-text">Giao Thành Công</span>
+                <span class="info-box-number"><?=$data['success']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -40,11 +40,11 @@
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+              <span class="info-box-icon bg-warning"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Refunded</span>
-                <span class="info-box-number">13,648</span>
+                <span class="info-box-text">Trả Lại</span>
+                <span class="info-box-number"><?=$data['refunded']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -53,11 +53,11 @@
           <!-- /.col -->
           <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
-              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+              <span class="info-box-icon bg-danger"></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Failed</span>
-                <span class="info-box-number">93,139</span>
+                <span class="info-box-text">Đã Hủy</span>
+                <span class="info-box-number"><?=$data['canceled']?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -74,27 +74,31 @@
                 <h3 class="card-title"></h3>
 
                 <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <div class="input-group input-group-sm align-content-center" style="width: 100%;">
+                      <form action="<?= ROOT ?>Orders/Search" method="GET">
+                        <div class="input-group input-group-sm align-content-center" style="width: 100%;">
+                          <input type="text" name="search" class="form-control float-right" placeholder="Search">
+                          <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                              <i class="fas fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </form>
 
-                    <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
                       <th>OrderID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Payment</th>
-                      <th>Status</th>
+                      <th>Họ Tên</th>
+                      <th>Ngày tạo</th>
+                      <th>Phương thức thanh toán</th>
+                      <th>Trạng thái</th>
                       <th>Thao tác</th>
                     </tr>
                   </thead>
@@ -102,13 +106,13 @@
                     <?php if (is_array($data['rows'])): ?>
                         <?php foreach ($data['rows'] as $row): ?>
                             <tr>
-                                <td><?=$row->id?></td>
-                                <td><?=$row->user_id?></td>
-                                <td>chua co</td>
-                                <td>chua co</td>
-                                <td>chua co</td>
+                                <td class="col-3"><?=$row->order_id?></td>
+                                <td><?=$row->name?></td>
+                                <td><?=$row->created_at?></td>
+                                <td><?=$row->payment_method?></td>
+                                <td><?=$row->status?></td>
                                 <td>
-                                  <button type="button" class="btn btn-danger col-sm-5" onclick="window.location='<?= ROOT ?>DetailOrder/<?=$row->id?>';">Xem</button>
+                                  <button type="button" class="btn btn-danger col-sm-5" onclick="window.location='<?= ROOT ?>DetailOrder/<?=$row->order_id?>';">Xem</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

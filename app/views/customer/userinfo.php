@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>Electro - HTML Ecommerce Template</title>
+		<title>GlamAura</title>
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -153,13 +153,20 @@
 
 								<!-- Cart -->
 								<div>
-									<a href="Cart.html">
+									<a href="Cart">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Giỏ Hàng</span>
-										<div class="qty">3</div>
+										<div class="qty"><?= $data['product']?></div>
 									</a>
 								</div>
-								<!-- /Cart -->
+
+								<div>
+									<a href="order">
+										<i class="fa fa-shopping-bag"></i>
+										<span>Đơn Hàng</span>
+										<div class="qty"><?= $data['order']?></div>
+									</a>
+								</div>
 							</div>
 						</div>
 						<!-- /ACCOUNT -->
@@ -199,64 +206,58 @@
 		
 		<div class="container">
 			<div class="row">
-		
-				<div class="col">
-					<div class="content-section" id="accountInfo">
-						<div class="title-info border-2 border-bottom border-danger">
-							<h2>Thông tin tài khoản</h2>
-						</div>
-						<div class="change-info">
-							<form action="userinfo/UpdateInfo" method="post">
-								<label for="name">Họ và tên:</label>
-								<input type="text" class="form-control" id="name" value="<?php echo $_SESSION['fullName'] ?>" name="fullName">
-								<label for="email">Email:</label>
-								<input type="email" class="form-control" id="email" value="<?php echo $_SESSION['email'] ?>" name="email">
-								<label for="password">Mật Khẩu</label>
-								<input type="text" class="form-control" id="password" value="<?php echo $_SESSION['password'] ?>" name="password">
-								<label for="phone">Số điện thoại</label>
-								<input type="text" class="form-control" id="phone" value="<?php echo $_SESSION['phoneNumber'] ?>" name="phoneNumber">
-								
-								<label for="birth">Ngày sinh:</label>
-								<input type="text" class="form-control" id="birth" value="<?php echo $_SESSION['birth'] ?>" name="birth" >
-								
-								<label for="gender">Giới tính:</label>
-								<select id="gender" name="gender">
-									<option value="male" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'male') ? 'selected' : ''; ?>>Nam</option>
-									<option value="female" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'female') ? 'selected' : ''; ?>>Nữ</option>
-									<option value="other" <?php echo (isset($_SESSION['gender']) && $_SESSION['gender'] == 'other') ? 'selected' : ''; ?>>Khác</option>
-								</select>
-								<label for="address">Địa chỉ</label>
-								<input type="text" class="form-control" id="address" name="address" value="<?php echo $_SESSION['address'] ?>">
-								<div class="submit-button">
-									<button type="submit" class="btn btn-danger" style="padding-left: 25%;" onclick="completeUpdateInfo()">Cập nhật thông tin</button>
-								</div>
-							</form>
-						</div>
+			<!-- Phần ảnh đại diện -->
+			<div class="col-md-4">
+			<form id="avatar-form" action="userinfo/UpdateAvatar" method="POST" enctype="multipart/form-data" class="d-flex flex-column align-items-center" style="margin-top: 50px;">
+				<img id="avatar-img" src="<?php echo $_SESSION['avatar']; ?>" alt="Avatar" class="img-circle" style="width: 300px; height: 300px; border: 2px solid #ddd; object-fit: cover; margin-bottom:20px">
+				<button type="button" id="change-avatar-btn" class="btn btn-primary mt-3" style=" margin-bottom:20px">Thay đổi ảnh đại diện</button>
+				<input type="file" id="upload-avatar" name="avatar" accept="image/*" style="display: none;">
+				<button type="submit" class="btn btn-danger mt-2">Lưu ảnh</button>
+			</form>
+			</div>
+
+				<!-- Phần thông tin tài khoản -->
+				<div class="col-md-8">
+				<div class="content-section">
+					<div class="title-info" style="border-bottom: 2px solid red; margin-bottom: 20px;">
+						<h2>Thông tin tài khoản</h2>
 					</div>
-		
-					<!-- <div class="content-section" id="changePassword" style="display: none;">
-						<div class="title-info border-2 border-bottom border-danger">
-							<h2>Đổi mật khẩu</h2>
+					<form action="userinfo/UpdateInfo" method="post">
+						<div class="form-group">
+						<label for="name">Họ và tên:</label>
+						<input type="text" class="form-control" id="name" name="fullName" value="<?php echo $_SESSION['fullName']; ?>">
 						</div>
-						<form action="Change_password.html">
-							<label for="currentPassword">Mật khẩu hiện tại:</label>
-							<input type="password" class="form-control" id="currentPassword">
-							<label for="newPassword">Mật khẩu mới:</label>
-							<input type="password" class="form-control" id="newPassword">
-							<label for="confirmPassword">Xác nhận mật khẩu mới:</label>
-							<input type="password" class="form-control" id="confirmPassword">
-							<div class="submit-button">
-								<button class="btn btn-danger" onclick="changePassword()">Đổi mật khẩu</button>
-							</div>
-						</form>
-					</div>
-		
-					<div class="content-section" id="purchaseHistory" style="display: none;">
-						<div class="title-info border-2 border-bottom border-danger">
-							<h2>Lịch sử mua hàng</h2>
+						<div class="form-group">
+						<label for="email">Email:</label>
+						<input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email']; ?>">
 						</div>
-						<p>Danh sách các đơn hàng đã mua sẽ hiển thị ở đây.</p>
-					</div> -->
+						<div class="form-group">
+						<label for="password">Mật Khẩu:</label>
+						<input type="password" class="form-control" id="password" name="password" value="<?php echo $_SESSION['password']; ?>">
+						</div>
+						<div class="form-group">
+						<label for="phone">Số điện thoại:</label>
+						<input type="text" class="form-control" id="phone" name="phoneNumber" value="<?php echo $_SESSION['phoneNumber']; ?>">
+						</div>
+						<div class="form-group">
+						<label for="birth">Ngày sinh:</label>
+						<input type="text" class="form-control" id="birth" name="birth" value="<?php echo $_SESSION['birth']; ?>">
+						</div>
+						<div class="form-group">
+						<label for="gender">Giới tính:</label>
+						<select id="gender" class="form-control" name="gender">
+							<option value="male" <?php echo ($_SESSION['gender'] == 'male') ? 'selected' : ''; ?>>Nam</option>
+							<option value="female" <?php echo ($_SESSION['gender'] == 'female') ? 'selected' : ''; ?>>Nữ</option>
+							<option value="other" <?php echo ($_SESSION['gender'] == 'other') ? 'selected' : ''; ?>>Khác</option>
+						</select>
+						</div>
+						<div class="form-group">
+						<label for="address">Địa chỉ:</label>
+						<input type="text" class="form-control" id="address" name="address" value="<?php echo $_SESSION['address']; ?>">
+						</div>
+						<button type="submit" class="btn btn-danger btn-block" onclick="completeUpdateInfo()">Cập nhật thông tin</button>
+					</form>
+				</div>
 				</div>
 			</div>
 		</div>
@@ -266,6 +267,26 @@
 			// Hiển thị thông báo thành công
 			alert("Cập nhật thông tin thành công!");
 		}
+		</script>
+
+		<script>
+			// Kích hoạt chọn file khi click "Thay đổi ảnh đại diện"
+		document.getElementById('change-avatar-btn').addEventListener('click', function () {
+		document.getElementById('upload-avatar').click();
+		});
+
+		// Hiển thị ảnh xem trước khi người dùng chọn ảnh
+		document.getElementById('upload-avatar').addEventListener('change', function (event) {
+		const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onload = function (e) {
+				document.getElementById('avatar-img').src = e.target.result;
+			};
+			reader.readAsDataURL(file);
+		}
+		});
+
 		</script>
 
 
