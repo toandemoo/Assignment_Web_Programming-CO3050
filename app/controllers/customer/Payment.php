@@ -49,7 +49,9 @@ class Payment extends Controller
         // Lấy tab hiện tại và hình thức giao hàng
         $currentTab = isset($_GET['tab']) ? $_GET['tab'] : 'info';
         $shippingType = isset($_GET['shippingType']) ? $_GET['shippingType'] : 'pickup';
-
+        if($shippingType && $shippingType != 'pickup'){
+            $_SESSION['shippingType'] = $shippingType;
+        }
         // Đọc dữ liệu địa chỉ từ JSON
         $jsonFilePath = '../app/views/customer/Shared/vietnamAddress.json';
         $json = file_get_contents($jsonFilePath);
@@ -144,23 +146,55 @@ class Payment extends Controller
             if (isset($_POST['notes'])) {
                 $_SESSION['notes'] = $_POST['notes'];
             }
-
             if (isset($_POST['paymentMethod'])) {
                 $paymentMethod = $_POST['paymentMethod'];
                 $orderId = $_SESSION['order_id'];
                 $selectedProducts = $_SESSION['selectedProducts'] ?? [];
                 $userId = $_SESSION['user_id'];
                 $userName = $_SESSION['user_name'];
-                $userPhone = $_SESSION['user_phone'];
+                $userPhone = $_SESSION['user_phone'];   
                 $userEmail = $_SESSION['user_email'];
 
                 // Lấy thông tin người nhận (nếu không có thì lấy từ user hiện tại)
-                $recipientName = $_SESSION['recipientName'] ?? $userName;
-                $recipientPhone = $_SESSION['recipientPhone'] ?? $userPhone;
-                $province = $_SESSION['province'] ?? null;
-                $district = $_SESSION['district'] ?? null;
-                $notes = $_SESSION['notes'] ?? null;
-
+                if($_SESSION['shippingType'] === 'delivery'){
+                    $recipientName = $_SESSION['recipientName'];
+                    $recipientPhone = $_SESSION['recipientPhone'];
+                    $provinceId = $_SESSION['province'];
+                    $districtId = $_SESSION['district'];
+                    $provinceName = null;
+                    $districtName = null;
+                    foreach ($locations as $province) {
+                        if ($province['Id'] == $provinceId) {
+                            $provinceName = $province['Name'];
+                            foreach ($province['Districts'] as $district) {
+                                if ($district['Id'] == $districtId) {
+                                    $districtName = $district['Name'];
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                
+                    $province = $provinceName;
+                    $district = $districtName;
+                }else{
+                    $recipientName = $userName;
+                    $recipientPhone = $userPhone;
+                    if($_SESSION['pickupLocation'] =='store1'){
+                        $province = 'TP.HCM';
+                        $district = '123 Đường Nguyễn Văn Cừ, Quận 5';
+                    }
+                    else if($_SESSION['pickupLocation'] == 'store2'){
+                        $province = 'TP.HCM';
+                        $district = '125 Đường Phạm Văn Đồng, Quận 9';
+                    }
+                    else{
+                        $province = null;
+                        $district = null;
+                    }
+                    $notes = null;
+                }
                 // Thêm dữ liệu vào bảng `orders`
                 foreach ($selectedProducts as $product) {
                     $sql = "INSERT INTO orders (order_id, product_id, user_id, totalAmount, payment_method, created_at, recipient_name, recipient_phone, province, district, notes, shipping_type, quantity)
@@ -207,9 +241,6 @@ class Payment extends Controller
             }
         }
 
-        // Lưu thông tin sản phẩm đã chọn vào session để giữ lại khi tải lại trang
-        $_SESSION['selectedProducts'] = $selectedProductDetails;
-
         // Truyền dữ liệu vào view
         $this->view("/customer/payment", [
             'currentTab' => $currentTab,
@@ -217,8 +248,8 @@ class Payment extends Controller
             'locations' => $locations,
             'districts' => $districts,
             'selectedProvinceId' => $selectedProvinceId,
-            'selectedProducts' => $selectedProductDetails,
-            'totalAmount' => $totalAmount,
+            'selectedProducts' => $_SESSION['selectedProducts'],
+            'totalAmount' => $_SESSION['totalAmount'],
         ]);
     }
 }
