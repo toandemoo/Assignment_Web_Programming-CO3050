@@ -80,7 +80,7 @@
 								<div>
 									<a href="Cart">
 										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
+										<span>Giỏ Hàng</span>
 										<div class="qty">3</div>
 									</a>
 								</div>

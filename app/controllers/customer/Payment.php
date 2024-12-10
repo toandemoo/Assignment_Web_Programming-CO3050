@@ -165,10 +165,10 @@ class Payment extends Controller
                     $districtName = null;
                     foreach ($locations as $province) {
                         if ($province['Id'] == $provinceId) {
-                            $provinceName = $province['Name']; // Lấy tên tỉnh
+                            $provinceName = $province['Name'];
                             foreach ($province['Districts'] as $district) {
                                 if ($district['Id'] == $districtId) {
-                                    $districtName = $district['Name']; // Lấy tên quận/huyện
+                                    $districtName = $district['Name'];
                                     break;
                                 }
                             }

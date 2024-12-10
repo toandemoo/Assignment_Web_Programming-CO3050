@@ -33,6 +33,7 @@ class Userinfo extends Controller
             $_SESSION['phoneNumber'] = $user->phone;
             $_SESSION['birth'] = $user->birthday;
             $_SESSION['gender'] = $user->gender;
+            $_SESSION['address'] = $user->address;
         } else {
             // Nếu không có kết quả, xử lý lỗi hoặc thông báo
             echo "Không tìm thấy tài khoản với email: " . htmlspecialchars($data['email']);
@@ -70,6 +71,7 @@ class Userinfo extends Controller
           $data['newbirth'] = trim($_POST['birth']);
           $data['newpassword'] = trim($_POST['password']);
           $data['newgender'] = trim($_POST['gender']);
+          $data['newaddress'] = trim($_POST['address']);
         } else {
           echo "Tên người dùng không hợp lệ.";
           return;
@@ -78,7 +80,7 @@ class Userinfo extends Controller
         $db = Database::getInstance();
 
         // SQL query để kiểm tra tài khoản
-        $sql = "UPDATE users SET name=:newfullName, email=:newemail, password=:newpassword, gender=:newgender, phone=:newphoneNumber, birthday=:newbirth WHERE email = :currentEmail";
+        $sql = "UPDATE users SET name=:newfullName, email=:newemail, password=:newpassword, gender=:newgender, phone=:newphoneNumber, birthday=:newbirth, address=:newaddress WHERE email = :currentEmail";
 
         // Chuẩn bị dữ liệu truyền vào
         $params = [
@@ -89,6 +91,7 @@ class Userinfo extends Controller
           'newphoneNumber' =>  $data['newphoneNumber'],
           'newbirth' =>  $data['newbirth'],
           'newgender' =>  $data['newgender'],
+          'newaddress' => $data['newaddress']
         ];
 
         // Gọi hàm `read` để thực thi câu lệnh
@@ -100,6 +103,7 @@ class Userinfo extends Controller
         $_SESSION['phoneNumber'] = $data['newphoneNumber'];
         $_SESSION['birth'] = $data['newbirth'];
         $_SESSION['gender'] = $data['newgender'];
+        $_SESSION['address'] = $data['newaddress'];
         
         if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
           setcookie('email', $this->encryptData($data['newemail']), time() + (86400 * 30), "/"); // 30 ngày

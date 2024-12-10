@@ -1312,6 +1312,22 @@ Log in
   width: calc(50% - 7px);
 }
 
+
+/*-- Button Filter --*/
+
+#filter-button {
+  background-color: #FF5722; /* Example custom background color */
+  color: white; /* Text color */
+  font-weight: bold;
+  padding: 10px; /* Padding to make it more clickable */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+}
+
+#filter-button:hover {
+  background-color: #e64a19; /* Darker shade on hover */
+  color: #fff; /* Ensure the text stays white */
+}
+
 /*----------------------------*\
 	Store
 \*----------------------------*/

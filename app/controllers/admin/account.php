@@ -16,7 +16,7 @@ class Account extends Controller
       $offset = ($current_page - 1) * $items_per_page; // Tính toán offset cho LIMIT
 
       // Truy vấn với LIMIT và OFFSET
-      $res = $db->read("SELECT * FROM users WHERE role='admin' LIMIT $items_per_page OFFSET $offset");
+      $res = $db->read("SELECT * FROM users WHERE role='admin' or role='employee' LIMIT $items_per_page OFFSET $offset");
 
       $data = array();
       $data['rows'] = $res;
@@ -40,7 +40,7 @@ class Account extends Controller
          $data['phone'] = trim($_POST['phoneNumber']);
          $data['birthday'] = trim($_POST['birth']);
          $data['gender'] = trim($_POST['gender']);
-         $data['role'] = "admin";
+         $data['role'] = trim($_POST['role']);
 
          // Thực hiện chèn dữ liệu vào bảng users
          $query = "INSERT INTO users(name, email, password, gender, phone, birthday, role) VALUES (:name, :email, :password, :gender, :phone, :birthday, :role)";
