@@ -14,10 +14,9 @@
 
 	/////////////////////////////////////////
 
-	// Products Slick
 	$('.products-slick').each(function () {
 		var $this = $(this),
-			$nav = $this.attr('data-nav');
+				$nav = $this.attr('data-nav'); // Lấy phần tử chứa mũi tên nếu có
 
 		$this.slick({
 			slidesToShow: 4,
@@ -26,25 +25,29 @@
 			infinite: true,
 			speed: 300,
 			dots: false,
-			arrows: true,
-			appendArrows: $nav ? $nav : false,
-			responsive: [{
+			arrows: true,  // Kích hoạt mũi tên
+			appendArrows: $nav ? $nav : false,  // Chỉ append vào #slick-nav-1 nếu có data-nav
+			responsive: [
+				{
 				breakpoint: 991,
 				settings: {
 					slidesToShow: 2,
 					slidesToScroll: 1,
 				}
-			},
-			{
+				},
+				{
 				breakpoint: 480,
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
 				}
-			},
+				},
 			]
 		});
 	});
+
+
+
 
 	// Products Widget Slick
 	$('.products-widget-slick').each(function () {

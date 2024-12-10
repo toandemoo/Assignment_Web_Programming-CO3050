@@ -416,6 +416,7 @@ Log in
 }
 
 
+
 /*----------------------------*\
 	Banner slider
 \*----------------------------*/
@@ -819,7 +820,7 @@ Log in
 #hot-deal.section {
   padding: 60px 0px;
   margin: 30px 0px;
-  background-image: url(https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/shark-new-collection-sale-clothing-banner-template-p3ztild89dffd0.webp);
+  background-image: url(https://marketplace.canva.com/EAFoEJMTGiI/1/0/1600w/canva-beige-aesthetic-new-arrival-fashion-banner-landscape-cNjAcBMeF9s.jpg);
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -1218,20 +1219,24 @@ Log in
   z-index: 10;
 }
 
-.products-slick-nav .slick-prev, .products-slick-nav .slick-next {
-  position: static;
-  -webkit-transform: none;
-  -ms-transform: none;
-  transform: none;
+/* Sửa vị trí mũi tên trong phần tử chứa mũi tên */
+.products-slick-nav .slick-prev, 
+.products-slick-nav .slick-next {
+  position: static;  /* Đặt lại vị trí */
+  transform: none;   /* Đảm bảo không có hiệu ứng transform */
   width: 20px;
   height: 20px;
   display: inline-block !important;
-  margin: 0px 2px;
+  margin: 0 2px;
 }
 
-.products-slick-nav .slick-prev:before, .products-slick-nav .slick-next:before {
+/* Điều chỉnh kích thước mũi tên */
+.products-slick-nav .slick-prev:before, 
+.products-slick-nav .slick-next:before {
   font-size: 14px;
+  color: #000; /* Chỉnh màu sắc mũi tên */
 }
+
 
 /*=========================================================
 	07 -> PRODUCTS PAGE
