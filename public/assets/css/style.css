@@ -761,14 +761,25 @@ Log in
     background-color: #f0f0f0;
 }
 
+.menu-toggle {
+  display: none;
+}
 /*----------------------------*\
 	responsive nav
 \*----------------------------*/
 
+/* CSS cho responsive menu */
 @media only screen and (max-width: 991px) {
-  .header-ctn .menu-toggle {
-    display: inline-block;
+  .menu-toggle {
+    display: inline-block; /* Hiển thị nút menu */
+    background-color: #15161D; /* Màu nền cho nút */
+    color: white; /* Màu chữ cho nút */
+    font-size: 24px;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
   }
+
   #responsive-nav {
     position: fixed;
     left: 0;
@@ -780,34 +791,35 @@ Log in
     overflow: hidden;
     z-index: 22;
     padding-top: 60px;
-    -webkit-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
     transform: translateX(-100%);
-    -webkit-transition: 0.2s all;
-    transition: 0.2s all;
+    transition: transform 0.2s ease-in-out; /* Chuyển động mượt mà */
   }
+
   #responsive-nav.active {
-    -webkit-transform: translateX(0%);
-    -ms-transform: translateX(0%);
-    transform: translateX(0%);
+    transform: translateX(0%); /* Khi active, menu mở ra */
     width: 100%;
   }
+
   .main-nav {
-    margin: 0px;
+    margin: 0;
     float: none;
   }
+
   .main-nav>li {
     display: block;
     float: none;
   }
+
   .main-nav>li+li {
-    margin-left: 0px;
+    margin-left: 0;
   }
+
   .main-nav>li>a {
     padding: 15px;
     color: #FFF;
   }
-  .nav-select{
+
+  .nav-select {
     padding-top: 20px;
     padding: 20px 0px;
   }
