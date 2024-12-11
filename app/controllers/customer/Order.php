@@ -33,17 +33,19 @@ class Order extends Controller
 
                 // Duyệt qua tất cả các đơn hàng và truy vấn thông tin sản phẩm từ bảng products
                 $orderData = [];
-                foreach ($orders as $order) {
-                    $productQuery = "SELECT * FROM products WHERE id = ?";
-                    $product = $db->read($productQuery, [$order->product_id]);
+                if (is_array($orders) && count($orders) > 0) {
+                    foreach ($orders as $order) {
+                        $productQuery = "SELECT * FROM products WHERE id = ?";
+                        $product = $db->read($productQuery, [$order->product_id]);
 
-                    if (!empty($product)) {
-                        // Gán thông tin sản phẩm vào mỗi đơn hàng
-                        $order->product = $product[0];
+                        if (!empty($product)) {
+                            // Gán thông tin sản phẩm vào mỗi đơn hàng
+                            $order->product = $product[0];
+                        }
+
+                        // Tạo cấu trúc dữ liệu cho đơn hàng
+                        $orderData[] = $order;
                     }
-
-                    // Tạo cấu trúc dữ liệu cho đơn hàng
-                    $orderData[] = $order;
                 }
 
                 // Chuẩn bị dữ liệu để truyền vào view

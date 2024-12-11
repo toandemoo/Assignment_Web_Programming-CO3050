@@ -7,7 +7,7 @@
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-8">
-						<h1>All PRODUCTS</h1>
+						<h1>SẢN PHẨM</h1>
 					</div>
 				</div>
 				<!-- /row -->
@@ -26,7 +26,7 @@
 					<div id="aside" class="col-md-3">
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Categories</h3>
+							<h3 class="aside-title">Phân Loại</h3>
 							
 							<?php if (is_array($data['categories'])): ?>
 							<?php foreach ($data['categories'] as $cate): ?>
@@ -48,7 +48,7 @@
 
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Price</h3>
+							<h3 class="aside-title">Giá</h3>
 							<div class="price-filter row">
 								<div id="price-slider"></div>
 								<div class="input-number price-min col">
@@ -76,39 +76,23 @@
 
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Top selling</h3>
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product01.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
+							<h3 class="aside-title">Bán Chạy</h3>
 
+							<?php if (is_array($data['topselling'])): ?>
+							<?php foreach ($data['topselling'] as $item): ?>
 							<div class="product-widget">
 								<div class="product-img">
-									<img src="./img/product02.png" alt="">
+									<img src="<?php echo $item->pimg?>" alt="">
 								</div>
 								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+									<!-- <p class="product-category">Category</p> -->
+									<h3 class="product-name"><a href="#"><?php echo $item->ptitle?></a></h3>
+									<h4 class="product-price"><?php echo $item->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 								</div>
 							</div>
+							<?php endforeach; ?>
+							<?php endif; ?>
 
-							<div class="product-widget">
-								<div class="product-img">
-									<img src="./img/product03.png" alt="">
-								</div>
-								<div class="product-body">
-									<p class="product-category">Category</p>
-									<h3 class="product-name"><a href="#">product name goes here</a></h3>
-									<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								</div>
-							</div>
 						</div>
 						<!-- /aside Widget -->
 					</div>
@@ -120,25 +104,25 @@
 						<div class="store-filter clearfix">
 							<div class="store-sort">
 								<label>
-									Sort By:
+									Sắp Xếp:
 									<select class="input-select" id="sort-items" onchange="applyFilter()">
-										<option value="newest" <?= (isset($_GET['sort']) && $_GET['sort'] == 'newest') ? 'selected' : '' ?>>Newest</option>
-										<option value="oldest" <?= (isset($_GET['sort']) && $_GET['sort'] == 'oldest') ? 'selected' : '' ?>>Oldest</option>
+										<option value="newest" <?= (isset($_GET['sort']) && $_GET['sort'] == 'newest') ? 'selected' : '' ?>>Mới Nhât</option>
+										<option value="oldest" <?= (isset($_GET['sort']) && $_GET['sort'] == 'oldest') ? 'selected' : '' ?>>Cũ Nhất</option>
 									</select>
 								</label>
 
 								<label>
-									Show:
+									Hiện Thị:
 									<select class="input-select" id="show-items" onchange="applyFilter()">
-										<option value="10" <?= (isset($_GET['show']) && $_GET['show'] == '10') ? 'selected' : '' ?>>10</option>
-										<option value="20" <?= (isset($_GET['show']) && $_GET['show'] == '20') ? 'selected' : '' ?>>20</option>
+										<option value="9"  <?= (isset($_GET['show']) && $_GET['show'] == '9') ? 'selected' : '' ?>>9</option>
+										<option value="15" <?= (isset($_GET['show']) && $_GET['show'] == '15') ? 'selected' : '' ?>>15</option>
 									</select>
 								</label>
 							</div>
-							<ul class="store-grid">
+							<!-- <ul class="store-grid">
 								<li class="active"><i class="fa fa-th"></i></li>
 								<li><a href="#"><i class="fa fa-th-list"></i></a></li>
-							</ul>
+							</ul> -->
 						</div>
 						<!-- /store top filter -->
 
@@ -154,15 +138,15 @@
 											<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
 												<div class="product-img">
 													<img src="<?=$row->pimg?>" alt="">
-													<div class="product-label">
+													<!-- <div class="product-label">
 														<span class="sale">-30%</span>
 														<span class="new">NEW</span>
-													</div>
+													</div> -->
 												</div>
 												<div class="product-body">
 													<p class="product-category"><?=$row->pkind?></p>
 													<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
-													<h4 class="product-price"><?=$row->pprice?> <del class="product-old-price">$990.00</del></h4>
+													<h4 class="product-price"><?=$row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 													<div class="product-rating">
 														<i class="fa fa-star"></i>
 														<i class="fa fa-star"></i>
@@ -175,7 +159,7 @@
 												<div class="add-to-cart">
 													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
 														<button type="submit" name="product_id" value="<?=$row->id?>" class="add-to-cart-btn">
-																<i class="fa fa-shopping-cart"></i> Add to Cart
+																<i class="fa fa-shopping-cart"></i> Thêm vào giỏ
 														</button>
 													</form>
 												</div>

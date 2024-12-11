@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>GlamAura</title>
+		<title>Electro</title>
+		<link rel="icon" href="<?=ASSETS ?>img/favicon.png" type="image/png">
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">

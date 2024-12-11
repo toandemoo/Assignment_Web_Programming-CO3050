@@ -7,6 +7,7 @@
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title>Electro</title>
+		<link rel="icon" href="<?=ASSETS ?>img/favicon.png" type="image/png">
 
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -232,9 +233,17 @@
 						<input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['email']; ?>">
 						</div>
 						<div class="form-group">
-						<label for="password">Mật Khẩu:</label>
-						<input type="password" class="form-control" id="password" name="password" value="<?php echo $_SESSION['password']; ?>">
+						<label for="password">Mật khẩu:</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="password" name="password" aria-describedby="toggle-password" value="<?php echo $_SESSION['password']; ?>">
+							<div class="input-group-btn">
+								<button type="button" class="btn btn-outline-secondary" style="height: 3.3rem;" id="toggle-password">
+								<i class="fa fa-eye"></i>
+								</button>
+							</div>
 						</div>
+						</div>
+
 						<div class="form-group">
 						<label for="phone">Số điện thoại:</label>
 						<input type="text" class="form-control" id="phone" name="phoneNumber" value="<?php echo $_SESSION['phoneNumber']; ?>">
@@ -286,6 +295,23 @@
 			reader.readAsDataURL(file);
 		}
 		});
+
+		document.getElementById('toggle-password').addEventListener('click', function() {
+		var passwordField = document.getElementById('password');
+		var passwordIcon = this.querySelector('i');
+
+		// Kiểm tra xem trường mật khẩu đang ở chế độ password hay text
+		if (passwordField.type === 'password') {
+			passwordField.type = 'text'; // Thay đổi thành text để hiển thị mật khẩu
+			passwordIcon.classList.remove('fa-eye'); // Thay đổi biểu tượng
+			passwordIcon.classList.add('fa-eye-slash'); // Biểu tượng ẩn mắt
+		} else {
+			passwordField.type = 'password'; // Đổi lại thành password để ẩn mật khẩu
+			passwordIcon.classList.remove('fa-eye-slash');
+			passwordIcon.classList.add('fa-eye');
+		}
+		});
+
 
 		</script>
 

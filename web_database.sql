@@ -30,9 +30,10 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 CREATE TABLE `comment` (
   `id` int(50) NOT NULL ,
   `user_id` int(50) NOT NULL,
-  `time` date NOT NULL,
+  `time` date NOT NULL DEFAULT current_timestamp(),
   `comment` varchar(250) NOT NULL,
-  `product_id` int(50) NOT NULL
+  `product_id` int(50) NOT NULL,
+  'rating' varchar(250) NOT NULL 
 );
 
 INSERT INTO `comment` (`id`, `user_id`, `time`, `comment`, `product_id`) VALUES

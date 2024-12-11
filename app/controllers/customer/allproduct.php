@@ -8,7 +8,7 @@ class Allproduct extends Controller
 
     
         // Get URL parameters with default values
-        $productsPerPage = isset($_GET['show']) ? $_GET['show'] : 10;  // Number of products per page
+        $productsPerPage = isset($_GET['show']) ? $_GET['show'] : 9;  // Number of products per page
         $page = isset($_GET['page']) ? $_GET['page'] : 1;  // Current page
         $sortOrder = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
         $sortBy = ($sortOrder == 'newest') ? 'DESC' : 'ASC';
@@ -80,8 +80,12 @@ class Allproduct extends Controller
         // Calculate total pages
         $totalPages = ceil($totalProducts / $productsPerPage);
 
+
+        $topselling = $db->read("SELECT DISTINCT products.ptitle, products.pprice, products.pimg, COUNT(orders.product_id) AS count FROM products JOIN orders on products.id = orders.product_id GROUP BY orders.product_id, products.ptitle, products.pprice , products.pimg  ORDER BY count DESC LIMIT 5");
+
         // Pass data to view
         $data['rows'] = $rows;
+        $data['topselling'] = $topselling;
         $data['categories'] = $categories;
         $data['totalPages'] = $totalPages;
         $data['currentPage'] = $page;

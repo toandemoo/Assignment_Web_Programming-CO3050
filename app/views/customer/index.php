@@ -70,9 +70,9 @@
 											<img src="<?=$row->pimg?>" alt="">
 											</div>
 											<div class="product-body">
-											<p class="product-category">Category</p>
+											<!-- <p class="product-category">Category</p> -->
 											<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
-											<h4 class="product-price"><?=$row->pprice?></h4>
+											<h4 class="product-price"><?=$row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 											<div class="product-rating">
 												<i class="fa fa-star"></i>
 												<i class="fa fa-star"></i>
@@ -161,9 +161,9 @@
 													</div> -->
 												</div>
 												<div class="product-body">
-													<p class="product-category">Category</p>
+													<!-- <p class="product-category">Category</p> -->
 													<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
-													<h4 class="product-price"><?=$row->pprice?> <del class="product-old-price">$990.00</del></h4>
+													<h4 class="product-price"><?=$row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 													<div class="product-rating">
 														<i class="fa fa-star"></i>
 														<i class="fa fa-star"></i>
@@ -179,7 +179,7 @@
 												<div class="add-to-cart">
 													<form action="<?= ROOT ?>detail_product/<?=$row->id?>" method="POST" name="addtocart">
 														<button type="submit" name="product_id" value="<?=$row->id?>" class="add-to-cart-btn">
-																<i class="fa fa-shopping-cart"></i> Add to Cart
+																<i class="fa fa-shopping-cart"></i> Thêm vào giỏ
 														</button>
 													</form>
 												</div>

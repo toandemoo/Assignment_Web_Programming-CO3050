@@ -97,7 +97,7 @@
 								?>
 								<div class="add-to-cart">
 									<button type="button" class="add-to-cart-btn" onclick="handleAddToCart(<?= $isLoggedIn ? 'true' : 'false' ?>);">
-										<i class="fa fa-shopping-cart"></i> Add to cart
+										<i class="fa fa-shopping-cart"></i> Thêm vào giỏ
 									</button>
 								</div>
 							</form>
@@ -129,8 +129,8 @@
 						<div id="product-tab">
 							<!-- product tab nav -->
 							<ul class="tab-nav">
-								<li class="active"><a data-toggle="tab" href="#tab1">Description and details</a></li>
-								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+								<li class="active"><a data-toggle="tab" href="#tab1">Mô Tả và Chi Tiết</a></li>
+								<li><a data-toggle="tab" href="#tab3">Bình Luận(<?= $data['totalRating']?>)</a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -153,15 +153,20 @@
 										<div class="col-md-3">
 											<div id="rating">
 												<div class="rating-avg">
-													<span>4.5</span>
+													<span><?= $data['averageRating']; ?></span>
 													<div class="rating-stars">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o"></i>
+														<?php
+														$averageRating = $data['averageRating'];
+														for ($i = 1; $i <= 5; $i++): ?>
+																<?php if ($i <= $averageRating): ?>
+																	<i class="fa fa-star"></i>
+																<?php else: ?>
+																	<i class="fa fa-star-o"></i>
+																<?php endif; ?>
+														<?php endfor; ?>
 													</div>
 												</div>
+
 												<ul class="rating">
 													<li>
 														<div class="rating-stars">
@@ -174,7 +179,7 @@
 														<div class="rating-progress">
 															<div style="width: 80%;"></div>
 														</div>
-														<span class="sum">3</span>
+														<span class="sum"><?= $data['countRatingFivestar'];?></span>
 													</li>
 													<li>
 														<div class="rating-stars">
@@ -187,7 +192,7 @@
 														<div class="rating-progress">
 															<div style="width: 60%;"></div>
 														</div>
-														<span class="sum">2</span>
+														<span class="sum"><?= $data['countRatingFourstar'];?></span>
 													</li>
 													<li>
 														<div class="rating-stars">
@@ -200,7 +205,7 @@
 														<div class="rating-progress">
 															<div></div>
 														</div>
-														<span class="sum">0</span>
+														<span class="sum"><?= $data['countRatingThreestar'];?></span>
 													</li>
 													<li>
 														<div class="rating-stars">
@@ -213,7 +218,7 @@
 														<div class="rating-progress">
 															<div></div>
 														</div>
-														<span class="sum">0</span>
+														<span class="sum"><?= $data['countRatingTwostar'];?></span>
 													</li>
 													<li>
 														<div class="rating-stars">
@@ -226,7 +231,7 @@
 														<div class="rating-progress">
 															<div></div>
 														</div>
-														<span class="sum">0</span>
+														<span class="sum"><?= $data['countRatingOnestar'];?></span>
 													</li>
 												</ul>
 											</div>
@@ -237,10 +242,12 @@
 										<div class="col-md-6">
 											<div id="reviews">
 												<ul class="reviews">
+													<?php if (is_array($data['comment'])): ?>
+													<?php foreach ($data['comment'] as $row): ?>
 													<li>
 														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
+															<h5 class="name"><?php echo $row->name?></h5>
+															<p class="date"><?php echo $row->time?></p>
 															<div class="review-rating">
 																<i class="fa fa-star"></i>
 																<i class="fa fa-star"></i>
@@ -250,49 +257,28 @@
 															</div>
 														</div>
 														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+															<p><?php echo $row->comment?></p>
 														</div>
 													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
-													<li>
-														<div class="review-heading">
-															<h5 class="name">John</h5>
-															<p class="date">27 DEC 2018, 8:0 PM</p>
-															<div class="review-rating">
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star"></i>
-																<i class="fa fa-star-o empty"></i>
-															</div>
-														</div>
-														<div class="review-body">
-															<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-														</div>
-													</li>
+													<?php endforeach; ?>
+													<?php else: ?>
+														<p class="text-center">Không có bình luận.</p>
+													<?php endif; ?>
+
 												</ul>
+
+												<?php if (is_array($data['comment'])): ?>
+												<!-- Nút phân trang -->
 												<ul class="reviews-pagination">
-													<li class="active">1</li>
-													<li><a href="#">2</a></li>
-													<li><a href="#">3</a></li>
-													<li><a href="#">4</a></li>
-													<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+													<?php if ($data['total_pages'] > 1): ?>
+															<?php for ($i = 1; $i <= $data['total_pages']; $i++): ?>
+																<li class="<?php echo $i == $data['current_page']? 'active' : ''; ?>">
+																	<a href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+																</li>
+															<?php endfor; ?>
+													<?php endif; ?>
 												</ul>
+												<?php endif; ?>
 											</div>
 										</div>
 										<!-- /Reviews -->
@@ -300,12 +286,12 @@
 										<!-- Review Form -->
 										<div class="col-md-3">
 											<div id="review-form">
-												<form class="review-form">
-													<input class="input" type="text" placeholder="Your Name">
-													<input class="input" type="email" placeholder="Your Email">
-													<textarea class="input" placeholder="Your Review"></textarea>
+												<form class="review-form" action="<?= ROOT ?>detail_product/review/<?= $data['row']->id; ?>" method="GET">
+													<input class="input" type="text" placeholder="Tên của bạn" name="username">
+													<input class="input" type="email" placeholder="Email" name="email">
+													<textarea class="input" placeholder="Bình luận của bạn" name="comment"></textarea>
 													<div class="input-rating">
-														<span>Your Rating: </span>
+														<span>Đánh Giá: </span>
 														<div class="stars">
 															<input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
 															<input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
@@ -314,7 +300,7 @@
 															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
 														</div>
 													</div>
-													<button class="primary-btn">Submit</button>
+													<button class="primary-btn">Gửi</button>
 												</form>
 											</div>
 										</div>
@@ -343,126 +329,37 @@
 
 					<div class="col-md-12">
 						<div class="section-title text-center">
-							<h3 class="title">Related Products</h3>
+							<h3 class="title">Sản Phẩm Liên Quan</h3>
 						</div>
 					</div>
 
 					<!-- product -->
+
+
+					<?php if (is_array($data['relateProduct'])): ?>
+					<?php foreach ($data['relateProduct'] as $row): ?>
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
 							<div class="product-img">
-								<img src="./img/product01.png" alt="">
-								<div class="product-label">
+								<img src="<?php echo $row->pimg?>" alt="">
+								<!-- <div class="product-label">
 									<span class="sale">-30%</span>
-								</div>
+								</div> -->
 							</div>
 							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
+								<!-- <p class="product-category">Category</p> -->
+								<h3 class="product-name"><a href="#"><?php echo $row->ptitle ?></a></h3>
+								<h4 class="product-price"><?php echo $row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 								<div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
 								</div>
 							</div>
 							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
 							</div>
 						</div>
 					</div>
-					<!-- /product -->
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product02.png" alt="">
-								<div class="product-label">
-									<span class="new">NEW</span>
-								</div>
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<div class="clearfix visible-sm visible-xs"></div>
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product03.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
-					<!-- /product -->
-
-					<!-- product -->
-					<div class="col-md-3 col-xs-6">
-						<div class="product">
-							<div class="product-img">
-								<img src="./img/product04.png" alt="">
-							</div>
-							<div class="product-body">
-								<p class="product-category">Category</p>
-								<h3 class="product-name"><a href="#">product name goes here</a></h3>
-								<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-								<div class="product-rating">
-								</div>
-								<div class="product-btns">
-									<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-									<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-									<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-							</div>
-						</div>
-					</div>
+					<?php endforeach; ?>
+					<?php endif; ?>
 					<!-- /product -->
 
 				</div>
