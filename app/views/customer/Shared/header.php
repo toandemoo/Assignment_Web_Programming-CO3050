@@ -151,37 +151,41 @@
 
 
 		<!-- NAVIGATION -->
-<nav id="navigation">
-	<div class="container">
-		<div id="responsive-nav">
-			<ul class="main-nav nav navbar-nav">
-				<?php
-				$currentPage = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
-				$isSearchActive = isset($_GET['search']) || isset($_GET['categories']);
-				?>
-				<li class="<?= ($currentPage == 'home') ? 'active' : ''; ?>"><a href="<?=ROOT?><?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Trang Chủ</a></li>
-				<li class="<?= ($currentPage == 'about') ? 'active' : ''; ?>"><a href="<?=ROOT?>about">Giới Thiệu</a></li>
-				<li class="<?= ($currentPage == 'contact') ? 'active' : ''; ?>"><a href="<?=ROOT?>contact">Liên Hệ</a></li>
-				<li class="<?= ($currentPage == 'allproduct' || $isSearchActive) ? 'active' : ''; ?>"><a href="<?=ROOT?>allproduct">Sản Phẩm</a></li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						Danh Mục<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-					<?php if (is_array($data['categories'])): ?>
-					<?php foreach ($data['categories'] as $cate): ?>
-						<li style="padding: 0;"><a href="<?=ROOT?>allproduct?categories=<?=$cate->name?>"><?=$cate->name?></a></li>
-					<?php endforeach; ?>
-					<?php endif; ?>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-</nav>
-<!-- /NAVIGATION -->
+		<nav id="navigation">
+				<div class="container">
+				<button class="menu-toggle">☰</button>
+					<div id="responsive-nav">
+						<ul class="main-nav nav navbar-nav">
+							<?php
+							$currentPage = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
+							$isSearchActive = isset($_GET['search']) || isset($_GET['categories']);
+							?>
+							<li class="<?= ($currentPage == 'home') ? 'active' : ''; ?>"><a href="<?=ROOT?><?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Trang Chủ</a></li>
+							<li class="<?= ($currentPage == 'about') ? 'active' : ''; ?>"><a href="<?=ROOT?>about">Giới Thiệu</a></li>
+							<li class="<?= ($currentPage == 'contact') ? 'active' : ''; ?>"><a href="<?=ROOT?>contact">Liên Hệ</a></li>
+							<li class="<?= ($currentPage == 'allproduct' || $isSearchActive) ? 'active' : ''; ?>"><a href="<?=ROOT?>allproduct">Sản Phẩm</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									Danh mục sản phẩm <span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu">
+								<?php if (is_array($data['categories'])): ?>
+								<?php foreach ($data['categories'] as $cate): ?>
+									<li><a href="<?=ROOT?>allproduct?categories=<?=$cate->name?>"><?=$cate->name?></a></li>
+								<?php endforeach; ?>
+								<?php endif; ?>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+		<!-- /NAVIGATION -->
 
 		<script>
+			document.querySelector('.menu-toggle').addEventListener('click', function() {
+				document.getElementById('responsive-nav').classList.toggle('active');
+			});
 			function validateSearch() {
 				const searchInput = document.getElementById('search').value.trim();
 				if (searchInput === "") {
