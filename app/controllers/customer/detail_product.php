@@ -58,6 +58,21 @@ class Detail_product extends Controller
         $totalRating = $totalRating ? $totalRating[0]->totalRating : 0;
         $averageRating = ($countRatingFivestar*5 + $countRatingFourstar*4 + $countRatingThreestar*3 + $countRatingTwostar*2 + $countRatingOnestar*1) / 5.0;
 
+        if($totalRating != 0){
+            $percent5star = $countRatingFivestar / $totalRating * 100;
+            $percent4star = $countRatingFourstar / $totalRating * 100;
+            $percent3star = $countRatingThreestar / $totalRating * 100;
+            $percent2star = $countRatingTwostar / $totalRating * 100;
+            $percent1star = $countRatingOnestar / $totalRating * 100;
+        }else{
+            $percent5star = 0;
+            $percent4star = 0;
+            $percent3star = 0;
+            $percent2star = 0;
+            $percent1star = 0;
+        }
+        
+
         // Chuẩn bị dữ liệu cho view
         $data['row'] = $row[0];
         $data['categories'] = $categories;
@@ -74,6 +89,11 @@ class Detail_product extends Controller
         $data['countRatingOnestar'] = $countRatingOnestar;
         $data['averageRating'] = $averageRating;
         $data['totalRating'] = $totalRating;
+        $data['percent5star'] = $percent5star;
+        $data['percent4star'] = $percent4star;
+        $data['percent3star'] = $percent3star;
+        $data['percent2star'] = $percent2star;
+        $data['percent1star'] = $percent1star;
 
         // Hiển thị view
         $this->view("/customer/detail_product", $data);
