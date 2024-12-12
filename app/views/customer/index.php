@@ -71,7 +71,7 @@
 											</div>
 											<div class="product-body">
 											<!-- <p class="product-category">Category</p> -->
-											<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
+											<h3 class="product-name" style="width: auto; height:5rem;"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
 											<h4 class="product-price"><?=$row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 											<div class="product-rating">
 												<i class="fa fa-star"></i>
@@ -162,7 +162,7 @@
 												</div>
 												<div class="product-body">
 													<!-- <p class="product-category">Category</p> -->
-													<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
+													<h3 class="product-name" style="width: auto; height:5rem;"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
 													<h4 class="product-price"><?=$row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 													<div class="product-rating">
 														<i class="fa fa-star"></i>
@@ -173,7 +173,7 @@
 													</div>
 													<div class="product-btns">
 														<!-- <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button> -->
-														<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+														<!-- <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button> -->
 													</div>
 												</div>
 												<div class="add-to-cart">
@@ -202,5 +202,7 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+
+		
 
 <?php $this->view("./customer/Shared/footer"); ?>

@@ -168,12 +168,12 @@
                     <tr>
 										<div class="row">
 											<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
-                        <td><?=$row->id?></td>
-												<td style="width: 13%;">
-													<span><img class="table-avatar rounded-2" style="width: 30%; height: 30%;" src="<?=$row->pimg?>" alt=""></span><?=$row->ptitle?>
+                        <td class="col-1"><?=$row->id?></td>
+												<td class="col-5">
+													<span><img class="table-avatar rounded-2" style="width: 10%; height: 10%;" src="<?=$row->pimg?>" alt=""></span><?=$row->ptitle?>
 												</td>
-                        <td><?=$row->pkind?></td>
-                        <td><?=$row->create_at?></td>
+                        <td class="col-1"><?=$row->pkind?></td>
+                        <td class="col-2"><?=$row->create_at?></td>
                         <td><?=$row->pprice?></td>
                         <td>
                           <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="window.location='<?= ROOT ?>DetailProduct/<?=$row->id?>';">Thêm Size</button>
@@ -331,6 +331,18 @@
       function CloseModal() {
         document.getElementById('editForm').style.display = 'none';
       }
+    </script>
+
+
+    <script>
+      document.querySelector("form").addEventListener("submit", function (event) {
+        const productName = document.getElementById("productName").value.trim();
+
+        if (productName.length > 90) {
+          alert("Tên sản phẩm không được vượt quá 90 ký tự.");
+          event.preventDefault(); // Ngăn không cho form gửi đi
+        }
+      });
     </script>
 
 <?php $this->view("./admin/Shared/footer"); ?>

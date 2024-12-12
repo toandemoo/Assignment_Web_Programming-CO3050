@@ -211,9 +211,9 @@
 			<div class="col-md-4">
 			<form id="avatar-form" action="userinfo/UpdateAvatar" method="POST" enctype="multipart/form-data" class="d-flex flex-column align-items-center" style="margin-top: 50px;">
 				<img id="avatar-img" src="<?php echo $_SESSION['avatar']; ?>" alt="Avatar" class="img-circle" style="width: 300px; height: 300px; border: 2px solid #ddd; object-fit: cover; margin-bottom:20px">
-				<button type="button" id="change-avatar-btn" class="btn btn-primary mt-3" style=" margin-bottom:20px">Thay đổi ảnh đại diện</button>
 				<input type="file" id="upload-avatar" name="avatar" accept="image/*" style="display: none;">
-				<button type="submit" class="btn btn-danger mt-2">Lưu ảnh</button>
+				<button type="button" id="change-avatar-btn" class="btn btn-primary mt-3" style=" margin-bottom:20px" onclick="setupChangeAvatarButton('change-avatar-btn', 'upload-avatar', 'avatar-img', 'avatar-form');">Thay đổi ảnh đại diện</button>
+				<!-- <button type="submit" class="btn btn-danger mt-2" onclick="setupPreviewImage('upload-avatar', 'avatar-img')">Lưu ảnh</button> -->
 			</form>
 			</div>
 
@@ -250,7 +250,7 @@
 						</div>
 						<div class="form-group">
 						<label for="birth">Ngày sinh:</label>
-						<input type="text" class="form-control" id="birth" name="birth" value="<?php echo $_SESSION['birth']; ?>">
+						<input type="date" class="form-control" id="birth" name="birth" value="<?php echo $_SESSION['birth']; ?>">
 						</div>
 						<div class="form-group">
 						<label for="gender">Giới tính:</label>
@@ -272,29 +272,30 @@
 		</div>
 
 		<script>
-		function completeUpdateInfo() {
-			// Hiển thị thông báo thành công
-			alert("Cập nhật thông tin thành công!");
+		function setupPreviewImage(fileInputId, imgId, formId) {
+			document.getElementById(fileInputId).addEventListener('change', function (event) {
+				const file = event.target.files[0];
+				if (file) {
+						const reader = new FileReader();
+						reader.onload = function (e) {
+							document.getElementById(imgId).src = e.target.result;
+							// Tự động submit form sau khi chọn ảnh
+							document.getElementById(formId).submit();
+						};
+						reader.readAsDataURL(file);
+				}
+			});
 		}
-		</script>
 
-		<script>
-			// Kích hoạt chọn file khi click "Thay đổi ảnh đại diện"
-		document.getElementById('change-avatar-btn').addEventListener('click', function () {
-		document.getElementById('upload-avatar').click();
-		});
+		// Kích hoạt chọn file khi click "Thay đổi ảnh đại diện"
+		function setupChangeAvatarButton(buttonId, fileInputId, imgId, formId) {
+			document.getElementById(buttonId).addEventListener('click', function () {
+				document.getElementById(fileInputId).click();
+			});
 
-		// Hiển thị ảnh xem trước khi người dùng chọn ảnh
-		document.getElementById('upload-avatar').addEventListener('change', function (event) {
-		const file = event.target.files[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = function (e) {
-				document.getElementById('avatar-img').src = e.target.result;
-			};
-			reader.readAsDataURL(file);
+			// Liên kết xem trước ảnh với nút
+			setupPreviewImage(fileInputId, imgId, formId);
 		}
-		});
 
 		document.getElementById('toggle-password').addEventListener('click', function() {
 		var passwordField = document.getElementById('password');
@@ -311,7 +312,6 @@
 			passwordIcon.classList.add('fa-eye');
 		}
 		});
-
 
 		</script>
 

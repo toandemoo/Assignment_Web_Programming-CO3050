@@ -90,17 +90,17 @@
 				</form>
                   <div class="row mt-5 show-me">
                     <div class="col text-center">
-                        <div style="margin-top: 20px;">
+                        <!-- <div style="margin-top: 20px;">
                            <span style="text-transform: capitalize;font-family: Arial, Helvetica, sans-serif;font-size:15px;font-weight:600;color:rgb(148, 141, 141)">Hoặc đăng nhập bằng</span>
                            <div  style="margin-top: 20px;">
                               <span class="facebook-icon"><i class="fa fa-facebook" aria-hidden="true"></i></span>
                               <span class="twitter-icon"><i class="fa fa-twitter" aria-hidden="true"></i></span>
                               <span class="google-icon"><i class="fa fa-google" aria-hidden="true"></i></span>
                            </div>
-                        </div>
+                        </div> -->
                     </div>  
                   </div>
-                  <div class="auth-info text-center">Bạn chưa có tài khoản ?<a class="auth-link--dark" href="sign_up.html">Đăng ký</a></div>
+                  <div class="auth-info text-center">Bạn chưa có tài khoản ?<a class="auth-link--dark" href="<?=ROOT?>signup">Đăng ký</a></div>
                </div>
                <!-- Form Login -->
             </div>

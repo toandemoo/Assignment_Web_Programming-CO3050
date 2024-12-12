@@ -74,6 +74,12 @@
                      <p>Đơn Hàng</p>
                   </a>
                </li>
+               <li class="nav-item">   
+                  <a href="<?= ROOT ?>comments" class="nav-link <?= $current_page == 'comments' ? 'active' : '' ?>">
+                     <i class="nav-icon fa fa-comment"></i>
+                     <p>Đánh Giá & Bình Luận</p>
+                  </a>
+               </li>
                <li class="nav-item">
                   <a href="<?= ROOT ?>customers" class="nav-link <?= $current_page == 'customers' ? 'active' : '' ?>">
                      <i class="nav-icon fa fa-user"></i>

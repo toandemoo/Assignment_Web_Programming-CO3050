@@ -29,8 +29,8 @@
               <span class="info-box-icon bg-danger"><i class="fa fa-shopping-bag"></i></span>
               <div class="info-box-content">
                 <span class="info-box-text">Mã đơn hàng: <?= $data['order']->order_id; ?></span>
-                <span class="info-box-text">Phương thức thanh toán: <?= $data['order']->payment_method; ?></span>
-                <span class="info-box-text">Phương thức giao hàng: <?= $data['order']->shipping_type; ?></span>
+                <span class="info-box-text">Thanh toán: <?= $data['order']->payment_method; ?></span>
+                <span class="info-box-text">Giao hàng: <?= $data['order']->shipping_type; ?></span>
                 <span class="info-box-text">Trạng thái: <?= $data['order']->status; ?></span>
                 <span class="info-box-text">Ghi chú: <?= $data['order']->notes ? $data['order']->notes : 'không'; ?></span>
               </div>
@@ -77,10 +77,10 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <thead>
-                      <th>ProductID</th>
-                      <th>Product Name</th>
-                      <th>Quanity</th>
-                      <th>Total Price</th>
+                      <th>ID</th>
+                      <th>Sản Phẩm</th>
+                      <th>Số Lượng</th>
+                      <th>Giá Tiền</th>
                     </thead>
                   </thead>
                   <tbody>
@@ -93,7 +93,7 @@
                         <td><?=$row->product_id?></td>
                         <td><?=$row->ptitle?></td>
                         <td><?=$row->quantity?></td>
-                        <td><?=$row->totalAmount?></td>
+                        <td><?=$row->totalAmount?><small>đ</small></td>
                         <?php $total+= $row->totalAmount ?>
 											</a>
 										</div>
@@ -111,9 +111,8 @@
                 </table>
               </div>
                <div class="mt-sm-3 ml-auto mr-lg-5">
-                  <h3>Subtotal: <?=$total?></h3>
-                  <h3>Discount: 10000 vnđ</h3>
-                  <h3>Total: <?=$total?></h3>
+                  <!-- <h3>Discount: 10000 vnđ</h3> -->
+                  <h3>Thành tiền: <?=$total?><small>đ</small></h3>
                 </div>
               <!-- /.card-body -->
             </div>
