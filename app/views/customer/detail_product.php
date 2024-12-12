@@ -177,7 +177,7 @@
 															<i class="fa fa-star"></i>
 														</div>
 														<div class="rating-progress">
-															<div style="width: 80%;"></div>
+															<div style="width:<?= $data['percent5star'] ?>%;"></div>
 														</div>
 														<span class="sum"><?= $data['countRatingFivestar'];?></span>
 													</li>
@@ -190,7 +190,7 @@
 															<i class="fa fa-star-o"></i>
 														</div>
 														<div class="rating-progress">
-															<div style="width: 60%;"></div>
+															<div style="width:<?= $data['percent4star'] ?>%;"></div>
 														</div>
 														<span class="sum"><?= $data['countRatingFourstar'];?></span>
 													</li>
@@ -203,7 +203,7 @@
 															<i class="fa fa-star-o"></i>
 														</div>
 														<div class="rating-progress">
-															<div></div>
+															<div style="width:<?= $data['percent3star'] ?>%;"></div>
 														</div>
 														<span class="sum"><?= $data['countRatingThreestar'];?></span>
 													</li>
@@ -216,7 +216,7 @@
 															<i class="fa fa-star-o"></i>
 														</div>
 														<div class="rating-progress">
-															<div></div>
+															<div style="width:<?= $data['percent2star'] ?>%;"></div>
 														</div>
 														<span class="sum"><?= $data['countRatingTwostar'];?></span>
 													</li>
@@ -229,7 +229,7 @@
 															<i class="fa fa-star-o"></i>
 														</div>
 														<div class="rating-progress">
-															<div></div>
+															<div style="width:<?= $data['percent1star'] ?>%;"></div>
 														</div>
 														<span class="sum"><?= $data['countRatingOnestar'];?></span>
 													</li>
