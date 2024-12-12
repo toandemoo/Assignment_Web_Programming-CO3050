@@ -87,7 +87,7 @@ class Userinfo extends Controller
           $data['newpassword'] = trim($_POST['password']);
           $data['newgender'] = trim($_POST['gender']);
           $data['newaddress'] = trim($_POST['address']);
-          $data['newavatar'] = trim($_POST['avatar']);
+          // $data['newavatar'] = trim($_POST['avatar']);
         } else {
           echo "Tên người dùng không hợp lệ.";
           return;
@@ -96,7 +96,7 @@ class Userinfo extends Controller
         $db = Database::getInstance();
 
         // SQL query để kiểm tra tài khoản
-        $sql = "UPDATE users SET name=:newfullName, email=:newemail, password=:newpassword, gender=:newgender, phone=:newphoneNumber, birthday=:newbirth, address=:newaddress, img=:newavatar WHERE email = :currentEmail";
+        $sql = "UPDATE users SET name=:newfullName, email=:newemail, password=:newpassword, gender=:newgender, phone=:newphoneNumber, birthday=:newbirth, address=:newaddress WHERE email = :currentEmail";
 
         // Chuẩn bị dữ liệu truyền vào
         $params = [
@@ -108,7 +108,7 @@ class Userinfo extends Controller
           'newbirth' =>  $data['newbirth'],
           'newgender' =>  $data['newgender'],
           'newaddress' => $data['newaddress'],
-          'newavatar' => $data['newavatar']
+          // 'newavatar' => $data['newavatar']
         ];
 
         // Gọi hàm `read` để thực thi câu lệnh

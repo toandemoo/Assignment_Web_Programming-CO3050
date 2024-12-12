@@ -23,7 +23,7 @@ class Orders extends Controller
         $total_pages = ceil($total_orders / $items_per_page);  // Tính số trang
 
         // tổng đơn hàng đang chờ chuẩn bị
-        $pending = $db->read("SELECT COUNT(DISTINCT order_id) AS total FROM orders WHERE status = 'chờ'")[0]->total;
+        $pending = $db->read("SELECT COUNT(DISTINCT order_id) AS total FROM orders WHERE status = 'pending'")[0]->total;
 
         // tổng đơn hàng đã giao thàng công
         $success = $db->read("SELECT COUNT(DISTINCT order_id) AS total FROM orders WHERE status = 'success'")[0]->total;

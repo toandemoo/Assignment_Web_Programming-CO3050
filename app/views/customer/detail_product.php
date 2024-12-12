@@ -48,15 +48,19 @@
 							<h1 class="product-name fs-1"><?=$data['row']->ptitle?></h1>
 							<div>
 								<div class="product-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
+									<?php
+										$averageRating = $data['averageRating'];
+										for ($i = 1; $i <= 5; $i++): ?>
+											<?php if ($i <= $averageRating): ?>
+												<i class="fa fa-star"></i>
+											<?php else: ?>
+												<i class="fa fa-star-o"></i>
+											<?php endif; ?>
+										<?php endfor; ?>
 								</div>
 							</div>
 							<div>
-								<h3 class="product-price"><?=$data['row']->pprice?></h3>
+								<h3 class="product-price"><?=$data['row']->pprice?><small><u style="color:#cc0000;">đ</u></h3>
 							</div>
 							<form action="<?= ROOT ?>detail_product/AddToCart/<?=$data['row']->id?>" method="POST" id="addToCartForm">
 								<div class="product-options">
@@ -64,18 +68,22 @@
 									<label>
 											Size
 											<select class="input-select" name="size">
-												<option value="1" selected>1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
+												<option value="S" selected>S</option>
+												<option value="M">M</option>
+												<option value="L">L</option>
+												<option value="XL">XL</option>
+												<option value="XXL">XXL</option>
 											</select>
 									</label>
 									<!-- Lựa chọn Màu sắc -->
 									<label>
 											Màu sắc
 											<select class="input-select" name="color">
-												<option value="Red" selected>Red</option>
+												<option value="Red">Red</option>
 												<option value="Yellow">Yellow</option>
 												<option value="Gray">Gray</option>
+												<option value="Black" selected>Black</option>
+												<option value="White">White</option>
 											</select>
 									</label>
 									<!-- Nhập số lượng -->
@@ -118,7 +126,7 @@
 
 							<ul class="product-links">
 								<li><h5>Loại sản phẩm:</h5></li>
-								<li><a href="<?= ROOT ?>allproduct?categories=<?php echo $data['row']->pkind ?>"><?php echo $data['row']->pkind ?></a></li>
+								<li><a href="<?= ROOT ?>allproduct?categories=<?php echo $data['row']->pkind ?>"><b><?php echo $data['row']->pkind ?></b></a></li>
 							</ul>
 						</div>
 					</div>
@@ -128,7 +136,7 @@
 					<div class="col-md-12">
 						<div id="product-tab">
 							<!-- product tab nav -->
-							<ul class="tab-nav">
+							<ul class="tab-nav" style="font-size: larger;">
 								<li class="active"><a data-toggle="tab" href="#tab1">Mô Tả và Chi Tiết</a></li>
 								<li><a data-toggle="tab" href="#tab3">Bình Luận(<?= $data['totalRating']?>)</a></li>
 							</ul>
@@ -286,9 +294,15 @@
 										<!-- Review Form -->
 										<div class="col-md-3">
 											<div id="review-form">
-												<form class="review-form" action="<?= ROOT ?>detail_product/review/<?= $data['row']->id; ?>" method="GET">
-													<input class="input" type="text" placeholder="Tên của bạn" name="username">
-													<input class="input" type="email" placeholder="Email" name="email">
+												<form class="review-form" action="<?= ROOT ?>detail_product/review/<?= $data['row']->id; ?>" method="Post">
+													<?php if(empty($_SESSION['email'])):?>
+														<input class="input" type="text" placeholder="Tên của bạn" name="username">
+														<input class="input" type="email" placeholder="Email" name="email">
+													<?php else: ?>
+														<input class="input" type="text" placeholder="Tên của bạn" name="username" value="<?= $data['user']->name;?>" readonly unselectable="on" style="font-weight: bold;">
+														<input class="input" type="email" placeholder="Email" name="email" value="<?= $data['user']->email; ?>" readonly unselectable="on" style="font-weight: bold;">
+													<?php endif; ?>
+
 													<textarea class="input" placeholder="Bình luận của bạn" name="comment"></textarea>
 													<div class="input-rating">
 														<span>Đánh Giá: </span>
@@ -300,7 +314,11 @@
 															<input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
 														</div>
 													</div>
-													<button class="primary-btn">Gửi</button>
+													<?php if(empty($_SESSION['email'])):?>
+														<button type="submit" class="primary-btn">Gửi</button>
+													<?php else: ?>
+														<button class="primary-btn" onclick="alertLogin();">Gửi</button>
+													<?php endif; ?>
 												</form>
 											</div>
 										</div>
@@ -319,6 +337,14 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+
+		<script>
+			// Hàm hiển thị alert yêu cầu đăng nhập
+			function alertLogin() {
+				alert("Vui lòng đăng nhập để xem giỏ hàng.");
+				window.location.href = "<?= ROOT ?>login"; // Chuyển hướng đến trang đăng nhập
+			}
+		</script>
 
 		<!-- Section -->
 		<div class="section">
@@ -340,22 +366,24 @@
 					<?php foreach ($data['relateProduct'] as $row): ?>
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
-							<div class="product-img">
-								<img src="<?php echo $row->pimg?>" alt="">
-								<!-- <div class="product-label">
-									<span class="sale">-30%</span>
-								</div> -->
-							</div>
-							<div class="product-body">
-								<!-- <p class="product-category">Category</p> -->
-								<h3 class="product-name"><a href="#"><?php echo $row->ptitle ?></a></h3>
-								<h4 class="product-price"><?php echo $row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
-								<div class="product-rating">
+							<a href="<?= ROOT ?>detail_product/<?=$row->id?>">
+								<div class="product-img">
+									<img src="<?php echo $row->pimg?>" alt="">
+									<!-- <div class="product-label">
+										<span class="sale">-30%</span>
+									</div> -->
 								</div>
-							</div>
-							<div class="add-to-cart">
-								<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
-							</div>
+								<div class="product-body">
+									<!-- <p class="product-category">Category</p> -->
+									<h3 class="product-name"><a href="#"><?php echo $row->ptitle ?></a></h3>
+									<h4 class="product-price"><?php echo $row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
+									<div class="product-rating">
+									</div>
+								</div>
+								<div class="add-to-cart">
+									<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</button>
+								</div>
+							</a>
 						</div>
 					</div>
 					<?php endforeach; ?>

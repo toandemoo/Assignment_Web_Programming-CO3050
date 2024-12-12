@@ -92,9 +92,9 @@
 							</div>
 							<div class="mb-3">
 								<label for="birth" class="form-label">Ngày sinh</label>
-								<input type="text" class="form-control" id="birth" name="birth" placeholder="01/01/2024" required>
+								<input type="date" class="form-control" id="birth" name="birth" placeholder="01/01/2024" required>
 							</div>
-							<div class="mb-3">
+							<div class="mb-3" style="margin-top: 1rem;">
 								<label for="gender">Giới tính:</label>
 								<select id="gender" name="gender">
 									<option value="male">Nam</option>
@@ -106,7 +106,7 @@
 								<label for="address" class="form-label">Địa chỉ</label>
 								<input type="text" class="form-control" id="address" name="address" required>
 							</div>
-							<div class="text-center mt-4">
+							<div class="text-center mt-4" style="margin-top: 1rem;">
 								<button type="submit" class="btn btn-primary auth-btn">Xác nhận</button>
 							</div>
 							<div class="auth-info text-center">
@@ -116,14 +116,14 @@
 						</form>
 
                   <div class="row mt-5 show-me">
-                    <div class="col text-center">
+                    <!-- <div class="col text-center">
                         <span style="text-transform: capitalize;font-family: Arial, Helvetica, sans-serif;font-size:15px;font-weight:600;color:rgb(148, 141, 141)">Hoặc đăng ký bằng</span>
                         <div style="margin-top: 20px;">
                            <span class="facebook-icon"><i class="fa fa-facebook" aria-hidden="true"></i></span>
                            <span class="twitter-icon"><i class="fa fa-twitter" aria-hidden="true"></i></span>
                            <span class="google-icon"><i class="fa fa-google" aria-hidden="true"></i></span>
                         </div>
-                    </div>  
+                    </div>   -->
                   </div>
                </div>
                <!-- Form Login -->

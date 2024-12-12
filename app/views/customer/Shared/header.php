@@ -166,12 +166,12 @@
 							<li class="<?= ($currentPage == 'allproduct' || $isSearchActive) ? 'active' : ''; ?>"><a href="<?=ROOT?>allproduct">Sản Phẩm</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-									Danh mục sản phẩm <span class="caret"></span>
+									Danh Mục<span class="caret"></span>
 								</a>
 								<ul class="dropdown-menu">
 								<?php if (is_array($data['categories'])): ?>
 								<?php foreach ($data['categories'] as $cate): ?>
-									<li><a href="<?=ROOT?>allproduct?categories=<?=$cate->name?>"><?=$cate->name?></a></li>
+									<li style="padding: 0%;"><a href="<?=ROOT?>allproduct?categories=<?=$cate->name?>"><b><?=$cate->name?></b></a></li>
 								<?php endforeach; ?>
 								<?php endif; ?>
 								</ul>

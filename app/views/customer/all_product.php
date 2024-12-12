@@ -35,7 +35,7 @@
 									<input type="checkbox" id="category-<?=$cate->id?>" class="filter-category">
 									<label for="category-<?=$cate->id?>">
 										<span></span>
-										<?=$cate->name?>
+										<b><?=$cate->name?></b>
 										<small>(<?=$cate->total?>)</small>
 									</label>
 								</div>
@@ -145,7 +145,7 @@
 												</div>
 												<div class="product-body">
 													<p class="product-category"><?=$row->pkind?></p>
-													<h3 class="product-name"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
+													<h3 class="product-name" style="width: auto; height:5rem;"><a href="detail_product/<?=$row->id?>"><?=$row->ptitle?></a></h3>
 													<h4 class="product-price"><?=$row->pprice?><small><u style="color:#cc0000;">đ</u></small></h4>
 													<div class="product-rating">
 														<i class="fa fa-star"></i>
@@ -189,7 +189,7 @@
 							
 							// Get the current filter parameters and append them to the pagination URL
 							$urlParams = [
-								'show' => $_GET['show'] ?? 10,
+								'show' => $_GET['show'] ?? 9,
 								'sort' => $_GET['sort'] ?? 'newest',
 								'categories' => $_GET['categories'] ?? '',  // Include categories filter
 								'price_min' => $_GET['price_min'] ?? '',  // Include price_min filter
@@ -292,7 +292,7 @@
 			document.getElementById('sort-items').value = sortValue;
 
 			// Set the 'show' dropdown based on the URL params
-			const showValue = urlParams.get('show') || '10';  // Default to 10 items per page
+			const showValue = urlParams.get('show') || '9';  // Default to 10 items per page
 			document.getElementById('show-items').value = showValue;
 		});
 

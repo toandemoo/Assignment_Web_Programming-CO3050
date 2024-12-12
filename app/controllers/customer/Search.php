@@ -44,12 +44,16 @@ class Search extends Controller
               $data['totalPages'] = $totalPages;
               $data['currentPage'] = $page;
               $data['productsPerPage'] = $productsPerPage;
+              
   
               // Gán kết quả vào $data
               $data['rows'] = $result ? $result : []; // Nếu không có kết quả, gán mảng rỗng
           } else {
               $data['rows'] = []; // Không tìm kiếm nếu đầu vào rỗng
           }
+
+          $topselling = $db->read("SELECT DISTINCT products.ptitle, products.pprice, products.pimg, COUNT(orders.product_id) AS count FROM products JOIN orders on products.id = orders.product_id GROUP BY orders.product_id, products.ptitle, products.pprice , products.pimg  ORDER BY count DESC LIMIT 5");
+          $data['topselling'] = $topselling;
   
           // Gửi dữ liệu đến view
           $this->view("/customer/all_product", $data);

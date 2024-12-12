@@ -32,20 +32,20 @@ class Account
         $data['role'] = "user";
 
 
-        // if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
-        // {
-        //     $this->error .= "Please enter a valid email <br>";
-        // }
+        if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+        {
+            $this->error .= "Please enter a valid email <br>";
+        }
 
-        // if (empty($data['username']) || !preg_match("/^[a-zA-Z]+$/", $data['username']))
-        // {
-        //     $this->error .= "Please enter a valid name <br>";
-        // }
+        if (empty($data['username']) || !preg_match("/^[a-zA-Z]+$/", $data['username']))
+        {
+            $this->error .= "Please enter a valid name <br>";
+        }
 
-        // if (strlen($data['password']) < 2)
-        // {
-        //     $this->error .= "Please must be atleast 4 characters long <br>";
-        // }
+        if (strlen($data['password']) < 2)
+        {
+            $this->error .= "Please must be atleast 4 characters long <br>";
+        }
 
         $sql = "SELECT * FROM users WHERE email = :email";
         $arr['email'] = $data['email'];
@@ -112,7 +112,7 @@ class Account
 
                     $role = $result[0]->role;
 
-                    if($role == "admin"){
+                    if($role == "admin" || $role="employee"){
                         header("Location: " . ROOT . "admin");
                         die;
                     }

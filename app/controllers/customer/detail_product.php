@@ -11,6 +11,15 @@ class Detail_product extends Controller
 
         $db = Database::getInstance();
 
+        $data = array();
+
+        if (!empty($_SESSION['email'])) {
+            $user = $db->read("SELECT * FROM users WHERE email = :email", ['email' => $_SESSION['email']]);
+            $data['user'] = $user[0];
+        }else{
+            $data['user'] = null;
+        }
+
         // Lấy sản phẩm
         $row = $db->read("SELECT * FROM products WHERE id = :id", ['id' => $id]);
 
@@ -74,6 +83,7 @@ class Detail_product extends Controller
         
 
         // Chuẩn bị dữ liệu cho view
+     
         $data['row'] = $row[0];
         $data['categories'] = $categories;
         $data['relateProduct'] = $relateProduct;
@@ -100,7 +110,6 @@ class Detail_product extends Controller
 
 
     }
-
 
     public function AddToCart($id)
     {
@@ -160,7 +169,8 @@ class Detail_product extends Controller
         exit; // Ngừng thực thi sau khi chuyển hướng
     }
 
-    public function review($id){
+    public function review($id)
+    {
         $data = array();
         $db = Database::getInstance();
 
