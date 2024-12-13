@@ -9,7 +9,7 @@
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">About Us</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p> -->
 								<ul class="footer-links">
 									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
 									<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
@@ -18,7 +18,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-3 col-xs-6">
+						<!-- <div class="col-md-3 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
@@ -29,7 +29,7 @@
 									<li><a href="#">Accessories</a></li>
 								</ul>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="clearfix visible-xs"></div>
 
@@ -39,9 +39,9 @@
 								<ul class="footer-links">
 									<li><a href="<?=ROOT?>about">About Us</a></li>
 									<li><a href="<?=ROOT?>contact">Contact Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
+									<!-- <li><a href="#">Privacy Policy</a></li>
 									<li><a href="#">Orders and Returns</a></li>
-									<li><a href="#">Terms & Conditions</a></li>
+									<li><a href="#">Terms & Conditions</a></li> -->
 								</ul>
 							</div>
 						</div>
@@ -52,9 +52,9 @@
 								<ul class="footer-links">
 									<li><a href="<?=ROOT?>Userinfo">My Account</a></li>
 									<li><a href="<?=ROOT?>Cart">View Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
+									<!-- <li><a href="#">Wishlist</a></li>
 									<li><a href="#">Track My Order</a></li>
-									<li><a href="#">Help</a></li>
+									<li><a href="#">Help</a></li> -->
 								</ul>
 							</div>
 						</div>

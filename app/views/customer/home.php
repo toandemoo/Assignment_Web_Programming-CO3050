@@ -105,30 +105,56 @@
 			<!-- /MAIN HEADER -->
 		</header>
 		<!-- /HEADER -->
+
 		<!-- NAVIGATION -->
 		<nav id="navigation">
-			<div class="container">
-				<div id="responsive-nav">
+				<div class="container">
+				<button class="menu-toggle">☰</button>
+					<div id="responsive-nav">
 						<ul class="main-nav nav navbar-nav">
-							<li class="active"><a href="<?=ROOT?>home">Trang Chủ</a></li>
-							<li><a href="<?=ROOT?>about">Giới Thiệu</a></li>
-							<li><a href="<?=ROOT?>contact">Liên Hệ</a></li>
-							<li><a href="<?=ROOT?>allproduct">Sản Phẩm</a></li>
+							<?php
+							$currentPage = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_BASENAME);
+							$isSearchActive = isset($_GET['search']) || isset($_GET['categories']);
+							?>
+							<li class="<?= ($currentPage == 'home') ? 'active' : ''; ?>"><a href="<?=ROOT?><?php echo isset($_SESSION['email']) ? 'home' : 'index'; ?>">Trang Chủ</a></li>
+							<li class="<?= ($currentPage == 'about') ? 'active' : ''; ?>"><a href="<?=ROOT?>about">Giới Thiệu</a></li>
+							<li class="<?= ($currentPage == 'contact') ? 'active' : ''; ?>"><a href="<?=ROOT?>contact">Liên Hệ</a></li>
+							<li class="<?= ($currentPage == 'allproduct' || $isSearchActive) ? 'active' : ''; ?>"><a href="<?=ROOT?>allproduct">Sản Phẩm</a></li>
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Danh mục<span class="caret"></span></a>
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									Danh Mục<span class="caret"></span>
+								</a>
 								<ul class="dropdown-menu">
 								<?php if (is_array($data['categories'])): ?>
 								<?php foreach ($data['categories'] as $cate): ?>
-									<li style="padding: 0;"><a href="<?=ROOT?>allproduct/<?=$cate->name?>"><?=$cate->name?></a></li>
+									<li style="padding: 0%;"><a href="<?=ROOT?>allproduct?categories=<?=$cate->name?>"><b><?=$cate->name?></b></a></li>
 								<?php endforeach; ?>
 								<?php endif; ?>
 								</ul>
 							</li>
 						</ul>
+					</div>
 				</div>
-			</div>
-		</nav>
+			</nav>
 		<!-- /NAVIGATION -->
+
+
+		<script>
+			document.querySelector('.menu-toggle').addEventListener('click', function() {
+				document.getElementById('responsive-nav').classList.toggle('active');
+			});
+
+			document.addEventListener('click', function (event) {
+				const menu = document.getElementById('responsive-nav');
+				const isClickInsideMenu = menu.contains(event.target);
+				const isClickToggle = event.target.classList.contains('menu-toggle');
+				
+				// Đóng menu nếu click ra ngoài và không phải nút toggle
+				if (!isClickInsideMenu && !isClickToggle && menu.classList.contains('active')) {
+						menu.classList.remove('active');
+				}
+			});
+		</script>
 		
 		<!-- bannerSlider -->
 		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">

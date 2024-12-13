@@ -186,6 +186,17 @@
 			document.querySelector('.menu-toggle').addEventListener('click', function() {
 				document.getElementById('responsive-nav').classList.toggle('active');
 			});
+			document.addEventListener('click', function (event) {
+				const menu = document.getElementById('responsive-nav');
+				const isClickInsideMenu = menu.contains(event.target);
+				const isClickToggle = event.target.classList.contains('menu-toggle');
+				
+				// Đóng menu nếu click ra ngoài và không phải nút toggle
+				if (!isClickInsideMenu && !isClickToggle && menu.classList.contains('active')) {
+						menu.classList.remove('active');
+				}
+			});
+
 			function validateSearch() {
 				const searchInput = document.getElementById('search').value.trim();
 				if (searchInput === "") {
@@ -194,4 +205,5 @@
 				}
 				return true; // Cho phép gửi form nếu hợp lệ
 			}
+
 		</script>

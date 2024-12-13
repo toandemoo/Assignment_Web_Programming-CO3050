@@ -25,7 +25,7 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <!-- <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> -->
+    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 
      <!-- Right navbar links -->
    <div class="dropdown ml-auto mr-3">
@@ -52,6 +52,7 @@
       <?php
       $current_page = basename($_SERVER['REQUEST_URI']);
       ?>
+
       <!-- Sidebar -->
       <div class="sidebar">
          <nav class="mt-2">
