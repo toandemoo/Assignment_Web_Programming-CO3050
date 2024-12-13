@@ -234,7 +234,7 @@
 			<!-- Phần ảnh đại diện -->
 			<div class="col-md-4">
 			<form id="avatar-form" action="userinfo/UpdateAvatar" method="POST" enctype="multipart/form-data" class="d-flex flex-column align-items-center" style="margin-top: 50px;">
-				<img id="avatar-img" src="<?php echo $_SESSION['avatar']; ?>" alt="Avatar" class="img-circle" style="width: 300px; height: 300px; border: 2px solid #ddd; object-fit: cover; margin-bottom:20px">
+				<img id="avatar-img" src="<?php echo isset($_SESSION['avatar']) ?  $_SESSION['avatar'] : (ASSETS . "img/default-avatar.png")  ?>" alt="Avatar" class="img-circle" style="width: 300px; height: 300px; border: 2px solid #ddd; object-fit: cover; margin-bottom:20px">
 				<input type="file" id="upload-avatar" name="avatar" accept="image/*" style="display: none;">
 				<button type="button" id="change-avatar-btn" class="btn btn-primary mt-3" style=" margin-bottom:20px" onclick="setupChangeAvatarButton('change-avatar-btn', 'upload-avatar', 'avatar-img', 'avatar-form');">Thay đổi ảnh đại diện</button>
 				<!-- <button type="submit" class="btn btn-danger mt-2" onclick="setupPreviewImage('upload-avatar', 'avatar-img')">Lưu ảnh</button> -->
