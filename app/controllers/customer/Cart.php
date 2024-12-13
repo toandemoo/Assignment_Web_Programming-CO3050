@@ -9,6 +9,11 @@ class Cart extends Controller
             session_start();
         }
 
+        if (!$_SESSION['email']) {
+            header("Location: ". ROOT. "Login");
+            die;
+        }
+
         $data = array();
         $data['email'] = $_SESSION['email'];        
 

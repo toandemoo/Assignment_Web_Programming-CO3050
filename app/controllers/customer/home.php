@@ -9,6 +9,11 @@ class Home extends Controller
             session_start();
         }
 
+        if (!$_SESSION['email']) {
+            header("Location: ". ROOT. "Login");
+            die;
+        }
+
         // Kết nối đến database
         $db = Database::getInstance();
 

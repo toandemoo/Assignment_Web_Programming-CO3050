@@ -8,6 +8,10 @@ class Admin extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if (!$_SESSION['email']) {
+            header("Location: ". ROOT. "Login");
+            die;
+        }
         $this->view("admin/index");
     }
 }

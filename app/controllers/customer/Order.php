@@ -7,6 +7,10 @@ class Order extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if (!$_SESSION['email']) {
+            header("Location: ". ROOT. "Login");
+            die;
+        }
 
         // Kiểm tra nếu người dùng đã đăng nhập (email có trong session)
         if (isset($_SESSION['email'])) {

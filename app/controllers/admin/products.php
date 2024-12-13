@@ -108,5 +108,31 @@ class Products extends Controller
         $this->view("admin/products", $data);
     }
 
+    public function UpdateProduct($id)
+    {   
+        $db = Database::getInstance();
+
+        $data_tmp = array();
+
+        $data_tmp['productName'] = trim($_POST['productName']);
+        $data_tmp['productCategory'] = trim($_POST['productCategory']);
+        $data_tmp['productSex'] = trim($_POST['productSex']);
+        $data_tmp['productPrice'] = trim($_POST['productPrice']);
+        $data_tmp['productImg'] = trim($_POST['productImg']);
+        $data_tmp['productDescription'] = trim($_POST['productDescription']);
+        $data_tmp['id'] = $id;
+
+        $query = "UPDATE products 
+        SET ptitle = :productName, pprice = :productPrice, pkind = :productCategory, 
+            pimg = :productImg, pgender = :productSex, pdescription = :productDescription 
+        WHERE id = :id";
+
+        $db->write($query, $data_tmp);
+
+        // Chuyển hướng lại trang sản phẩm
+        header("Location: " . ROOT . "Products");
+        exit;
+    }
+
 }
 

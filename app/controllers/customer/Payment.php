@@ -19,6 +19,10 @@ class Payment extends Controller
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
+        if (!$_SESSION['email']) {
+            header("Location: ". ROOT. "Login");
+            die;
+        }
         $db = Database::getInstance();
         
         $_SESSION['order_id'] = $this->generateUniqueOrderId();

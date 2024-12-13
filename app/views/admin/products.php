@@ -177,7 +177,7 @@
                         <td><?=$row->pprice?></td>
                         <td>
                           <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="window.location='<?= ROOT ?>DetailProduct/<?=$row->id?>';">Thêm Size</button>
-                          <!-- <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#editProductModal">Chỉnh sửa</button> -->
+                          <button type="button" class="btn btn-info float-left col-sm-5 mr-1" onclick="OpenModal()" data-toggle="modal" data-target="#editProductModal">Chỉnh sửa</button>
                           <!-- Modal -->
                           <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -189,7 +189,7 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  <form action="products/AddProduct" method="post" style="display: none;" id="editForm">
+                                  <form action="products/UpdateProduct/<?=$row->id?>" method="post" style="display: none;" id="editForm">
                                       <div class="form-group">
                                         <label for="productName">Tên sản phẩm</label>
                                         <input type="text" class="form-control" id="productName" placeholder="name" name="productName" value="<?=$row->ptitle?>">

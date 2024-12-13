@@ -192,6 +192,8 @@ class Account
         header("Location: ". ROOT. "Login");
         exit();
     }
+
+    
 }
 
 
