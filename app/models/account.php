@@ -32,15 +32,15 @@ class Account
         $data['role'] = "user";
 
 
-        if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
-        {
-            $this->error .= "Please enter a valid email <br>";
-        }
+        // if (empty($data['email']) || !preg_match("/^[a-zA-Z_-]+@[a-zA-Z]+.[a-zA-Z]+$/", $data['email']))
+        // {
+        //     $this->error .= "Please enter a valid email <br>";
+        // }
 
-        if (empty($data['username']) || !preg_match("/^[a-zA-Z]+$/", $data['username']))
-        {
-            $this->error .= "Please enter a valid name <br>";
-        }
+        // if (empty($data['name']) || !preg_match("/^[a-zA-Z]+$/", $data['name']))
+        // {
+        //     $this->error .= "Please enter a valid name <br>";
+        // }
 
         if (strlen($data['password']) < 2)
         {
@@ -111,14 +111,22 @@ class Account
                     $_SESSION['role'] = $result[0]->role; // Gán thông tin người dùng vào session
 
                     $role = $result[0]->role;
+                
 
-                    if($role == "admin" || $role="employee"){
+                    // if($role == "admin" || $role="employee"){
+                    //     header("Location: " . ROOT . "admin");
+                    //     die;
+                    // }
+                    if ($role == "user") {
+                        header("Location: " . ROOT . "home");
+                        die;
+                    }
+                    else {
                         header("Location: " . ROOT . "admin");
                         die;
                     }
 
-                    header("Location: " . ROOT . "home");
-                    die;
+                    
                 }
             }else{
                 setcookie("email", "", time() - 3600, "/"); // Cookie sẽ hết hạn sau 1 giờ

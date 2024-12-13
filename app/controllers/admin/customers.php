@@ -33,7 +33,10 @@ class Customers extends Controller
 
      public function Search()
     {
-        $query = $_GET['search'] ?? '';
+        //$query = $_GET['search'] ?? '';
+        $search = trim($_GET['search'] ?? '');
+        $query = '%' . $search . '%';
+
 
         $db = Database::getInstance();
 
@@ -51,18 +54,20 @@ class Customers extends Controller
         $offset = ($current_page - 1) * $items_per_page; // Tính toán offset cho LIMIT
 
         // Truy vấn với LIMIT và OFFSET
-        $queryCondition = $query ? "name LIKE '" . $query . "'" : "1=1";
+        $queryCondition = "LOWER(name) LIKE LOWER(:query)";
 
         $res = $db->read(
             "SELECT users.id, name, COUNT(order_id) AS totalOrders 
             FROM users 
             LEFT JOIN orders on users.id = orders.user_id 
-            WHERE role='user' and  $queryCondition
+            WHERE role='user' and  LOWER(name) LIKE LOWER(:query)
             GROUP BY id, name 
             ORDER BY $sort $order 
             LIMIT $items_per_page 
             OFFSET $offset
-            ");
+            ", [
+                'query' => $query
+            ]);
 
         
 
