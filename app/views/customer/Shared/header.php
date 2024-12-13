@@ -197,6 +197,7 @@
 				}
 			});
 
+
 			function validateSearch() {
 				const searchInput = document.getElementById('search').value.trim();
 				if (searchInput === "") {
